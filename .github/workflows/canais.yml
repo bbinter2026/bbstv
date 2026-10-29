@@ -1,0 +1,26 @@
+name: Atualizar lista de canais
+on:
+  schedule:
+    - cron: "0 */6 * * *"      # de 6 em 6 horas
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  gerar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Gerar canais-mundo.json
+        env:
+          SITE_ORIGIN: ${{ vars.SITE_ORIGIN }}    # Settings > Secrets and variables > Actions > Variables
+        run: node scripts/gerar-canais.mjs
+      - name: Guardar se mudou
+        run: |
+          git config user.name "canais-bot"
+          git config user.email "canais-bot@users.noreply.github.com"
+          git add canais-mundo.json
+          git diff --staged --quiet || (git commit -m "Atualizar canais" && git push)
