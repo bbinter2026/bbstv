@@ -379,6 +379,24 @@ body:not(.pfs-on) .stage.mini #trkB,body:not(.pfs-on) .stage.mini #trkP{display:
 .screen:fullscreen #trkB,.screen:-webkit-full-screen #trkB,.screen.pfs #trkB{top:calc(12px + env(safe-area-inset-top));left:auto;right:76px;width:40px;height:40px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .6s ease,visibility 0s linear .6s}
 .screen:fullscreen.act #trkB,.screen:-webkit-full-screen.act #trkB,.screen.pfs.act #trkB{opacity:1;visibility:visible;pointer-events:auto;transition:opacity .25s ease}
 .screen:fullscreen #trkP,.screen:-webkit-full-screen #trkP,.screen.pfs #trkP{top:calc(60px + env(safe-area-inset-top));left:auto;right:16px}
+
+/* browser de computador (Plasma, etc.): tudo cabe no ecrã, sem puxar a página para baixo; só as listas rolam */
+@media (pointer:fine){
+ .app{height:calc(100vh - var(--hh,60px));height:calc(100dvh - var(--hh,60px));overflow:hidden;box-sizing:border-box}
+}
+@media (pointer:fine) and (min-width:1101px){
+ .app{grid-template-rows:minmax(0,1fr);align-items:stretch;padding:12px 16px}
+ .nav{position:static;top:auto;height:100%;max-height:none}
+ .main{overflow-y:auto;height:100%;min-height:0;scrollbar-width:thin}
+ .stage{position:static;top:auto;height:100%;overflow-y:auto;scrollbar-width:thin}
+}
+@media (pointer:fine) and (max-width:1100px){
+ .app{display:flex;flex-direction:column;gap:6px;padding:0 0 8px}
+ .stage{flex:none;position:relative;top:auto;order:-1}
+ .screen{max-height:30vh}
+ .nav{flex:none}
+ .main{flex:1 1 auto;min-height:0;overflow-y:auto;scrollbar-width:thin}
+}
 </style>
 </head>
 <body>
@@ -424,7 +442,7 @@ body:not(.pfs-on) .stage.mini #trkB,body:not(.pfs-on) .stage.mini #trkP{display:
 <div class="app">
  <aside class="nav">
   <h4>Categorias</h4><div id="tabs"></div>
-  <h4>Países</h4><select id="ctrySel" class="mob" aria-label="País"></select><input id="cq" type="search" name="filtro-pais-x9" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" readonly onfocus="this.removeAttribute('readonly')" data-lpignore="true" data-1p-ignore data-form-type="other" placeholder="Procurar país" aria-label="Procurar país"><div id="ctry"></div>
+  <h4>Países</h4><select id="ctrySel" class="mob" aria-label="País"></select><input id="cq" type="search" name="filtro-pais-x9" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" data-lpignore="true" data-1p-ignore data-form-type="other" placeholder="Procurar país" aria-label="Procurar país"><div id="ctry"></div>
  </aside>
  <div class="main"><div id="rOpts"><label class="mut" for="rMax">💾 Poupar dados</label><select id="rMax" aria-label="Poupar dados"><option value="0">Qualquer qualidade</option><option value="128">Até 128 kbps (≈58 MB/h)</option><option value="96">Até 96 kbps (≈43 MB/h)</option><option value="64">Até 64 kbps (≈29 MB/h)</option></select></div><div class="mut" id="cnt"></div><div id="prog"></div><div id="list"></div><button id="more" class="more hide">Mostrar mais</button><div id="adBox" class="adbox hide"><small>Publicidade</small></div></div>
  <section class="stage">
@@ -1016,8 +1034,10 @@ function render(){
  $("tabs").innerHTML=[["Todos","▦",all],["Favoritos","★",fv],["Recentes","🕘",rv],...(()=>{const a=order.map(k=>[k,CT()[k],kn[k]||0]);if(mode!=="radio"){const i=a.findIndex(x=>!PRI_CATS.includes(x[0]));a.splice(i<0?a.length:i,0,[TL_TAB,"🌐",tlc])}return a})()].map(([t,i,n])=>`<button data-tab="${esc(t)}" class="${t===tab?"on":""}">${i} ${esc(T(t))}<span class="n">${n}</span></button>`).join("");
  const pin=["Moçambique","Angola","Cabo Verde","África do Sul"],rk=p=>pin.includes(p)?pin.indexOf(p):99;
  const ps=Object.keys(cn).filter(p=>!cq||na(p).includes(cq)||na(cn_(p)).includes(cq)).sort((a,b)=>rk(a)-rk(b)||col.compare(cn_(a),cn_(b)));
- $("ctry").innerHTML=`<button data-ctry="" class="${ctry?"":"on"}">🌍 ${T("Todos os países")}</button>`+ps.map(p=>`<button data-ctry="${esc(p)}" class="${p===ctry?"on":""}">${flagH(p)} ${esc(cn_(p))}<span class="n">${cn[p]}</span></button>`).join("");
- $("ctrySel").innerHTML=`<option value="">🌍 ${T("Todos os países")}</option>`+ps.map(p=>`<option value="${esc(p)}"${p===ctry?" selected":""}>${flag(p)} ${esc(cn_(p))} (${cn[p]})</option>`).join("");
+ const ctryH=`<button data-ctry="" class="${ctry?"":"on"}">🌍 ${T("Todos os países")}</button>`+ps.map(p=>`<button data-ctry="${esc(p)}" class="${p===ctry?"on":""}">${flagH(p)} ${esc(cn_(p))}<span class="n">${cn[p]}</span></button>`).join("");
+ if(ctryH!==window._cH){window._cH=ctryH;$("ctry").innerHTML=ctryH}
+ const selH=`<option value="">🌍 ${T("Todos os países")}</option>`+ps.map(p=>`<option value="${esc(p)}"${p===ctry?" selected":""}>${flag(p)} ${esc(cn_(p))} (${cn[p]})</option>`).join("");
+ {const se=$("ctrySel");if(selH!==window._sH&&document.activeElement!==se){window._sH=selH;se.innerHTML=selH;se.value=ctry||""}}
  view=A.filter(c=>(!q||nn(c).includes(q))&&(!ctry||c.pais===ctry)&&(tab==="Todos"||(tab==="Favoritos"?fs.has(c.id):tab==="Recentes"?rs.has(c.id):tab===TL_TAB?hasTL(c):catOf(c)===tab)));
  const ri=new Map(rcl().map((x,i)=>[x,i]));view.sort(tab==="Recentes"?(a,b)=>ri.get(a.id)-ri.get(b.id):mode==="radio"?rcmp:(a,b)=>(!!b.url-!!a.url)||col.compare(a.name,b.name));const lim=mode==="radio"?shown*3:shown;
  $("list").classList.toggle("rlist",mode==="radio");const none=`<p class="mut">${T(mode==="radio"&&(rLoading||rbusy)?"A carregar…":"Nenhum canal encontrado.")}</p>`;
@@ -1347,6 +1367,8 @@ setInterval(()=>{epgShow();render()},6e4);
 ["q","cq"].forEach(i=>$(i).addEventListener("input",e=>{if(e.isTrusted)$(i).dataset.t=1}));
 [300,1200,2500,5000,8000].forEach(ms=>setTimeout(()=>{let ch=0;["q","cq"].forEach(i=>{const e=$(i);if(e.value&&!e.dataset.t){e.value="";ch=1}});if(ch)render()},ms));
 window.addEventListener("pageshow",()=>{const e=$("cq");if(e&&e.value&&!e.dataset.t){e.value="";render()}});
+/* altura real do cabeçalho -> usada para ajustar a app ao ecrã */
+(function(){const h=document.querySelector("header");if(!h)return;const f=()=>document.body.style.setProperty("--hh",h.offsetHeight+"px");f();addEventListener("resize",f);addEventListener("load",f);if(window.ResizeObserver)new ResizeObserver(f).observe(h)})();
 epgLoad();
 /* ---- ficha do canal: sobre, país e favorito ---- */
 var sobre=L("tv_sobre",{});
