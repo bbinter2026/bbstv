@@ -339,6 +339,29 @@ header #q.pulse{animation:qpulse 1.2s ease 2}
  header #netChip,header #onN,header #visN{padding:4px 8px;font-size:12px;min-height:0}
 }
 @media(max-width:480px){header #hver{display:none}header .seg button{font-size:13px;padding:8px 6px}}
+
+/* v-fs: ecrã inteiro no telemóvel — a imagem de cada emissora aparece INTEIRA (cantos incluídos), sem cortes */
+.screen{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr)}
+.screen .vin{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr);overflow:hidden}
+.screen video,.screen iframe{max-width:100%;max-height:100%;min-width:0;min-height:0}
+.screen video{object-fit:contain;object-position:center}
+@media(pointer:coarse){
+ .screen:fullscreen,.screen:-webkit-full-screen,.screen.pfs:not(.rot){
+  padding:max(env(safe-area-inset-top),clamp(6px,2.5vmin,14px)) max(env(safe-area-inset-right),clamp(6px,2.5vmin,14px)) max(env(safe-area-inset-bottom),clamp(6px,2.5vmin,14px)) max(env(safe-area-inset-left),clamp(6px,2.5vmin,14px))}
+ .screen.pfs.rot{
+  padding:max(env(safe-area-inset-right),clamp(6px,2.5vmin,14px)) max(env(safe-area-inset-bottom),clamp(6px,2.5vmin,14px)) max(env(safe-area-inset-left),clamp(6px,2.5vmin,14px)) max(env(safe-area-inset-top),clamp(6px,2.5vmin,14px))}
+}
+
+/* botão/painel de áudio e legendas (tradução): dentro do ecrã, por isso também aparece em ecrã inteiro */
+#trkB{display:none;position:absolute;top:8px;left:48px;z-index:6;width:34px;height:34px;place-items:center;padding:0;border-radius:10px;background:#0008;color:#fff;border:1px solid #fff3;opacity:.85;font-size:17px;line-height:1}
+#trkB.has{display:grid}
+#trkP{position:absolute;top:48px;left:48px;z-index:7;display:flex;flex-direction:column;gap:8px;padding:10px;border-radius:12px;background:#000d;border:1px solid #fff3;max-width:calc(100% - 60px)}
+#trkP[hidden]{display:none}
+#trkP select{width:100%;min-width:190px;max-width:100%;padding:9px 10px;font-size:14px}
+body:not(.pfs-on) .stage.mini #trkB,body:not(.pfs-on) .stage.mini #trkP{display:none!important}
+.screen:fullscreen #trkB,.screen:-webkit-full-screen #trkB,.screen.pfs #trkB{top:calc(12px + env(safe-area-inset-top));left:auto;right:76px;width:40px;height:40px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .6s ease,visibility 0s linear .6s}
+.screen:fullscreen.act #trkB,.screen:-webkit-full-screen.act #trkB,.screen.pfs.act #trkB{opacity:1;visibility:visible;pointer-events:auto;transition:opacity .25s ease}
+.screen:fullscreen #trkP,.screen:-webkit-full-screen #trkP,.screen.pfs #trkP{top:calc(60px + env(safe-area-inset-top));left:auto;right:16px}
 </style>
 </head>
 <body>
@@ -388,7 +411,7 @@ header #q.pulse{animation:qpulse 1.2s ease 2}
  <div class="main"><div id="rOpts"><label class="mut" for="rMax">💾 Poupar dados</label><select id="rMax" aria-label="Poupar dados"><option value="0">Qualquer qualidade</option><option value="128">Até 128 kbps (≈58 MB/h)</option><option value="96">Até 96 kbps (≈43 MB/h)</option><option value="64">Até 64 kbps (≈29 MB/h)</option></select></div><div class="mut" id="cnt"></div><div id="prog"></div><div id="list"></div><button id="more" class="more hide">Mostrar mais</button><div id="adBox" class="adbox hide"><small>Publicidade</small></div></div>
  <section class="stage">
   <button id="fsO" aria-label="Ecrã inteiro">⛶</button><button id="miniUp" aria-label="Subir ao leitor">↑</button>
-  <div class="screen" id="vbox"><div id="vin" class="vin"><div class="idle"><b>Escolha um canal</b>A lista de canais está ao centro (ou por baixo, no telemóvel).</div></div><button id="fsX">✕ Sair do ecrã inteiro</button></div>
+  <div class="screen" id="vbox"><div id="vin" class="vin"><div class="idle"><b>Escolha um canal</b>A lista de canais está ao centro (ou por baixo, no telemóvel).</div></div><button id="fsX">✕ Sair do ecrã inteiro</button><button id="trkB" type="button" aria-haspopup="true" aria-expanded="false">🌐</button><div id="trkP" hidden></div></div>
   <div class="bar">
    <div class="info"><h2 id="now">Sem canal</h2><div class="mut" id="sub"></div></div>
    <div class="ctl">
@@ -1001,18 +1024,36 @@ function qIdx(){
  return best}
 function applyQ(first){if(!hls)return;const i=qIdx();hls.autoLevelCapping=i;if(i>=0&&first)hls.startLevel=i;showQ(hls.currentLevel)}
 /* ---- áudio e legendas (canais HLS com várias faixas; só aparecem se o canal as tiver) ---- */
-function clearTrk(){const b=$("trk");if(b)b.innerHTML=""}
+function clearTrk(){const b=$("trk");if(b)b.innerHTML="";const p=$("trkP"),B=$("trkB");if(p){p.innerHTML="";p.hidden=true}if(B){B.classList.remove("has");B.setAttribute("aria-expanded","false")}}
+/* faixas de áudio (tradução/dobragem) e legendas: HLS (hls.js) e nativas (Safari, mp4) */
+function trkBuild(){
+ const out=[],v=$("v");if(!v)return out;
+ const nm=(t,i)=>esc(t.name||t.label||(t.lang||t.language||"").toUpperCase()||String(i+1));
+ const mk=(label,html,fn)=>{const s=document.createElement("select");s.setAttribute("aria-label",label);s.title=label;s.innerHTML=html;s.onchange=()=>fn(+s.value);out.push(s)};
+ const A=T("Áudio"),L=T("Legendas");
+ if(hls){
+  const au=hls.audioTracks||[],sb=hls.subtitleTracks||[];
+  if(au.length>1)mk(T("Língua do áudio"),au.map((t,i)=>`<option value="${i}"${i===hls.audioTrack?" selected":""}>${A}: ${nm(t,i)}</option>`).join(""),i=>{if(hls)hls.audioTrack=i});
+  if(sb.length)mk(L,`<option value="-1">${L}: ${T("desligadas")}</option>`+sb.map((t,i)=>`<option value="${i}"${hls.subtitleDisplay&&i===hls.subtitleTrack?" selected":""}>${L}: ${nm(t,i)}</option>`).join(""),i=>{if(!hls)return;hls.subtitleTrack=i;hls.subtitleDisplay=i>=0});
+ }else{
+  const at=v.audioTracks?Array.from(v.audioTracks):[];
+  if(at.length>1)mk(T("Língua do áudio"),at.map((t,i)=>`<option value="${i}"${t.enabled?" selected":""}>${A}: ${nm(t,i)}</option>`).join(""),i=>{at.forEach((t,j)=>{t.enabled=j===i})});
+  const tt=v.textTracks?Array.from(v.textTracks).filter(t=>/^(subtitles|captions)$/.test(t.kind)):[];
+  if(tt.length)mk(L,`<option value="-1">${L}: ${T("desligadas")}</option>`+tt.map((t,i)=>`<option value="${i}"${t.mode==="showing"?" selected":""}>${L}: ${nm(t,i)}</option>`).join(""),i=>{tt.forEach((t,j)=>{t.mode=j===i?"showing":"disabled"})});
+ }
+ return out}
 function trackMenus(){
- const b=$("trk");if(!b)return;b.innerHTML="";if(!hls)return;
- const nm=(t,i)=>esc(t.name||(t.lang||"").toUpperCase()||String(i+1));
- const au=hls.audioTracks||[],sb=hls.subtitleTracks||[];
- if(au.length>1){const s=document.createElement("select");s.setAttribute("aria-label",T("Áudio"));s.title=T("Língua do áudio");
-  s.innerHTML=au.map((t,i)=>`<option value="${i}"${i===hls.audioTrack?" selected":""}>${T("Áudio")}: ${nm(t,i)}</option>`).join("");
-  s.onchange=()=>{if(hls)hls.audioTrack=+s.value};b.appendChild(s)}
- if(sb.length){const s=document.createElement("select");s.setAttribute("aria-label",T("Legendas"));s.title=T("Legendas");
-  s.innerHTML=`<option value="-1">${T("Legendas")}: ${T("desligadas")}</option>`+sb.map((t,i)=>`<option value="${i}"${hls.subtitleDisplay&&i===hls.subtitleTrack?" selected":""}>${T("Legendas")}: ${nm(t,i)}</option>`).join("");
-  s.onchange=()=>{if(!hls)return;const i=+s.value;hls.subtitleTrack=i;hls.subtitleDisplay=i>=0};b.appendChild(s)}
-}
+ const b=$("trk"),p=$("trkP"),B=$("trkB");
+ if(b){b.innerHTML="";trkBuild().forEach(s=>b.appendChild(s))}
+ if(!p||!B)return;
+ p.innerHTML="";const a=trkBuild();a.forEach(s=>p.appendChild(s));
+ B.classList.toggle("has",a.length>0);B.title=B.ariaLabel=T("Áudio e legendas");
+ if(!a.length){p.hidden=true;B.setAttribute("aria-expanded","false")}}
+Object.assign(EN,{"Áudio e legendas":"Audio & subtitles"});
+$("trkB").onclick=e=>{e.stopPropagation();const p=$("trkP");p.hidden=!p.hidden;$("trkB").setAttribute("aria-expanded",String(!p.hidden));act()};
+["pointerdown","click"].forEach(ev=>$("trkP").addEventListener(ev,e=>{e.stopPropagation();act()}));
+/* faixas nativas só aparecem depois de o vídeo carregar: atualiza o menu quando chegam */
+document.addEventListener("loadedmetadata",e=>{const v=e.target;if(!v||v.id!=="v")return;trackMenus();if(!v._trkL){v._trkL=1;["audioTracks","textTracks"].forEach(k=>{const l=v[k];if(l&&l.addEventListener){l.addEventListener("addtrack",()=>setTimeout(trackMenus,50));l.addEventListener("removetrack",()=>setTimeout(trackMenus,50))}})}},true);
 function showQ(n){const l=hls&&hls.levels&&hls.levels.length>1&&hls.levels[n];
  $("qNow").textContent=l?(l.height?l.height+"p":(Math.round((l.bitrate||0)/1e5)/10)+" Mbps"):""}
 $("qSel").value=QUAL;
