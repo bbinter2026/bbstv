@@ -50,6 +50,8 @@ header{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:12px 16px
 .pick:hover{border:0}.row .star{background:none;border:0;font-size:18px;color:var(--mut);padding:8px 10px}.row .star.on{color:var(--ac)}
 .mono{position:relative;width:44px;height:44px;border-radius:10px;display:grid;place-items:center;font-weight:700;color:#fff;flex:none;overflow:hidden}
 .mono img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#fff;padding:4px}
+.tlb{position:absolute;left:4px;bottom:4px;z-index:2;display:inline-flex;align-items:center;gap:2px;padding:1px 6px;border-radius:99px;background:var(--ac);color:#000;font:800 10px/1.5 system-ui,sans-serif;font-style:normal;letter-spacing:.04em;box-shadow:0 1px 4px #0009;pointer-events:none}.rr .tlb,.stage .tlb{display:none}@media(max-width:520px){.tlb{font-size:9px;padding:0 5px}}
+#accB{max-width:240px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.accrow{display:flex;gap:8px}.accrow button{flex:1}#accFg{background:none;border:0;color:var(--ac);text-decoration:underline;padding:2px;align-self:flex-start}#accMsg{min-height:1.2em}
 .nm{min-width:0}.nm b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tag{font-size:11px;border:1px solid var(--ln);border-radius:99px;padding:1px 8px;margin-left:6px;color:var(--mut)}
 .row.off .nm b{color:var(--mut)}
@@ -237,6 +239,18 @@ body.radio-on .ctl-l{display:none}
 .rad .meta{display:flex;flex-wrap:wrap;gap:4px 10px;justify-content:center;font-size:13px;color:#c9cdd3}
 .rad .meta .fq{color:var(--ac);font-weight:700}
 @media(max-width:1100px){.ctl{gap:6px}.ctl-l{flex:1 1 100%}.ctl-r{flex:1 1 100%;margin-left:0;justify-content:flex-end}}
+/* v4.4 telemóvel: botões e seletores arrumados por baixo do leitor */
+@media(max-width:1100px){
+ .ctl{display:flex;flex-direction:column;align-items:stretch;gap:8px}
+ .ctl-l{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;flex:none;width:100%}
+ .ctl-l select{width:100%;max-width:none;min-width:0;padding:9px 10px;font-size:13px}
+ #qNow:empty{display:none}#qNow{grid-column:1/-1;text-align:center}
+ .ctl-r{display:flex;flex-wrap:wrap;gap:8px;width:100%;margin:0;justify-content:stretch}
+ .ctl-r button{flex:1 1 0;min-width:0;padding:10px 6px;font-size:13px;white-space:nowrap;border-radius:10px}
+ #recT{flex:1 1 100%;text-align:center}
+ /* os controlos já estão por baixo; tira os botões duplicados de cima do vídeo (fora do ecrã inteiro e do mini) */
+ .stage:not(.mini) #fsO,.screen:not(.pfs):not(:fullscreen):not(:-webkit-full-screen) #trkB,.screen:not(.pfs):not(:fullscreen):not(:-webkit-full-screen) #trkP{display:none!important}
+}
 @media(max-width:1100px){.stage.mini .rad .meta{display:none}}
 
 /* v4 */
@@ -394,7 +408,8 @@ body:not(.pfs-on) .stage.mini #trkB,body:not(.pfs-on) .stage.mini #trkP{display:
    <div class="mp">
     <label class="mrow"><span class="mut">Tema</span><select id="theme" aria-label="Tema"><option value="">Noite</option><option value="black">Preto</option><option value="light">Claro</option></select></label>
     <label class="mrow"><span class="mut">Idioma</span><select id="langSel" aria-label="Idioma"><option value="pt">PT</option><option value="en">EN</option></select></label>
-    <button id="instB" class="hide">📲 Instalar</button>
+    <button id="accB">👤 Entrar / Criar conta</button>
+     <button id="instB" class="hide">📲 Instalar</button>
     <button id="admOpen">Gerir canais</button>
     <button id="out">Sair</button>
    </div>
@@ -444,6 +459,19 @@ body:not(.pfs-on) .stage.mini #trkB,body:not(.pfs-on) .stage.mini #trkP{display:
 <section id="ad-end" class="adend hide" aria-label="Publicidade"><small class="mut">Publicidade</small><div id="ad-end-slots"></div></section>
 <section id="promoEnd" class="promo promo-end" aria-label="Publicidade"></section>
 <aside id="ad-rail" aria-label="Publicidade"><button type="button" class="ad-x" onclick="adsClose()" title="Fechar anúncios">Publicidade ×</button><div id="ad-slots"></div><div id="promoRail" class="promo"></div></aside>
+<dialog id="accD"><div class="dlg">
+ <h3 id="accT">Entrar na conta</h3>
+ <p class="mut">Opcional: crie uma conta para guardar os seus canais favoritos e o seu histórico e vê-los em qualquer aparelho. Pode usar a app sem conta.</p>
+ <div id="accOut" class="dlg" style="padding:0">
+  <input id="accE" type="email" autocomplete="email" placeholder="Email" aria-label="Email">
+  <input id="accW" type="password" autocomplete="current-password" placeholder="Palavra-passe (mín. 6)" aria-label="Palavra-passe">
+  <div class="accrow"><button id="accIn">Entrar</button><button id="accUp">Criar conta</button></div>
+  <button id="accFg" type="button">Esqueci a palavra-passe</button>
+ </div>
+ <div id="accIn2" class="dlg hide" style="padding:0"><b id="accWho"></b><p class="mut">Os favoritos e o histórico ficam guardados na sua conta.</p><button id="accSo">Terminar sessão</button></div>
+ <div class="mut" id="accMsg" aria-live="polite"></div>
+ <button id="accX" type="button">Fechar</button>
+</div></dialog>
 <dialog id="adm"><div class="dlg">
  <h3>Gerir canais</h3>
  <div id="pinBox" class="dlg" style="padding:0"><input id="pin" type="password" name="pin-adm" placeholder="PIN de administrador" autocomplete="new-password" data-lpignore="true" data-1p-ignore><button class="p" id="pinGo">Entrar</button></div>
@@ -494,8 +522,8 @@ body:not(.pfs-on) .stage.mini #trkB,body:not(.pfs-on) .stage.mini #trkP{display:
 
 <script>
 /* ===== CONFIGURAÇÃO ===== */
-const APP_VERSION="4.6.2",
-CHANGELOG=["4.6.2: categorias reordenadas (Filmes, Séries, Novelas, Música, Documentários primeiro); nova categoria Tradução e legendas","4.6.1: ecrã inteiro: imagem completa dentro da área segura do telemóvel (logo do canal já não fica cortado)","4.6.0: logo sobre o vídeo a girar suavemente como uma moeda","4.5.9: ecrã inteiro no telemóvel ajustado ao ecrã (sem imagem afastada para baixo), aviso de sair desaparece suavemente em 2 s, logo mais pequeno sobre o vídeo","4.5.8: telemóvel: cabeçalho reorganizado (logo, TV/Rádio e menu na 1.ª linha, pesquisa grande na 2.ª, estado e Aleatório na 3.ª)","4.5.7: telemóvel: botão flutuante 🔍 Pesquisar (leva à pesquisa de qualquer ponto) e caixa de pesquisa com lupa e contorno bem visível","4.5.6: Gerir canais: o admin vê o que cada pessoa online está a fazer agora (a ver, a ouvir, pausa, a gravar, a navegar), há quanto tempo, e os canais mais vistos","4.5.5: link partilhado de rádio/canal: botão “Toque para ouvir” e som ligado no próprio toque (corrigido também quando o leitor é recriado)","4.5.4: versão da app em destaque no cabeçalho","4.5.3: pré-visualização do link partilhado (og:image com o endereço real do site)","4.5.2: menu ⚙️ já não fica escondido atrás da coluna de anúncios","4.5.1: links partilhados começam logo a reproduzir (computador: volume a 80%; telemóvel: volume pelos botões do aparelho; som ligado ao primeiro toque se o navegador bloquear)","4.5.0: espaço “Publicite seus serviços ou empresa aqui” por baixo dos anúncios, com imagens geridas pelo admin","4.4.0: sinal da rede em barras (como no telemóvel)","4.3.0: cabeçalho reorganizado (rede com tipo e velocidade, menu ⚙️ com tema, idioma e conta)","4.2.1: versão da app visível no cabeçalho","4.2.0: retoma sozinho a reprodução quando a rede volta (também em segundo plano)","4.1.0: telemóvel: leitor sem saltos ao subir/descer, rádio compacta sem 'Sobre' nem quadro flutuante, cabeçalho mais arrumado","4.0.0: controlos no ecrã de bloqueio (Media Session), partilhar link de um canal, recentes, país automático, poupar dados na rádio","3.9.1: gravação de rádio mais fiável (CORS) e aviso claro quando a rádio bloqueia a gravação","3.9.0: leitor de vídeo e rádio reorganizado (informação, definições e botões em grupos), mesma posição","3.8.0: rádios em lista (país, nome, frequência, género, qualidade, idioma) com ordenação; gravação sem limite; vídeo em MP4 e rádio em MP3","3.7.0: modo Rádio com estações de todo o mundo (radio-browser.info), por país e género, pesquisa e favoritos","3.6.0: programação diária (EPG) com horários, pesquisa de programas que mostra o canal, correção do \"admin:\" no campo de país","3.5.0: legendas e língua de áudio (YouTube e canais HLS com várias faixas)","3.4.0: mais canais do YouTube (Moçambique, Angola, África do Sul, Brasil) via scripts/gerar-youtube-lista.mjs","3.3.0: canais do YouTube (links watch, youtu.be, /live e /channel) e lista canais-youtube.json","3.2.0: instalar como app, idioma PT/EN, qualidade de vídeo, gravação","3.1.1: AdSense e melhorias para telemóvel","3.0.2: melhorias para telemóvel (ecrã inteiro iPhone, seletor de países, leitor compacto)","3.0.1: removidos os canais sem link","3.0.0: estilo TV Garden e todos os canais do mundo (iptv-org)","2.3.0: importação mundial e correções" ,"2.2.0: canais da África do Sul","2.1.0: visual moderno e canais organizados por categorias","2.0.1: corrige arranque com licença guardada (botões sem resposta)","2.0.0: interface nova, lista lateral, hls com recuperação de erros, segurança (XSS), <dialog>, importação M3U mais fiável","1.1.0: importação M3U por link"];
+const APP_VERSION="4.7.0",
+CHANGELOG=["4.7.0: conta opcional (email e palavra-passe) para guardar favoritos e histórico e vê-los em qualquer aparelho","4.6.3: canais com tradução e legendas mostram o sinal CC no ícone","4.6.2: categorias reordenadas (Filmes, Séries, Novelas, Música, Documentários primeiro); nova categoria Tradução e legendas","4.6.1: ecrã inteiro: imagem completa dentro da área segura do telemóvel (logo do canal já não fica cortado)","4.6.0: logo sobre o vídeo a girar suavemente como uma moeda","4.5.9: ecrã inteiro no telemóvel ajustado ao ecrã (sem imagem afastada para baixo), aviso de sair desaparece suavemente em 2 s, logo mais pequeno sobre o vídeo","4.5.8: telemóvel: cabeçalho reorganizado (logo, TV/Rádio e menu na 1.ª linha, pesquisa grande na 2.ª, estado e Aleatório na 3.ª)","4.5.7: telemóvel: botão flutuante 🔍 Pesquisar (leva à pesquisa de qualquer ponto) e caixa de pesquisa com lupa e contorno bem visível","4.5.6: Gerir canais: o admin vê o que cada pessoa online está a fazer agora (a ver, a ouvir, pausa, a gravar, a navegar), há quanto tempo, e os canais mais vistos","4.5.5: link partilhado de rádio/canal: botão “Toque para ouvir” e som ligado no próprio toque (corrigido também quando o leitor é recriado)","4.5.4: versão da app em destaque no cabeçalho","4.5.3: pré-visualização do link partilhado (og:image com o endereço real do site)","4.5.2: menu ⚙️ já não fica escondido atrás da coluna de anúncios","4.5.1: links partilhados começam logo a reproduzir (computador: volume a 80%; telemóvel: volume pelos botões do aparelho; som ligado ao primeiro toque se o navegador bloquear)","4.5.0: espaço “Publicite seus serviços ou empresa aqui” por baixo dos anúncios, com imagens geridas pelo admin","4.4.0: sinal da rede em barras (como no telemóvel)","4.3.0: cabeçalho reorganizado (rede com tipo e velocidade, menu ⚙️ com tema, idioma e conta)","4.2.1: versão da app visível no cabeçalho","4.2.0: retoma sozinho a reprodução quando a rede volta (também em segundo plano)","4.1.0: telemóvel: leitor sem saltos ao subir/descer, rádio compacta sem 'Sobre' nem quadro flutuante, cabeçalho mais arrumado","4.0.0: controlos no ecrã de bloqueio (Media Session), partilhar link de um canal, recentes, país automático, poupar dados na rádio","3.9.1: gravação de rádio mais fiável (CORS) e aviso claro quando a rádio bloqueia a gravação","3.9.0: leitor de vídeo e rádio reorganizado (informação, definições e botões em grupos), mesma posição","3.8.0: rádios em lista (país, nome, frequência, género, qualidade, idioma) com ordenação; gravação sem limite; vídeo em MP4 e rádio em MP3","3.7.0: modo Rádio com estações de todo o mundo (radio-browser.info), por país e género, pesquisa e favoritos","3.6.0: programação diária (EPG) com horários, pesquisa de programas que mostra o canal, correção do \"admin:\" no campo de país","3.5.0: legendas e língua de áudio (YouTube e canais HLS com várias faixas)","3.4.0: mais canais do YouTube (Moçambique, Angola, África do Sul, Brasil) via scripts/gerar-youtube-lista.mjs","3.3.0: canais do YouTube (links watch, youtu.be, /live e /channel) e lista canais-youtube.json","3.2.0: instalar como app, idioma PT/EN, qualidade de vídeo, gravação","3.1.1: AdSense e melhorias para telemóvel","3.0.2: melhorias para telemóvel (ecrã inteiro iPhone, seletor de países, leitor compacto)","3.0.1: removidos os canais sem link","3.0.0: estilo TV Garden e todos os canais do mundo (iptv-org)","2.3.0: importação mundial e correções" ,"2.2.0: canais da África do Sul","2.1.0: visual moderno e canais organizados por categorias","2.0.1: corrige arranque com licença guardada (botões sem resposta)","2.0.0: interface nova, lista lateral, hls com recuperação de erros, segurança (XSS), <dialog>, importação M3U mais fiável","1.1.0: importação M3U por link"];
 const SUPABASE_URL="https://xnynwonqqbxbusbgngwg.supabase.co",SUPABASE_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhueW53b25xcWJ4YnVzYmduZ3dnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMyNTc1ODEsImV4cCI6MjEwODgzMzU4MX0.sxjDW551yFGpIdcvWVuvImMTI0JWwduPNIcX0yFfb2g";   // opcional (ver SQL no fim)
 const REQUIRE_LICENSE=false,   // false = site público (necessário para o AdSense conseguir rever o conteúdo)
 ALLOW_RECORD=true,       // true = mostra o botão Gravar; false = esconde
@@ -506,7 +534,8 @@ ADSENSE_CLIENT="",ADSENSE_SLOT="";  // ex.: "ca-pub-1234567890123456" e o id do 
 /* ======================== */
 const $=id=>document.getElementById(id);
 const L=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}};
-const S=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){toast("Sem espaço para guardar dados.")}};
+const SYNC_K={tv_favs:1,tv_rfavs:1,tv_recent:1,tv_rrecent:1};
+const S=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){toast("Sem espaço para guardar dados.")}if(SYNC_K[k]&&!cApply)cloudSched()};
 const esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
 const safeUrl=u=>/^https?:\/\//i.test(u||"")?u:"";
 /* YouTube: converte links (watch?v=, youtu.be, /live/, /embed/, /channel/UC…) no URL de incorporação; "" se não for YouTube */
@@ -899,7 +928,7 @@ Object.assign(EN,{"Esta rádio não permite gravação (o emissor bloqueia). Exp
 let rLH="",shown=120,view=[],col=new Intl.Collator(LANG);const nk=new Map();
 const nn=c=>{let v=nk.get(c);if(v===undefined){v=na(c.name+" "+c.pais+" "+cnE(c.pais)+(c.tags?" "+c.tags:""));nk.set(c,v)}return v};
 function card(c,fs){const f=fs.has(c.id),lg=safeUrl(c.logo);
- return`<div class="ch ${cur&&cur.id===c.id?"cur":""} ${c.url?"":"off"}"><button class="pick" data-id="${esc(c.id)}"><span class="mono" style="background:hsl(${hue(c.name)} 45% 40%)">${esc(c.name[0]||"?")}${lg?`<img src="${esc(lg)}" alt="" loading="lazy" referrerpolicy="no-referrer">`:""}</span><span class="nm"><b>${esc(c.name)}</b><span class="mut">${flagH(c.pais)} ${esc(cn_(c.pais))}${c.url?(c.official?" · "+T("site oficial"):""):" · "+T("sem link")}</span>${epgNow(c)}</span></button><button class="star ${f?"on":""}" data-fav="${esc(c.id)}" aria-label="${T(f?"Remover dos favoritos":"Adicionar aos favoritos")}" aria-pressed="${f}">${f?"★":"☆"}</button></div>`}
+ return`<div class="ch ${cur&&cur.id===c.id?"cur":""} ${c.url?"":"off"}"><button class="pick" data-id="${esc(c.id)}"><span class="mono" style="background:hsl(${hue(c.name)} 45% 40%)">${esc(c.name[0]||"?")}${lg?`<img src="${esc(lg)}" alt="" loading="lazy" referrerpolicy="no-referrer">`:""}${hasTL(c)?`<i class="tlb" title="${esc(T("Tradução e legendas"))}" aria-label="${esc(T("Tradução e legendas"))}">CC</i>`:""}</span><span class="nm"><b>${esc(c.name)}</b><span class="mut">${flagH(c.pais)} ${esc(cn_(c.pais))}${c.url?(c.official?" · "+T("site oficial"):""):" · "+T("sem link")}</span>${epgNow(c)}</span></button><button class="star ${f?"on":""}" data-fav="${esc(c.id)}" aria-label="${T(f?"Remover dos favoritos":"Adicionar aos favoritos")}" aria-pressed="${f}">${f?"★":"☆"}</button></div>`}
 function render(){
  const A=pool(),q=na($("q").value.trim()),cq=na($("cq").value.trim()),fs=new Set(favs),cn={},kn={},rs=new Set(rcl());let fv=0,rv=0,tlc=0;
  for(const c of A){if(q&&!nn(c).includes(q))continue;const k=catOf(c),f=fs.has(c.id),tl=mode!=="radio"&&hasTL(c);
@@ -1406,8 +1435,63 @@ function applyLang(l,save){
  document.querySelectorAll("[data-i]").forEach(el=>{if(el.dataset.pt===undefined)el.dataset.pt=el.innerHTML;el.innerHTML=(l==="en"&&EN_HTML[el.dataset.i])||el.dataset.pt});
  xlat();phMode();popText();$("langSel").value=l;fillCat();fillPais();net();refNow();recLabel();admList();renderPromos();render();
  if(!cur)showIdle();else if(!$("v")&&!document.querySelector("#vin iframe"))play(cur.id)}
+Object.assign(EN,{"👤 Entrar / Criar conta":"👤 Sign in / Sign up","Entrar na conta":"Sign in","A sua conta":"Your account","Entrar":"Sign in","Criar conta":"Create account","Esqueci a palavra-passe":"Forgot password","Terminar sessão":"Sign out of account","Palavra-passe (mín. 6)":"Password (min. 6)","Palavra-passe":"Password","Opcional: crie uma conta para guardar os seus canais favoritos e o seu histórico e vê-los em qualquer aparelho. Pode usar a app sem conta.":"Optional: create an account to save your favorite channels and your history and see them on any device. You can use the app without an account.","Os favoritos e o histórico ficam guardados na sua conta.":"Your favorites and history are saved in your account.","Servidor não configurado.":"Server not configured.","Indique o email e uma palavra-passe de pelo menos 6 caracteres.":"Enter your email and a password of at least 6 characters.","Conta criada. Verifique o seu email para a confirmar e depois entre.":"Account created. Check your email to confirm it, then sign in.","Email ou palavra-passe errados.":"Wrong email or password.","Este email já tem conta. Use Entrar.":"This email already has an account. Use Sign in.","Muitas tentativas. Aguarde um pouco.":"Too many attempts. Please wait a moment.","Indique o seu email.":"Enter your email.","Enviámos um link para o seu email.":"We sent a link to your email.","Nova palavra-passe (mín. 6 caracteres):":"New password (min. 6 characters):","Palavra-passe alterada.":"Password changed.","Sessão iniciada. Favoritos e histórico sincronizados.":"Signed in. Favorites and history synced.","Terminar sessão? Os favoritos e o histórico deste aparelho serão limpos (continuam guardados na sua conta).":"Sign out? Favorites and history on this device will be cleared (they stay saved in your account).","Não foi possível guardar na conta agora. Tente de novo com Internet.":"Couldn’t save to your account right now. Try again with an Internet connection.","Sessão terminada.":"Signed out."});
 $("langSel").onchange=e=>applyLang(e.target.value,true);
 applyLang(LANG,false);
+/* ---- conta opcional (Supabase Auth): favoritos e histórico guardados na nuvem; sem conta, tudo continua só neste aparelho ---- */
+var cUser=null,cApply=false,cPulled=null,cDirty=false,cT=0;
+const cMsg=t=>{$("accMsg").textContent=t||""};
+const cErr=e=>{const m=String(e&&e.message||e||"");return/invalid login|credentials/i.test(m)?T("Email ou palavra-passe errados."):/already|registered/i.test(m)?T("Este email já tem conta. Use Entrar."):/rate|too many|seconds/i.test(m)?T("Muitas tentativas. Aguarde um pouco."):m};
+function cUI(){const u=cUser;$("accB").textContent=u?"👤 "+(u.email||""):T("👤 Entrar / Criar conta");$("accOut").classList.toggle("hide",!!u);$("accIn2").classList.toggle("hide",!u);$("accT").textContent=T(u?"A sua conta":"Entrar na conta");$("accWho").textContent=u?(u.email||""):""}
+function cloudSched(){if(!cUser)return;cDirty=true;clearTimeout(cT);cT=setTimeout(cPush,1500)}
+async function cPush(){if(!cUser||!sb)return false;try{const{error}=await sb.from("perfis").upsert({user_id:cUser.id,favs,rfavs:rfav,recent:trecent,rrecent,atualizado:new Date().toISOString()});if(error)throw error;cDirty=false;return true}catch(e){return false}}
+async function cPull(){
+ if(!cUser||!sb)return;
+ try{const{data,error}=await sb.from("perfis").select("favs,rfavs,recent,rrecent").eq("user_id",cUser.id).maybeSingle();if(error)throw error;
+  const A=x=>Array.isArray(x)?x:[],O=x=>x&&typeof x==="object"&&!Array.isArray(x)?x:{},same=L("tv_sync_uid",null)===cUser.id,
+   u=(a,b,n)=>[...new Set([...A(a),...A(b)])].slice(0,n),
+   mr=(a,b)=>{const m=new Map();for(const x of[...A(a),...A(b)])if(x&&x.id&&!m.has(x.id))m.set(x.id,x);return[...m.values()].slice(0,20)};
+  cApply=true;
+  try{
+   if(data){
+    if(same){favs=A(data.favs);rfav=O(data.rfavs);trecent=A(data.recent);rrecent=A(data.rrecent)}   // este aparelho já estava ligado: a nuvem manda
+    else{favs=u(data.favs,favs,5000);rfav={...O(data.rfavs),...rfav};trecent=u(trecent,data.recent,30);rrecent=mr(rrecent,data.rrecent)}   // 1.ª vez neste aparelho: junta o que já tinha com o da conta
+   }
+   S("tv_favs",favs);S("tv_rfavs",rfav);S("tv_recent",trecent);S("tv_rrecent",rrecent);S("tv_sync_uid",cUser.id)
+  }finally{cApply=false}
+  cPulled=cUser.id;await cPush();render();
+  if($("accD").open){$("accD").close();toast(T("Sessão iniciada. Favoritos e histórico sincronizados."),3500)}
+ }catch(e){cMsg(cErr(e))}}
+async function cAuth(up){
+ if(!sb){cMsg(T("Servidor não configurado."));return}
+ const email=$("accE").value.trim(),password=$("accW").value;
+ if(!email||password.length<6){cMsg(T("Indique o email e uma palavra-passe de pelo menos 6 caracteres."));return}
+ cMsg(T("A verificar…"));
+ try{const r=up?await sb.auth.signUp({email,password}):await sb.auth.signInWithPassword({email,password});
+  if(r.error){cMsg(cErr(r.error));return}
+  if(up&&!(r.data&&r.data.session)){cMsg(T("Conta criada. Verifique o seu email para a confirmar e depois entre."));return}
+  cMsg("")}   // o resto é feito em onAuthStateChange
+ catch(e){cMsg(T("Sem ligação ao servidor. Tente novamente."))}}
+$("accB").onclick=()=>{$("hMenu").open=false;cMsg("");cUI();$("accD").showModal()};
+$("accX").onclick=()=>$("accD").close();
+$("accIn").onclick=()=>cAuth(false);$("accUp").onclick=()=>cAuth(true);
+$("accW").onkeydown=$("accE").onkeydown=e=>{if(e.key==="Enter")cAuth(false)};
+$("accFg").onclick=async()=>{const e=$("accE").value.trim();if(!e){cMsg(T("Indique o seu email."));return}if(!sb)return;
+ const{error}=await sb.auth.resetPasswordForEmail(e,{redirectTo:location.origin+location.pathname});cMsg(error?cErr(error):T("Enviámos um link para o seu email."))};
+$("accSo").onclick=async()=>{
+ if(!confirm(T("Terminar sessão? Os favoritos e o histórico deste aparelho serão limpos (continuam guardados na sua conta).")))return;
+ clearTimeout(cT);
+ if(!(await cPush())){cMsg(T("Não foi possível guardar na conta agora. Tente de novo com Internet."));return}
+ try{await sb.auth.signOut()}catch(e){}
+ cApply=true;try{favs=[];rfav={};trecent=[];rrecent=[];S("tv_favs",favs);S("tv_rfavs",rfav);S("tv_recent",trecent);S("tv_rrecent",rrecent);localStorage.removeItem("tv_sync_uid")}finally{cApply=false}
+ cUser=null;cPulled=null;cUI();render();$("accD").close();toast(T("Sessão terminada."),2500)};
+document.addEventListener("visibilitychange",()=>{if(document.hidden&&cUser&&cDirty){clearTimeout(cT);cPush()}});
+if(sb&&sb.auth){sb.auth.onAuthStateChange((ev,ses)=>{cUser=(ses&&ses.user)||null;
+ setTimeout(async()=>{   // fora do callback, para não bloquear o supabase-js
+  cUI();
+  if(ev==="PASSWORD_RECOVERY"){const p=prompt(T("Nova palavra-passe (mín. 6 caracteres):"));if(p&&p.length>=6){const{error}=await sb.auth.updateUser({password:p});toast(error?cErr(error):T("Palavra-passe alterada."),4000)}}
+  if(cUser&&cPulled!==cUser.id)cPull()},0)})}
+cUI();
 /* arranque: só depois de tudo estar definido */
 {const l=L("tv_lic",null);if(!REQUIRE_LICENSE||(l&&(!l.exp||l.exp>Date.now())))openApp()}
 /* SQL Supabase (opcional). Não exponha a tabela de licenças: valide por função.
@@ -1423,6 +1507,7 @@ grant execute on function validar_licenca(text) to anon;
 -- escrita em 'canais' deve exigir utilizador autenticado (policies de insert/update/delete).
 -- Visitas por dia: ver supabase_visitas.sql (tabela visitas + funções registar_visita/visitas_hoje).
 -- Publicidade própria: ver supabase_promos.sql (tabela promos + funções guardar_promo/apagar_promo protegidas pelo PIN).
+-- Conta opcional (favoritos e histórico na nuvem): ver supabase_perfis.sql e ativar Authentication > Providers > Email.
 */
 </script>
 </body>
