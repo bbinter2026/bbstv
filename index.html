@@ -424,7 +424,7 @@ body:not(.pfs-on) .stage.mini #trkB,body:not(.pfs-on) .stage.mini #trkP{display:
 <div class="app">
  <aside class="nav">
   <h4>Categorias</h4><div id="tabs"></div>
-  <h4>Países</h4><select id="ctrySel" class="mob" aria-label="País"></select><input id="cq" type="search" name="filtro-pais" autocomplete="off" data-lpignore="true" data-1p-ignore placeholder="Procurar país" aria-label="Procurar país"><div id="ctry"></div>
+  <h4>Países</h4><select id="ctrySel" class="mob" aria-label="País"></select><input id="cq" type="search" name="filtro-pais-x9" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" readonly onfocus="this.removeAttribute('readonly')" data-lpignore="true" data-1p-ignore data-form-type="other" placeholder="Procurar país" aria-label="Procurar país"><div id="ctry"></div>
  </aside>
  <div class="main"><div id="rOpts"><label class="mut" for="rMax">💾 Poupar dados</label><select id="rMax" aria-label="Poupar dados"><option value="0">Qualquer qualidade</option><option value="128">Até 128 kbps (≈58 MB/h)</option><option value="96">Até 96 kbps (≈43 MB/h)</option><option value="64">Até 64 kbps (≈29 MB/h)</option></select></div><div class="mut" id="cnt"></div><div id="prog"></div><div id="list"></div><button id="more" class="more hide">Mostrar mais</button><div id="adBox" class="adbox hide"><small>Publicidade</small></div></div>
  <section class="stage">
@@ -1345,7 +1345,8 @@ $("pDel").onclick=()=>{const n=$("pCh").value.trim();if(!n)return;delete prog[n]
 setInterval(()=>{epgShow();render()},6e4);
 /* corrige o preenchimento automático do navegador ("admin:") nos campos de pesquisa */
 ["q","cq"].forEach(i=>$(i).addEventListener("input",e=>{if(e.isTrusted)$(i).dataset.t=1}));
-[300,1200,2500].forEach(ms=>setTimeout(()=>{let ch=0;["q","cq"].forEach(i=>{const e=$(i);if(e.value&&!e.dataset.t){e.value="";ch=1}});if(ch)render()},ms));
+[300,1200,2500,5000,8000].forEach(ms=>setTimeout(()=>{let ch=0;["q","cq"].forEach(i=>{const e=$(i);if(e.value&&!e.dataset.t){e.value="";ch=1}});if(ch)render()},ms));
+window.addEventListener("pageshow",()=>{const e=$("cq");if(e&&e.value&&!e.dataset.t){e.value="";render()}});
 epgLoad();
 /* ---- ficha do canal: sobre, país e favorito ---- */
 var sobre=L("tv_sobre",{});
