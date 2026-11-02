@@ -53,6 +53,7 @@ header{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:12px 16px
 .tlb{position:absolute;left:4px;bottom:4px;z-index:2;display:inline-flex;align-items:center;gap:2px;padding:1px 6px;border-radius:99px;background:var(--ac);color:#000;font:800 10px/1.5 system-ui,sans-serif;font-style:normal;letter-spacing:.04em;box-shadow:0 1px 4px #0009;pointer-events:none}.rr .tlb,.stage .tlb{display:none}@media(max-width:520px){.tlb{font-size:9px;padding:0 5px}}
 #accB{max-width:240px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.accrow{display:flex;gap:8px}.accrow button{flex:1}#accFg{background:none;border:0;color:var(--ac);text-decoration:underline;padding:2px;align-self:flex-start}#accMsg{min-height:1.2em}
 .nm{min-width:0}.nm b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.src{font-style:normal;font-size:10px;border:1px solid var(--ln);border-radius:99px;padding:0 6px;margin-left:4px;color:var(--mut);vertical-align:1px}.src-freetv{color:var(--ac);border-color:var(--ac)}
 .tag{font-size:11px;border:1px solid var(--ln);border-radius:99px;padding:1px 8px;margin-left:6px;color:var(--mut)}
 .row.off .nm b{color:var(--mut)}
 dialog{background:var(--sf);color:var(--tx);border:1px solid var(--ln);border-radius:14px;padding:0;width:calc(100% - 24px);max-width:560px}
@@ -524,8 +525,8 @@ body:not(.pfs-on) .stage.mini #trkB,body:not(.pfs-on) .stage.mini #trkP{display:
 
 <script>
 /* ===== CONFIGURAÇÃO ===== */
-const APP_VERSION="4.7.0",
-CHANGELOG=["4.7.0: conta opcional (email e palavra-passe) para guardar favoritos e histórico e vê-los em qualquer aparelho","4.6.3: canais com tradução e legendas mostram o sinal CC no ícone","4.6.2: categorias reordenadas (Filmes, Séries, Novelas, Música, Documentários primeiro); nova categoria Tradução e legendas","4.6.1: ecrã inteiro: imagem completa dentro da área segura do telemóvel (logo do canal já não fica cortado)","4.6.0: logo sobre o vídeo a girar suavemente como uma moeda","4.5.9: ecrã inteiro no telemóvel ajustado ao ecrã (sem imagem afastada para baixo), aviso de sair desaparece suavemente em 2 s, logo mais pequeno sobre o vídeo","4.5.8: telemóvel: cabeçalho reorganizado (logo, TV/Rádio e menu na 1.ª linha, pesquisa grande na 2.ª, estado e Aleatório na 3.ª)","4.5.7: telemóvel: botão flutuante 🔍 Pesquisar (leva à pesquisa de qualquer ponto) e caixa de pesquisa com lupa e contorno bem visível","4.5.6: Gerir canais: o admin vê o que cada pessoa online está a fazer agora (a ver, a ouvir, pausa, a gravar, a navegar), há quanto tempo, e os canais mais vistos","4.5.5: link partilhado de rádio/canal: botão “Toque para ouvir” e som ligado no próprio toque (corrigido também quando o leitor é recriado)","4.5.4: versão da app em destaque no cabeçalho","4.5.3: pré-visualização do link partilhado (og:image com o endereço real do site)","4.5.2: menu ⚙️ já não fica escondido atrás da coluna de anúncios","4.5.1: links partilhados começam logo a reproduzir (computador: volume a 80%; telemóvel: volume pelos botões do aparelho; som ligado ao primeiro toque se o navegador bloquear)","4.5.0: espaço “Publicite seus serviços ou empresa aqui” por baixo dos anúncios, com imagens geridas pelo admin","4.4.0: sinal da rede em barras (como no telemóvel)","4.3.0: cabeçalho reorganizado (rede com tipo e velocidade, menu ⚙️ com tema, idioma e conta)","4.2.1: versão da app visível no cabeçalho","4.2.0: retoma sozinho a reprodução quando a rede volta (também em segundo plano)","4.1.0: telemóvel: leitor sem saltos ao subir/descer, rádio compacta sem 'Sobre' nem quadro flutuante, cabeçalho mais arrumado","4.0.0: controlos no ecrã de bloqueio (Media Session), partilhar link de um canal, recentes, país automático, poupar dados na rádio","3.9.1: gravação de rádio mais fiável (CORS) e aviso claro quando a rádio bloqueia a gravação","3.9.0: leitor de vídeo e rádio reorganizado (informação, definições e botões em grupos), mesma posição","3.8.0: rádios em lista (país, nome, frequência, género, qualidade, idioma) com ordenação; gravação sem limite; vídeo em MP4 e rádio em MP3","3.7.0: modo Rádio com estações de todo o mundo (radio-browser.info), por país e género, pesquisa e favoritos","3.6.0: programação diária (EPG) com horários, pesquisa de programas que mostra o canal, correção do \"admin:\" no campo de país","3.5.0: legendas e língua de áudio (YouTube e canais HLS com várias faixas)","3.4.0: mais canais do YouTube (Moçambique, Angola, África do Sul, Brasil) via scripts/gerar-youtube-lista.mjs","3.3.0: canais do YouTube (links watch, youtu.be, /live e /channel) e lista canais-youtube.json","3.2.0: instalar como app, idioma PT/EN, qualidade de vídeo, gravação","3.1.1: AdSense e melhorias para telemóvel","3.0.2: melhorias para telemóvel (ecrã inteiro iPhone, seletor de países, leitor compacto)","3.0.1: removidos os canais sem link","3.0.0: estilo TV Garden e todos os canais do mundo (iptv-org)","2.3.0: importação mundial e correções" ,"2.2.0: canais da África do Sul","2.1.0: visual moderno e canais organizados por categorias","2.0.1: corrige arranque com licença guardada (botões sem resposta)","2.0.0: interface nova, lista lateral, hls com recuperação de erros, segurança (XSS), <dialog>, importação M3U mais fiável","1.1.0: importação M3U por link"];
+const APP_VERSION="4.8.0",
+CHANGELOG=["4.8.2: 14 fontes extra (Redbox, Tubi, LocalNow, Tablo, Xiaomi, Fire TV, Cineverse, Distro, Roku, Xumo, LG, Vizio, Klowd, Samsung TV Plus), cada uma com etiqueta própria","4.8.1: etiqueta de origem em cada canal (Free-TV, iptv-org, YouTube, BBS) e pesquisa por origem, ex.: «free-tv»","4.8.0: mais canais da lista Free-TV/IPTV, já distribuídos pelas categorias (notícias, desporto, música, infantil, filmes…)","4.7.0: conta opcional (email e palavra-passe) para guardar favoritos e histórico e vê-los em qualquer aparelho","4.6.3: canais com tradução e legendas mostram o sinal CC no ícone","4.6.2: categorias reordenadas (Filmes, Séries, Novelas, Música, Documentários primeiro); nova categoria Tradução e legendas","4.6.1: ecrã inteiro: imagem completa dentro da área segura do telemóvel (logo do canal já não fica cortado)","4.6.0: logo sobre o vídeo a girar suavemente como uma moeda","4.5.9: ecrã inteiro no telemóvel ajustado ao ecrã (sem imagem afastada para baixo), aviso de sair desaparece suavemente em 2 s, logo mais pequeno sobre o vídeo","4.5.8: telemóvel: cabeçalho reorganizado (logo, TV/Rádio e menu na 1.ª linha, pesquisa grande na 2.ª, estado e Aleatório na 3.ª)","4.5.7: telemóvel: botão flutuante 🔍 Pesquisar (leva à pesquisa de qualquer ponto) e caixa de pesquisa com lupa e contorno bem visível","4.5.6: Gerir canais: o admin vê o que cada pessoa online está a fazer agora (a ver, a ouvir, pausa, a gravar, a navegar), há quanto tempo, e os canais mais vistos","4.5.5: link partilhado de rádio/canal: botão “Toque para ouvir” e som ligado no próprio toque (corrigido também quando o leitor é recriado)","4.5.4: versão da app em destaque no cabeçalho","4.5.3: pré-visualização do link partilhado (og:image com o endereço real do site)","4.5.2: menu ⚙️ já não fica escondido atrás da coluna de anúncios","4.5.1: links partilhados começam logo a reproduzir (computador: volume a 80%; telemóvel: volume pelos botões do aparelho; som ligado ao primeiro toque se o navegador bloquear)","4.5.0: espaço “Publicite seus serviços ou empresa aqui” por baixo dos anúncios, com imagens geridas pelo admin","4.4.0: sinal da rede em barras (como no telemóvel)","4.3.0: cabeçalho reorganizado (rede com tipo e velocidade, menu ⚙️ com tema, idioma e conta)","4.2.1: versão da app visível no cabeçalho","4.2.0: retoma sozinho a reprodução quando a rede volta (também em segundo plano)","4.1.0: telemóvel: leitor sem saltos ao subir/descer, rádio compacta sem 'Sobre' nem quadro flutuante, cabeçalho mais arrumado","4.0.0: controlos no ecrã de bloqueio (Media Session), partilhar link de um canal, recentes, país automático, poupar dados na rádio","3.9.1: gravação de rádio mais fiável (CORS) e aviso claro quando a rádio bloqueia a gravação","3.9.0: leitor de vídeo e rádio reorganizado (informação, definições e botões em grupos), mesma posição","3.8.0: rádios em lista (país, nome, frequência, género, qualidade, idioma) com ordenação; gravação sem limite; vídeo em MP4 e rádio em MP3","3.7.0: modo Rádio com estações de todo o mundo (radio-browser.info), por país e género, pesquisa e favoritos","3.6.0: programação diária (EPG) com horários, pesquisa de programas que mostra o canal, correção do \"admin:\" no campo de país","3.5.0: legendas e língua de áudio (YouTube e canais HLS com várias faixas)","3.4.0: mais canais do YouTube (Moçambique, Angola, África do Sul, Brasil) via scripts/gerar-youtube-lista.mjs","3.3.0: canais do YouTube (links watch, youtu.be, /live e /channel) e lista canais-youtube.json","3.2.0: instalar como app, idioma PT/EN, qualidade de vídeo, gravação","3.1.1: AdSense e melhorias para telemóvel","3.0.2: melhorias para telemóvel (ecrã inteiro iPhone, seletor de países, leitor compacto)","3.0.1: removidos os canais sem link","3.0.0: estilo TV Garden e todos os canais do mundo (iptv-org)","2.3.0: importação mundial e correções" ,"2.2.0: canais da África do Sul","2.1.0: visual moderno e canais organizados por categorias","2.0.1: corrige arranque com licença guardada (botões sem resposta)","2.0.0: interface nova, lista lateral, hls com recuperação de erros, segurança (XSS), <dialog>, importação M3U mais fiável","1.1.0: importação M3U por link"];
 const SUPABASE_URL="https://xnynwonqqbxbusbgngwg.supabase.co",SUPABASE_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhueW53b25xcWJ4YnVzYmduZ3dnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMyNTc1ODEsImV4cCI6MjEwODgzMzU4MX0.sxjDW551yFGpIdcvWVuvImMTI0JWwduPNIcX0yFfb2g";   // opcional (ver SQL no fim)
 const REQUIRE_LICENSE=false,   // false = site público (necessário para o AdSense conseguir rever o conteúdo)
 ALLOW_RECORD=true,       // true = mostra o botão Gravar; false = esconde
@@ -633,7 +634,7 @@ function setTheme(t){document.body.className=t;S("tv_theme",t);$("theme").value=
 $("theme").onchange=e=>setTheme(e.target.value);setTheme(L("tv_theme",""));
 
 /* ---- licença ---- */
-function openApp(){$("lic").classList.add("hide");applyMode(true);setTimeout(openShared,300);loadBad();loadRemote();loadWorld();loadYT();initAds();adsEnd();render()}
+function openApp(){$("lic").classList.add("hide");applyMode(true);setTimeout(openShared,300);loadBad();loadRemote();loadWorld();loadYT();loadFTV();loadExtra();initAds();adsEnd();render()}
 function demo(){let d=L("tv_demo",null);if(!d){d=Date.now()+864e5;S("tv_demo",d)}
  if(Date.now()>d){$("licMsg").textContent=T("A demonstração expirou. Introduza uma licença.");return}
  S("tv_lic",{demo:1,exp:d});openApp()}
@@ -693,10 +694,10 @@ async function loadYT(){try{const r=await fetch("canais-youtube.json",{cache:"no
  if(!j||!Array.isArray(j.c))return;const have=new Set(ytc.map(c=>c.id));
  for(const a of j.c){const id="yt_"+a[0];if(have.has(id)||!a[5]||!a[5][0])continue;ytc.push({id,name:a[1],pais:a[2],cat:a[3],logo:a[4]||"",url:a[5][0],alts:a[5],official:false})}
  render()}catch(e){}}
-let world=[],wk=new Set();
+let world=[],wk=new Set(),ftv=[],ext=[];
 let badSet=new Set();
 const wkey=c=>c._k||(c._k=norm(c.name)+"|"+c.pais);
-const pool=()=>mode==="radio"?(rmax?radio.filter(c=>!c.br||c.br<=rmax):radio):(()=>{const mine=chans.filter(c=>c.url&&isStream(c.url)),own=new Set(mine.map(wkey));const yt=ytc.filter(c=>!own.has(wkey(c))),yk=new Set(yt.map(wkey));return mine.concat(yt,world.filter(c=>!own.has(wkey(c))&&!yk.has(wkey(c))&&!badSet.has(c.id)))})();   // os seus canais têm prioridade sobre os do mundo com o mesmo nome
+const pool=()=>mode==="radio"?(rmax?radio.filter(c=>!c.br||c.br<=rmax):radio):(()=>{const mine=chans.filter(c=>c.url&&isStream(c.url)),own=new Set(mine.map(wkey));const yt=ytc.filter(c=>!own.has(wkey(c))),yk=new Set(yt.map(wkey));return mine.concat(yt,world.filter(c=>!own.has(wkey(c))&&!yk.has(wkey(c))&&!badSet.has(c.id)),ftv.filter(c=>!own.has(wkey(c))&&!yk.has(wkey(c))&&!wk.has(wkey(c))&&!badSet.has(c.id)),ext.filter(c=>!own.has(wkey(c))&&!yk.has(wkey(c))&&!wk.has(wkey(c))&&!badSet.has(c.id)))})();   // os seus canais têm prioridade sobre os do mundo com o mesmo nome
 /* ---- estado dos canais: os visitantes comunicam se o canal tocou ou não; os que falham sempre ficam escondidos ---- */
 const reported=new Set();
 async function loadBad(){if(!sb)return;
@@ -749,6 +750,78 @@ async function loadLogos(byCh,out){try{const r=await fetch(B_API+"logos.json");i
  const map={};for(const l of await r.json())if(l.channel&&!map[l.channel])map[l.channel]=l.url;
  for(const o of out){const l=map[o.id.slice(2)];if(l)o.logo=l}
  IDBC.set("logos_v1",{t:Date.now(),map});IDBC.set("world_v1",{t:Date.now(),data:out});render()}catch(e){}}
+/* ---- Free-TV/IPTV: lista extra (github.com/Free-TV/IPTV). Carrega ao abrir, fica guardada 12 h e os canais entram nas categorias pelo nome ---- */
+const FTV_URL="https://raw.githubusercontent.com/Free-TV/IPTV/master/playlist.m3u8";
+const FTV_RX=[[/news|noticia|nachricht|actualit|uutiset|\binfo\b|franceinfo|euronews|cnn|bfm|\blci\b|\bn1\b|al ?jazeera|cgtn|tagesschau|\bwelt\b|24 ?horas|\b24\b|alert\b|africanews|nopola|report tv|ora news|top news/,"Notícias"],
+[/sport|deport|desporto|futbol|football|racing|bein|eurosport|\bf1\b|espn|golf|equipe/,"Desporto"],
+[/kids|\bkika\b|ramasjang|pakapaka|cartoon|junior|children|gulli|kockica|bambin|enfant|nick|disney/,"Infantil"],
+[/movie|film|cinema|\bcine\b|\bkino\b/,"Filmes"],
+[/series|teleserie|drama|serial|krimi/,"Séries"],
+[/document|history|discovery|national geographic|natgeo|nature|wildlife|mystery|doku/,"Documentários"],
+[/music|musik|musica|musique|deluxe|ocko|slagr|\bfm\b|\bmus\b|kontor|stereo|retro|hit tv/,"Música"],
+[/relig|church|christ|catholic|islam|quran|huda|aghapy|coptic|alhayat|\btbn\b|taevas|taivas|himlen|gospel|ewtn|bible|iglesia|igreja/,"Religião"],
+[/parlament|parliament|vouli|riigikogu|folketinget|camara|senat|assembl|\blcp\b|universi|educ|cultur|kultur|\barte\b|\b3sat\b|ard alpha|encuentro/,"Educação e cultura"],
+[/food|cook|cuisine|travel|lifestyle|\bliv\b|\btlc\b|\bhero\b|fashion|tvsn|shop|agro|motor|weather|meteo/,"Estilo de vida"],
+[/^(ert|yle|hrt|dr ?\d|dr |zdf|das erste|orf|etv|bnt|rik|ct |televisi.n publica|bht|federalna|rtrs|rtv |france [2-5]|abc|sbs|cbc|ici |br |mdr|ndr|rbb|swr|wdr|sr$|hr$|radio bremen|belarus|беларусь|tvm|rtp)/,"Públicos"]];
+const ftvCat=n=>{const t=na(n);for(const r of FTV_RX)if(r[0].test(t))return r[1];return"Geral"};
+function parseFTV(txt){
+ const secure=location.protocol==="https:",dn=new Intl.DisplayNames(["pt"],{type:"region"}),map=new Map();
+ let name="",logo="",cc="",tvgId="";
+ for(const raw of String(txt||"").split(/\r?\n/)){
+  const l=raw.trim();
+  if(l.startsWith("#EXTINF")){
+   const i=l.lastIndexOf(",");name=(i>=0?l.slice(i+1):"").replace(/[\u24B6-\u24E9]/g,"").trim();
+   logo=(l.match(/tvg-logo="([^"]*)"/i)||[])[1]||"";cc=(l.match(/tvg-country="([^"]*)"/i)||[])[1]||"";tvgId=(l.match(/tvg-id="([^"]*)"/i)||[])[1]||"";
+  }else if(name&&/^https?:\/\//i.test(l)){
+   if(isStream(l)&&!(secure&&/^http:\/\//i.test(l))){
+    let pais="Internacional";try{pais=dn.of(cc.toUpperCase())||pais}catch(e){}
+    const k=norm(name)+"|"+pais;let o=map.get(k);
+    if(o){if(!o.alts.includes(l))o.alts.push(l);if(!o.logo&&logo)o.logo=logo}
+    else map.set(k,{id:"f_"+(norm(name)||"canal")+"_"+(cc||"xx").toLowerCase(),name,pais,cat:ftvCat(name),logo,url:l,alts:[l],official:false,tvgId});
+   }
+   name="";logo="";cc="";tvgId="";
+  }
+ }
+ return[...map.values()]}
+async function loadFTV(){
+ const c=await IDBC.get("ftv_v1");
+ if(c&&Array.isArray(c.data)&&c.data.length){ftv=c.data;render();if(Date.now()-c.t<WTTL)return}
+ try{const r=await fetch(FTV_URL,{cache:"no-cache"});if(!r.ok)throw new Error("HTTP "+r.status);
+  const t=await r.text();if(!t.includes("#EXTM3U"))throw new Error("M3U inválida");
+  const out=parseFTV(t);if(out.length){ftv=out;IDBC.set("ftv_v1",{t:Date.now(),data:out});render()}
+ }catch(e){console.error("Free-TV",e)}}
+/* ---- fontes extra (apsattv.com e i.mjh.nz): cada uma com a sua etiqueta. Tenta primeiro canais-extras.json (gerado por scripts/gerar-extras.mjs, evita CORS), depois as listas diretamente ---- */
+const EXT_SRC=[["Redbox","https://www.apsattv.com/redbox.m3u"],["Tubi","https://www.apsattv.com/tubi.m3u"],["LocalNow","https://www.apsattv.com/localnow.m3u"],["Tablo","https://www.apsattv.com/tablo.m3u"],["Xiaomi","https://www.apsattv.com/xiaomi.m3u"],["Fire TV","https://www.apsattv.com/firetv.m3u"],["Cineverse","https://www.apsattv.com/cineverse.m3u"],["Distro","https://www.apsattv.com/distro.m3u"],["Roku Channel","https://www.apsattv.com/rok.m3u"],["Xumo","https://www.apsattv.com/xumo.m3u"],["LG Channels","https://www.apsattv.com/lg.m3u"],["Vizio","https://www.apsattv.com/vizio.m3u"],["Klowd","https://www.apsattv.com/klowd.m3u"],["Samsung TV Plus","https://i.mjh.nz/SamsungTVPlus/all.m3u8"]];
+function parseX(txt,src){
+ const secure=location.protocol==="https:",dn=new Intl.DisplayNames(["pt"],{type:"region"}),map=new Map(),sk=src.toLowerCase().replace(/[^a-z0-9]/g,"");
+ let name="",logo="",cc="",grp="";
+ for(const raw of String(txt||"").split(/\r?\n/)){
+  const l=raw.trim();
+  if(l.startsWith("#EXTINF")){
+   const i=l.lastIndexOf(",");name=(i>=0?l.slice(i+1):"").trim();
+   logo=(l.match(/tvg-logo="([^"]*)"/i)||[])[1]||"";cc=(l.match(/tvg-country="([^"]*)"/i)||[])[1]||"";grp=(l.match(/group-title="([^"]*)"/i)||[])[1]||"";
+  }else if(name&&/^https?:\/\//i.test(l)){
+   if(isStream(l)&&!(secure&&/^http:\/\//i.test(l))){
+    let pais="Internacional";try{pais=dn.of(cc.toUpperCase())||pais}catch(e){}
+    const id="x_"+sk+"_"+(norm(name)||"canal")+"_"+(cc||"xx").toLowerCase();let o=map.get(id);
+    if(o){if(!o.alts.includes(l))o.alts.push(l);if(!o.logo&&logo)o.logo=logo}
+    else map.set(id,{id,name,pais,cat:ftvCat(grp+" "+name),logo,url:l,alts:[l],src,official:false});
+   }
+   name="";logo="";cc="";grp="";
+  }
+ }
+ return[...map.values()]}
+async function loadExtra(){
+ const c=await IDBC.get("ext_v1");
+ if(c&&Array.isArray(c.data)&&c.data.length){ext=c.data;render();if(Date.now()-c.t<WTTL)return}
+ let out=null;
+ try{const r=await fetch("canais-extras.json",{cache:"no-cache"});if(r.ok){const j=await r.json();
+  if(j&&Array.isArray(j.c)&&j.c.length)out=j.c.map(a=>({id:a[0],name:a[1],pais:a[2],cat:a[3],logo:a[4]||"",url:a[5][0],alts:a[5],src:a[6],official:false}))}}catch(e){}
+ if(!out){const res=await Promise.allSettled(EXT_SRC.map(async([n,u])=>{const ac=new AbortController(),t=setTimeout(()=>ac.abort(),20000);
+   try{const r=await fetch(u,{signal:ac.signal});if(!r.ok)throw new Error("HTTP "+r.status);const x=await r.text();if(!x.includes("#EXTM3U"))throw new Error("M3U inválida");return parseX(x,n)}finally{clearTimeout(t)}}));
+  res.forEach((r,i)=>{if(r.status!=="fulfilled")console.warn("Fonte extra falhou:",EXT_SRC[i][0],r.reason&&r.reason.message)});
+  out=res.flatMap(r=>r.status==="fulfilled"?r.value:[])}
+ if(out.length){ext=out;IDBC.set("ext_v1",{t:Date.now(),data:out});render()}}
 /* ---- apresentação ---- */
 /* ---- RÁDIO: estações do mundo via radio-browser.info (API aberta e gratuita) ---- */
 let mode=L("tv_mode","tv")==="radio"?"radio":"tv";
@@ -928,9 +1001,10 @@ $("vin").addEventListener("error",e=>{if(e.target.tagName==="IMG")e.target.remov
 Object.assign(EN,{"Esta rádio não permite gravação (o emissor bloqueia). Experimente outra.":"This station doesn’t allow recording (the broadcaster blocks it). Try another one.","Nome":"Name","Frequência":"Frequency","Género":"Genre","Qualidade":"Quality","Populares":"Popular","Gravar":"Record","Gravação sem limite de tempo":"Recording with no time limit","A carregar…":"Loading…","Não foi possível gravar em MP3; a usar outro formato.":"Couldn’t record as MP3; using another format.","Este navegador não grava em MP4; a gravar em WebM.":"This browser can’t record MP4; recording WebM.","📻 Rádio":"📻 Radio","Pesquisar rádios…":"Search radio stations…","rádios":"radios","Escolha uma rádio":"Choose a radio station","A lista de rádios está ao centro (ou por baixo, no telemóvel).":"The station list is in the middle (or below, on mobile).","A carregar rádios do mundo…":"Loading world radio stations…","Não foi possível carregar as rádios. Verifique a Internet e tente de novo.":"Couldn’t load radio stations. Check your Internet connection and try again.","Não foi possível carregar as rádios deste país.":"Couldn’t load this country’s radio stations.","Notícias e conversa":"News & talk","Pop e hits":"Pop & hits","Hip-hop e R&B":"Hip-hop & R&B","Dance e eletrónica":"Dance & electronic","Jazz e clássica":"Jazz & classical","Afro, latina e mundo":"Afro, Latin & world","Gospel e religião":"Gospel & religion","Cultura":"Culture"});
 
 let rLH="",shown=120,view=[],col=new Intl.Collator(LANG);const nk=new Map();
-const nn=c=>{let v=nk.get(c);if(v===undefined){v=na(c.name+" "+c.pais+" "+cnE(c.pais)+(c.tags?" "+c.tags:""));nk.set(c,v)}return v};
+const srcOf=c=>{const i=String(c.id||"");return c.radio?"":c.src?c.src:i.startsWith("f_")?"Free-TV":i.startsWith("w_")?"iptv-org":i.startsWith("yt_")?"YouTube":"BBS"};
+const nn=c=>{let v=nk.get(c);if(v===undefined){v=na(c.name+" "+c.pais+" "+cnE(c.pais)+(c.tags?" "+c.tags:"")+" "+srcOf(c));nk.set(c,v)}return v};
 function card(c,fs){const f=fs.has(c.id),lg=safeUrl(c.logo);
- return`<div class="ch ${cur&&cur.id===c.id?"cur":""} ${c.url?"":"off"}"><button class="pick" data-id="${esc(c.id)}"><span class="mono" style="background:hsl(${hue(c.name)} 45% 40%)">${esc(c.name[0]||"?")}${lg?`<img src="${esc(lg)}" alt="" loading="lazy" referrerpolicy="no-referrer">`:""}${hasTL(c)?`<i class="tlb" title="${esc(T("Tradução e legendas"))}" aria-label="${esc(T("Tradução e legendas"))}">CC</i>`:""}</span><span class="nm"><b>${esc(c.name)}</b><span class="mut">${flagH(c.pais)} ${esc(cn_(c.pais))}${c.url?(c.official?" · "+T("site oficial"):""):" · "+T("sem link")}</span>${epgNow(c)}</span></button><button class="star ${f?"on":""}" data-fav="${esc(c.id)}" aria-label="${T(f?"Remover dos favoritos":"Adicionar aos favoritos")}" aria-pressed="${f}">${f?"★":"☆"}</button></div>`}
+ return`<div class="ch ${cur&&cur.id===c.id?"cur":""} ${c.url?"":"off"}"><button class="pick" data-id="${esc(c.id)}"><span class="mono" style="background:hsl(${hue(c.name)} 45% 40%)">${esc(c.name[0]||"?")}${lg?`<img src="${esc(lg)}" alt="" loading="lazy" referrerpolicy="no-referrer">`:""}${hasTL(c)?`<i class="tlb" title="${esc(T("Tradução e legendas"))}" aria-label="${esc(T("Tradução e legendas"))}">CC</i>`:""}</span><span class="nm"><b>${esc(c.name)}</b><span class="mut">${flagH(c.pais)} ${esc(cn_(c.pais))}${c.url?(c.official?" · "+T("site oficial"):""):" · "+T("sem link")}${srcOf(c)?` <i class="src src-${srcOf(c).toLowerCase().replace(/[^a-z]/g,"")}">${srcOf(c)}</i>`:""}</span>${epgNow(c)}</span></button><button class="star ${f?"on":""}" data-fav="${esc(c.id)}" aria-label="${T(f?"Remover dos favoritos":"Adicionar aos favoritos")}" aria-pressed="${f}">${f?"★":"☆"}</button></div>`}
 function render(){
  const A=pool(),q=na($("q").value.trim()),cq=na($("cq").value.trim()),fs=new Set(favs),cn={},kn={},rs=new Set(rcl());let fv=0,rv=0,tlc=0;
  for(const c of A){if(q&&!nn(c).includes(q))continue;const k=catOf(c),f=fs.has(c.id),tl=mode!=="radio"&&hasTL(c);
