@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0e1020"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="BBS Cafe"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="BBS Cafe"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>BBS Internet Cafe – Canais de TV online grátis de Moçambique e do mundo</title>
 <meta name="description" content="BBS Internet Cafe Entertainments: veja canais de televisão de Moçambique, Angola, Cabo Verde, Portugal, Brasil e de todo o mundo, organizados por país e categoria. Pesquisa, favoritos e sem registo.">
 <meta name="robots" content="index,follow"><link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="manifest" href="site.webmanifest"><meta name="theme-color" content="#202124"><meta property="og:site_name" content="BBS Internet Cafe Entertainments"><meta property="og:image" content="https://bbinter2026.github.io/bbstv/og-image.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="BBS Internet Cafe Entertainments"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://bbinter2026.github.io/bbstv/og-image.png"><meta property="og:type" content="website"><meta property="og:url" content="https://bbinter2026.github.io/bbstv/"><meta property="og:locale" content="pt_PT"><link rel="canonical" href="https://bbinter2026.github.io/bbstv/"><meta property="og:title" content="BBS Internet Cafe – Canais de TV online"><meta property="og:description" content="BBS Internet Cafe Entertainments: canais de TV de Moçambique e do mundo, organizados por país e categoria. Grátis e sem registo.">
@@ -176,6 +176,8 @@ body.ads-on:not(.ads-wide) .app{grid-template-columns:210px minmax(0,1fr) 380px}
  body:not(.pfs-on) .stage.mini #miniUp{display:grid}
  body:not(.pfs-on) .stage.mini #fsO,body:not(.pfs-on) .stage.mini #miniUp{position:fixed;top:auto;left:auto;width:30px;height:30px;z-index:91;bottom:calc(10px + env(safe-area-inset-bottom) + min(46vw,230px)*.5625 - 36px)}
  body:not(.pfs-on) .stage.mini #fsO{right:calc(min(46vw,230px) - 28px)}body:not(.pfs-on) .stage.mini #miniUp{right:calc(min(46vw,230px) - 62px)}
+ #miniX{display:none;place-items:center;padding:0;border-radius:10px;background:#000a;color:#fff;border:1px solid #fff3}
+ body:not(.pfs-on) .stage.mini #miniX{display:grid;position:fixed;top:auto;left:auto;width:34px;height:34px;z-index:91;right:12px;bottom:calc(10px + env(safe-area-inset-bottom) + min(46vw,230px)*.5625 - 40px);font-size:15px}
  body.pfs-on .stage{z-index:200}
 }
 .screen.pfs.rot{inset:auto;top:0;left:0;width:var(--vh,100dvh);height:var(--vw,100dvw);transform-origin:0 0;transform:translateX(var(--vw,100dvw)) rotate(90deg)}
@@ -425,7 +427,7 @@ body:not(.pfs-on) .stage.mini #trkB,body:not(.pfs-on) .stage.mini #trkP{display:
  </aside>
  <div class="main"><div id="rOpts"><label class="mut" for="rMax">💾 Poupar dados</label><select id="rMax" aria-label="Poupar dados"><option value="0">Qualquer qualidade</option><option value="128">Até 128 kbps (≈58 MB/h)</option><option value="96">Até 96 kbps (≈43 MB/h)</option><option value="64">Até 64 kbps (≈29 MB/h)</option></select></div><div class="mut" id="cnt"></div><div id="prog"></div><div id="list"></div><button id="more" class="more hide">Mostrar mais</button><div id="adBox" class="adbox hide"><small>Publicidade</small></div></div>
  <section class="stage">
-  <button id="fsO" aria-label="Ecrã inteiro">⛶</button><button id="miniUp" aria-label="Subir ao leitor">↑</button>
+  <button id="fsO" aria-label="Ecrã inteiro">⛶</button><button id="miniUp" aria-label="Subir ao leitor">↑</button><button id="miniX" type="button" aria-label="Fechar leitor" title="Fechar">✕</button>
   <div class="screen" id="vbox"><div id="vin" class="vin"><div class="idle"><b>Escolha um canal</b>A lista de canais está ao centro (ou por baixo, no telemóvel).</div></div><button id="fsX">✕ Sair do ecrã inteiro</button><button id="trkB" type="button" aria-haspopup="true" aria-expanded="false">🌐</button><div id="trkP" hidden></div></div>
   <div class="bar">
    <div class="info"><h2 id="now">Sem canal</h2><div class="mut" id="sub"></div></div>
@@ -1045,6 +1047,7 @@ function miniCheck(){
 let scTick=false;addEventListener("scroll",()=>{if(scTick)return;scTick=true;requestAnimationFrame(()=>{scTick=false;miniCheck()})},{passive:true});
 addEventListener("resize",()=>{const m=stg.classList.contains("mini");if(m)stg.classList.remove("mini");setSh();if(m)stg.classList.add("mini");miniCheck()});
 $("miniUp").onclick=()=>scrollTo({top:0,behavior:"smooth"});
+$("miniX").onclick=e=>{e.stopPropagation();stopAll();mark()};
 
 
 /* ---- qualidade do vídeo (poupar dados): limita o nível máximo que o hls.js pode escolher ---- */
@@ -1070,7 +1073,16 @@ function trkBuild(){
  if(hls){
   const au=hls.audioTracks||[],sb=hls.subtitleTracks||[];
   if(au.length>1)mk(T("Língua do áudio"),au.map((t,i)=>`<option value="${i}"${i===hls.audioTrack?" selected":""}>${A}: ${nm(t,i)}</option>`).join(""),i=>{if(hls)hls.audioTrack=i});
-  if(sb.length)mk(L,`<option value="-1">${L}: ${T("desligadas")}</option>`+sb.map((t,i)=>`<option value="${i}"${hls.subtitleDisplay&&i===hls.subtitleTrack?" selected":""}>${L}: ${nm(t,i)}</option>`).join(""),i=>{if(!hls)return;hls.subtitleTrack=i;hls.subtitleDisplay=i>=0});
+  /* legendas CEA-608/708 vêm dentro do vídeo (não estão no manifesto): aparecem em video.textTracks */
+  const cc=v.textTracks?Array.from(v.textTracks).filter(t=>t.kind==="captions"&&(/^textTrack\d+$/.test(t.id||"")||/^(cc|captions)/i.test(t.label||""))):[];
+  const sOn=hls.subtitleDisplay&&hls.subtitleTrack>=0;
+  if(sb.length||cc.length)mk(L,`<option value="-1">${L}: ${T("desligadas")}</option>`+sb.map((t,i)=>`<option value="${i}"${sOn&&i===hls.subtitleTrack?" selected":""}>${L}: ${nm(t,i)}</option>`).join("")+cc.map((t,j)=>`<option value="${1000+j}"${!sOn&&t.mode==="showing"?" selected":""}>${L}: ${nm(t,j)||"CC"+(j+1)}</option>`).join(""),i=>{
+   if(!hls)return;const tts=()=>Array.from(v.textTracks||[]);
+   if(i>=1000){hls.subtitleTrack=-1;hls.subtitleDisplay=false;tts().forEach(t=>{if(cc.includes(t))t.mode=t===cc[i-1000]?"showing":"hidden"})}
+   else{cc.forEach(t=>{t.mode="hidden"});hls.subtitleTrack=i;hls.subtitleDisplay=i>=0;
+    if(i>=0){const w=sb[i]||{},force=()=>{const m=tts().find(t=>!cc.includes(t)&&((w.name&&t.label===w.name)||(w.lang&&t.language===w.lang)));if(m)m.mode="showing"};setTimeout(force,250);setTimeout(force,1200)}
+    else tts().forEach(t=>{t.mode="hidden"})}
+  });
  }else{
   const at=v.audioTracks?Array.from(v.audioTracks):[];
   if(at.length>1)mk(T("Língua do áudio"),at.map((t,i)=>`<option value="${i}"${t.enabled?" selected":""}>${A}: ${nm(t,i)}</option>`).join(""),i=>{at.forEach((t,j)=>{t.enabled=j===i})});
