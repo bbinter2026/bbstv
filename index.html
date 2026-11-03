@@ -734,7 +734,7 @@ async function loadYT(){try{const r=await fetch("canais-youtube.json",{cache:"no
 let world=[],wk=new Set(),ftv=[],ext=[];
 let badSet=new Set();
 const wkey=c=>c._k||(c._k=norm(c.name)+"|"+c.pais);
-const pool=()=>mode==="radio"?(rmax?radio.filter(c=>!c.br||c.br<=rmax):radio):(()=>{const mine=chans.filter(c=>c.url&&isStream(c.url)),own=new Set(mine.map(wkey));const yt=ytc.filter(c=>!own.has(wkey(c))),yk=new Set(yt.map(wkey));return mine.concat(yt,world.filter(c=>!own.has(wkey(c))&&!yk.has(wkey(c))&&!badSet.has(c.id)),ftv.filter(c=>!own.has(wkey(c))&&!yk.has(wkey(c))&&!wk.has(wkey(c))&&!badSet.has(c.id)),ext.filter(c=>!own.has(wkey(c))&&!yk.has(wkey(c))&&!wk.has(wkey(c))&&!badSet.has(c.id)))})();   // os seus canais têm prioridade sobre os do mundo com o mesmo nome
+const pool=()=>mode==="radio"?(rmax?radio.filter(c=>!c.br||c.br<=rmax):radio):(()=>{const mine=chans.filter(c=>c.url&&isStream(c.url)),own=new Set(mine.map(wkey));const yt=ytc.filter(c=>!own.has(wkey(c))),yk=new Set(yt.map(wkey));return mine.concat(yt,world.filter(c=>c.pais!=="Internacional"&&!own.has(wkey(c))&&!yk.has(wkey(c))&&!badSet.has(c.id)),ftv.filter(c=>c.pais!=="Internacional"&&!own.has(wkey(c))&&!yk.has(wkey(c))&&!wk.has(wkey(c))&&!badSet.has(c.id)),ext.filter(c=>c.pais!=="Internacional"&&!own.has(wkey(c))&&!yk.has(wkey(c))&&!wk.has(wkey(c))&&!badSet.has(c.id)))})();   // os seus canais têm prioridade sobre os do mundo com o mesmo nome
 /* ---- estado dos canais: os visitantes comunicam se o canal tocou ou não; os que falham sempre ficam escondidos ---- */
 const reported=new Set();
 async function loadBad(){if(!sb)return;
@@ -1393,7 +1393,7 @@ var _ui="";
 function saveUI(){if(!window._uiReady)return;try{const k="tv_ui_"+mode,p=L(k,null)||{},o={ctry:ctry,tab:tab,pick:!!userPick,last:(cur&&cur.id)?cur.id:(p.last||"")},j=JSON.stringify(o);if(j!==_ui){_ui=j;S(k,o)}}catch(e){}}
 (function(){
  const u=L("tv_ui_"+mode,null);
- if(u){if(typeof u.ctry==="string"){ctry=u.ctry;userPick=!!u.pick||!!u.ctry}if(u.tab&&typeof u.tab==="string")tab=u.tab;shown=120;render();if(mode==="radio"&&ctry)radioCountry(ctry);
+ if(u){if(typeof u.ctry==="string"&&u.ctry!=="Internacional"){ctry=u.ctry;userPick=!!u.pick||!!u.ctry}if(u.tab&&typeof u.tab==="string")tab=u.tab;shown=120;render();if(mode==="radio"&&ctry)radioCountry(ctry);
   if(u.last&&document.documentElement.classList.contains("fit")){let n=0;const go=()=>{const b=[...document.querySelectorAll("#list [data-id]")].find(x=>x.dataset.id===u.last);if(b){b.scrollIntoView({block:"center"});return}if(++n<6)setTimeout(go,700)};setTimeout(go,400)}}
  window._uiReady=true;saveUI();
  const list=$("list"),items=()=>[...list.querySelectorAll(".pick")];
