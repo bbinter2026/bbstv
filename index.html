@@ -7,7 +7,10 @@
 <title>BBS Internet Cafe – Canais de TV online grátis de Moçambique e do mundo</title>
 <meta name="description" content="BBS Internet Cafe Entertainments: veja canais de televisão de Moçambique, Angola, Cabo Verde, Portugal, Brasil e de todo o mundo, organizados por país e categoria. Pesquisa, favoritos e sem registo.">
 <meta name="robots" content="index,follow"><link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="manifest" href="site.webmanifest"><meta name="theme-color" content="#202124"><meta property="og:site_name" content="BBS Internet Cafe Entertainments"><meta property="og:image" content="https://bbinter2026.github.io/bbstv/og-image.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="BBS Internet Cafe Entertainments"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://bbinter2026.github.io/bbstv/og-image.png"><meta property="og:type" content="website"><meta property="og:url" content="https://bbinter2026.github.io/bbstv/"><meta property="og:locale" content="pt_PT"><link rel="canonical" href="https://bbinter2026.github.io/bbstv/"><meta property="og:title" content="BBS Internet Cafe – Canais de TV online"><meta property="og:description" content="BBS Internet Cafe Entertainments: canais de TV de Moçambique e do mundo, organizados por país e categoria. Grátis e sem registo.">
-<noscript><style>.lic{display:none!important}.epn{display:block;color:var(--ac);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+<noscript><script>/* ativa o ajuste ao ecrã só em Plasma/Linux desktop. Forçar: ?plasma=1  Desligar: ?plasma=0 */
+(function(){try{var u=navigator.userAgent,q=new URLSearchParams(location.search).get("plasma"),k="bbs_fit";if(q==="1"||q==="0")localStorage.setItem(k,q);var f=localStorage.getItem(k);var on=f==="1"||(f!=="0"&&/Falkon|Konqueror|QtWebEngine|X11; (Ubuntu; )?Linux|KDE/i.test(u)&&!/Android|SmartTV|Tizen|Web0S|CrOS/i.test(u));if(on)document.documentElement.classList.add("fit")}catch(e){}})();
+</script>
+<style>.lic{display:none!important}.epn{display:block;color:var(--ac);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #prog h4{margin:6px 0}#prog button{display:flex;width:100%;gap:8px;text-align:left;margin:0 0 4px;align-items:center;flex-wrap:wrap}#prog button.on{border-color:var(--live)}#prog small{color:var(--mut);margin-left:auto}
 .epg{margin:4px 0 12px;background:var(--sf);border:1px solid var(--ln);border-radius:10px;padding:8px 12px;max-height:260px;overflow:auto}.epg summary{cursor:pointer;font-weight:600}.epg div{padding:3px 0;font-size:14px}.epg div.on{color:var(--ac);font-weight:600}
 .chi{margin:4px 0 10px;background:var(--sf);border:1px solid var(--ln);border-radius:10px;padding:10px 12px}.chi .chh{display:flex;gap:8px;align-items:center;justify-content:space-between}.chi .chh b{font-size:16px}.chi h4{margin:8px 0 2px}.chi p{margin:0;font-size:14px}
@@ -380,23 +383,35 @@ body:not(.pfs-on) .stage.mini #trkB,body:not(.pfs-on) .stage.mini #trkP{display:
 .screen:fullscreen.act #trkB,.screen:-webkit-full-screen.act #trkB,.screen.pfs.act #trkB{opacity:1;visibility:visible;pointer-events:auto;transition:opacity .25s ease}
 .screen:fullscreen #trkP,.screen:-webkit-full-screen #trkP,.screen.pfs #trkP{top:calc(60px + env(safe-area-inset-top));left:auto;right:16px}
 
-/* browser de computador (Plasma, etc.): tudo cabe no ecrã, sem puxar a página para baixo; só as listas rolam */
-@media (pointer:fine){
- .app{height:calc(100vh - var(--hh,60px));height:calc(100dvh - var(--hh,60px));overflow:hidden;box-sizing:border-box}
+/* só Plasma / Linux desktop (classe "fit" no <html>): tudo cabe no ecrã, sem puxar a página para baixo; só as listas rolam */
+html.fit .app{height:calc(100vh - var(--hh,60px));height:calc(100dvh - var(--hh,60px));overflow:hidden;box-sizing:border-box}
+@media (min-width:1101px){
+ html.fit .app{grid-template-rows:minmax(0,1fr);align-items:stretch;padding:12px 16px}
+ html.fit .nav{position:static;top:auto;height:100%;max-height:none}
+ html.fit .main{overflow-y:auto;height:100%;min-height:0;scrollbar-width:thin}
+ html.fit .stage{position:static;top:auto;height:100%;overflow-y:auto;scrollbar-width:thin}
 }
-@media (pointer:fine) and (min-width:1101px){
- .app{grid-template-rows:minmax(0,1fr);align-items:stretch;padding:12px 16px}
- .nav{position:static;top:auto;height:100%;max-height:none}
- .main{overflow-y:auto;height:100%;min-height:0;scrollbar-width:thin}
- .stage{position:static;top:auto;height:100%;overflow-y:auto;scrollbar-width:thin}
+@media (max-width:1100px){
+ html.fit .app{display:flex;flex-direction:column;gap:6px;padding:0 0 8px}
+ html.fit .stage{flex:none;position:relative;top:auto;order:-1}
+ html.fit .screen{max-height:30vh}
+ html.fit .nav{flex:none}
+ html.fit .main{flex:1 1 auto;min-height:0;overflow-y:auto;scrollbar-width:thin}
 }
-@media (pointer:fine) and (max-width:1100px){
- .app{display:flex;flex-direction:column;gap:6px;padding:0 0 8px}
- .stage{flex:none;position:relative;top:auto;order:-1}
- .screen{max-height:30vh}
- .nav{flex:none}
- .main{flex:1 1 auto;min-height:0;overflow-y:auto;scrollbar-width:thin}
-}
+
+/* navegação por teclado: cartão focado bem visível */
+.ch:focus-within{border-color:var(--ac);box-shadow:0 0 0 2px var(--ac)}
+.ch .pick:focus-visible,.row .pick:focus-visible{outline:none}
+.row:focus-within{background:var(--sf2);box-shadow:inset 3px 0 var(--ac)}
+
+/* lista compacta (TV): linhas em vez de cartões grandes */
+#list.compact:not(.rlist){grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:5px}
+#list.compact:not(.rlist) .ch{border-radius:8px}
+#list.compact:not(.rlist) .ch .pick{flex-direction:row;align-items:center;text-align:left;gap:10px;padding:5px 34px 5px 8px}
+#list.compact:not(.rlist) .ch .mono{width:34px;height:34px;flex:none;font-size:15px}
+#list.compact:not(.rlist) .ch .nm{min-width:0;flex:1}
+#list.compact:not(.rlist) .ch .nm>*:nth-child(n+3){display:none}
+#cmpB[aria-pressed="true"]{border-color:var(--ac);color:var(--ac)}
 </style>
 </head>
 <body>
@@ -425,11 +440,13 @@ body:not(.pfs-on) .stage.mini #trkB,body:not(.pfs-on) .stage.mini #trkP{display:
   <span id="onN" class="st mut hide" title="Pessoas online" aria-label="Pessoas online"></span>
   <span id="visN" class="st mut hide" title="Visitas hoje (reinicia à meia-noite)" aria-label="Visitas hoje"></span>
   <button id="rndB" aria-label="Aleatório" title="Aleatório">🎲 Aleatório</button>
+  <button id="cmpB" type="button" aria-pressed="false" title="Lista compacta (V)">☰ Compacto</button>
   <details class="menu" id="hMenu"><summary aria-label="Menu" title="Menu">⚙️ <span>Menu</span></summary>
    <div class="mp">
     <label class="mrow"><span class="mut">Tema</span><select id="theme" aria-label="Tema"><option value="">Noite</option><option value="black">Preto</option><option value="light">Claro</option></select></label>
     <label class="mrow"><span class="mut">Idioma</span><select id="langSel" aria-label="Idioma"><option value="pt">PT</option><option value="en">EN</option></select></label>
-    <button id="accB">👤 Entrar / Criar conta</button>
+    <button id="kbH">⌨️ Atalhos</button>
+     <button id="accB">👤 Entrar / Criar conta</button>
      <button id="instB" class="hide">📲 Instalar</button>
     <button id="admOpen">Gerir canais</button>
     <button id="out">Sair</button>
@@ -1044,7 +1061,7 @@ function render(){
  const lh=mode==="radio"?(view.length?rhead()+view.slice(0,lim).map(c=>rrow(c,fs)).join(""):none):(view.slice(0,shown).map(c=>card(c,fs)).join("")||none);
  if(lh!==rLH){rLH=lh;$("list").innerHTML=lh}
  $("cnt").textContent=view.length+" "+T(mode==="radio"?"rádios":"canais")+(ctry?" · "+cn_(ctry):"")+(tab!=="Todos"?" · "+T(tab):"");
- $("more").classList.toggle("hide",view.length<=lim);$("more").textContent=T("Mostrar mais")+" ("+(view.length-lim)+")"}
+ $("more").classList.toggle("hide",view.length<=lim);$("more").textContent=T("Mostrar mais")+" ("+(view.length-lim)+")";saveUI()}
 $("q").oninput=()=>{shown=120;render();progSearch();radioSearch()};$("cq").oninput=render;
 $("ctrySel").onchange=e=>{userPick=true;ctry=e.target.value;shown=120;render();radioCountry(ctry)};
 $("more").onclick=()=>{shown+=120;render()};
@@ -1369,6 +1386,68 @@ setInterval(()=>{epgShow();render()},6e4);
 window.addEventListener("pageshow",()=>{const e=$("cq");if(e&&e.value&&!e.dataset.t){e.value="";render()}});
 /* altura real do cabeçalho -> usada para ajustar a app ao ecrã */
 (function(){const h=document.querySelector("header");if(!h)return;const f=()=>document.body.style.setProperty("--hh",h.offsetHeight+"px");f();addEventListener("resize",f);addEventListener("load",f);if(window.ResizeObserver)new ResizeObserver(f).observe(h)})();
+/* ---- retomar onde parou + atalhos de teclado ---- */
+var _ui="";
+function saveUI(){if(!window._uiReady)return;try{const k="tv_ui_"+mode,p=L(k,null)||{},o={ctry:ctry,tab:tab,pick:!!userPick,last:(cur&&cur.id)?cur.id:(p.last||"")},j=JSON.stringify(o);if(j!==_ui){_ui=j;S(k,o)}}catch(e){}}
+(function(){
+ const u=L("tv_ui_"+mode,null);
+ if(u){if(typeof u.ctry==="string"){ctry=u.ctry;userPick=!!u.pick||!!u.ctry}if(u.tab&&typeof u.tab==="string")tab=u.tab;shown=120;render();if(mode==="radio"&&ctry)radioCountry(ctry);
+  if(u.last&&document.documentElement.classList.contains("fit")){let n=0;const go=()=>{const b=[...document.querySelectorAll("#list [data-id]")].find(x=>x.dataset.id===u.last);if(b){b.scrollIntoView({block:"center"});return}if(++n<6)setTimeout(go,700)};setTimeout(go,400)}}
+ window._uiReady=true;saveUI();
+ const list=$("list"),items=()=>[...list.querySelectorAll(".pick")];
+ function mv(t,dir){
+  const a=items();if(!a.length)return;const i=a.indexOf(t);
+  if(i<0){(list.querySelector(".cur .pick")||a[0]).focus();return}
+  const r=t.getBoundingClientRect();let n=null;
+  if(dir==="l")n=a[i-1];else if(dir==="r")n=a[i+1];
+  else{const cx=r.left+r.width/2;let best=1e12;for(const b of a){if(b===t)continue;const q=b.getBoundingClientRect(),dy=dir==="d"?q.top-r.top:r.top-q.top;if(dy<=4)continue;const sc=dy*1000+Math.abs(q.left+q.width/2-cx);if(sc<best){best=sc;n=b}}}
+  if(n){n.focus();n.scrollIntoView({block:"nearest"})}
+  else if(dir==="d"&&!$("more").classList.contains("hide"))$("more").focus()}
+ function step(sel,d){const bs=[...document.querySelectorAll(sel)];if(!bs.length)return null;let i=bs.findIndex(b=>b.classList.contains("on"));i=Math.max(0,Math.min(bs.length-1,(i<0?0:i)+d));bs[i].click();const on=document.querySelector(sel+".on");if(on)on.scrollIntoView({block:"nearest",inline:"nearest"});return on}
+ const HELP="⌨️ Atalhos: / pesquisar · C país · V lista compacta · ↑ ↓ ← → escolher · Enter ver · F ecrã inteiro · M silêncio · R aleatório · Shift+← → categoria · PgUp/PgDn país · roda do rato = volume · duplo clique = ecrã inteiro";
+ $("kbH").onclick=()=>{$("hMenu").open=false;toast(HELP,9000)};
+ addEventListener("keydown",e=>{
+  if(e.defaultPrevented||e.ctrlKey||e.altKey||e.metaKey)return;
+  const t=e.target,tg=t&&t.tagName;
+  if(tg==="INPUT"||tg==="TEXTAREA"||tg==="SELECT"||(t&&t.isContentEditable))return;
+  if(document.querySelector("dialog[open]")||$("hMenu").open)return;
+  const k=e.key,inL=!!(t&&t.classList&&t.classList.contains("pick")&&t.closest("#list"));
+  if(k==="/"){e.preventDefault();const q=$("q");q.focus();q.select();return}
+  if(k==="?"){e.preventDefault();toast(HELP,9000);return}
+  if(k==="c"||k==="C"){const q=$("cq");if(q.offsetParent){e.preventDefault();q.focus();q.select()}return}
+  if(k==="v"||k==="V"){e.preventDefault();$("cmpB").click();return}
+  if(e.shiftKey&&(k==="ArrowLeft"||k==="ArrowRight")){e.preventDefault();step("#tabs button",k==="ArrowLeft"?-1:1);return}
+  if(k==="PageUp"||k==="PageDown"){e.preventDefault();const on=step("#ctry button",k==="PageUp"?-1:1);if(on)toast("🌍 "+on.textContent.replace(/\d+\s*$/,"").trim(),1800);return}
+  if(e.shiftKey)return;
+  const cb=t&&t.closest&&t.closest("#ctry button");
+  if(cb&&(k==="ArrowDown"||k==="ArrowUp")){e.preventDefault();const b=[...$("ctry").querySelectorAll("button")],n=b[b.indexOf(cb)+(k==="ArrowDown"?1:-1)];if(n){n.focus();n.scrollIntoView({block:"nearest"})}return}
+  const d={ArrowDown:"d",ArrowUp:"u",ArrowLeft:"l",ArrowRight:"r"}[k];
+  if(d){if(inL||t===document.body||t===document.documentElement||(t&&t.closest&&t.closest(".main,.nav,.app"))){e.preventDefault();mv(inL?t:null,d)}return}
+  if(k==="f"||k==="F"){e.preventDefault();if(cur)goFs();else toast("Escolha um canal primeiro.");return}
+  if(k==="m"||k==="M"){const m=document.querySelector("#vin video,#vin audio");if(!m){toast("Sem reprodução.");return}e.preventDefault();m.muted=!m.muted;toast(m.muted?"🔇 Silêncio":"🔊 Som ligado",1500);return}
+  if(k==="r"||k==="R"){e.preventDefault();$("rndB").click()}
+ });
+})();
+/* ---- lista compacta, rato (volume / duplo clique), pesquisa de país ---- */
+(function(){
+ const lst=$("list"),cb=$("cmpB");let cmp=!!L("tv_compact",false);
+ const ap=()=>{lst.classList.toggle("compact",cmp);cb.setAttribute("aria-pressed",String(cmp))};ap();
+ cb.onclick=()=>{cmp=!cmp;S("tv_compact",cmp);ap();toast(cmp?"☰ Lista compacta":"▦ Cartões",1200)};
+ /* duplo clique no vídeo = ecrã inteiro */
+ const vb=$("vbox");
+ vb.addEventListener("dblclick",e=>{if(e.target.closest("button,select,input,#trkP"))return;if(cur)goFs()});
+ /* roda do rato sobre o vídeo = volume (guardado entre canais) */
+ vb.addEventListener("wheel",e=>{const m=document.querySelector("#vin video,#vin audio");if(!m||!cur)return;e.preventDefault();
+  const v=Math.max(0,Math.min(1,Math.round((m.volume+(e.deltaY<0?.05:-.05))*100)/100));m.volume=v;if(v>0)m.muted=false;S("tv_vol",v);toast("🔊 "+Math.round(v*100)+"%",900)},{passive:false});
+ document.addEventListener("loadstart",e=>{const m=e.target;if(m&&m.matches&&m.matches("video,audio")){const v=L("tv_vol",null);if(typeof v==="number"&&v>=0&&v<=1)m.volume=v}},true);
+ /* pesquisa de país: Enter escolhe o primeiro resultado, Esc limpa, ↓ vai para a lista */
+ const cq=$("cq");
+ cq.addEventListener("keydown",e=>{
+  if(e.key==="Enter"){e.preventDefault();const b=[...$("ctry").querySelectorAll("button[data-ctry]")].find(x=>x.dataset.ctry);
+   if(!b){toast("País não encontrado.",1500);return}const nm=b.textContent.replace(/\d+\s*$/,"").trim();b.click();cq.value="";render();toast("🌍 "+nm,1500)}
+  else if(e.key==="Escape"){cq.value="";render();cq.blur()}
+  else if(e.key==="ArrowDown"){const b=$("ctry").querySelector("button");if(b){e.preventDefault();b.focus()}}});
+})();
 epgLoad();
 /* ---- ficha do canal: sobre, país e favorito ---- */
 var sobre=L("tv_sobre",{});
