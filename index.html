@@ -412,6 +412,8 @@ html.fit .app{height:calc(100vh - var(--hh,60px));height:calc(100dvh - var(--hh,
 #list.compact:not(.rlist) .ch .nm{min-width:0;flex:1}
 #list.compact:not(.rlist) .ch .nm>*:nth-child(n+3){display:none}
 #cmpB[aria-pressed="true"]{border-color:var(--ac);color:var(--ac)}
+
+form.ff{display:contents;margin:0}
 </style>
 </head>
 <body>
@@ -434,7 +436,7 @@ html.fit .app{height:calc(100vh - var(--hh,60px));height:calc(100dvh - var(--hh,
  <div class="hl"><a class="logo" href="./"><img src="logo.png" alt="BBS Internet Cafe Entertainments" width="40" height="40"><span>BBS Internet Cafe <i>Entertainments</i></span></a><span id="hver" class="hv" title="Versão da app"></span></div>
  <span class="seg" role="group" aria-label="Modo"><button id="mTv" class="on" aria-pressed="true">📺 TV</button><button id="mRadio" aria-pressed="false">📻 Rádio</button></span>
  <span class="hbr"></span>
- <input id="q" type="search" name="filtro-canais" autocomplete="off" data-lpignore="true" data-1p-ignore placeholder="Pesquisar canais…" aria-label="Pesquisar">
+ <form class="ff" onsubmit="return false" autocomplete="off" role="search"><input id="q" type="search" name="filtro-canais" autocomplete="off" autocorrect="off" spellcheck="false" data-lpignore="true" data-1p-ignore placeholder="Pesquisar canais…" aria-label="Pesquisar"></form>
  <div class="hr">
   <span id="netChip" class="st mut" aria-live="polite"><span class="bars l0" id="bars" role="img" aria-label="Sinal da rede"><i></i><i></i><i></i><i></i></span><span id="net"></span><span id="netd"></span></span>
   <span id="onN" class="st mut hide" title="Pessoas online" aria-label="Pessoas online"></span>
@@ -459,7 +461,7 @@ html.fit .app{height:calc(100vh - var(--hh,60px));height:calc(100dvh - var(--hh,
 <div class="app">
  <aside class="nav">
   <h4>Categorias</h4><div id="tabs"></div>
-  <h4>Países</h4><select id="ctrySel" class="mob" aria-label="País"></select><input id="cq" type="search" name="filtro-pais-x9" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" data-lpignore="true" data-1p-ignore data-form-type="other" placeholder="Procurar país" aria-label="Procurar país"><div id="ctry"></div>
+  <h4>Países</h4><select id="ctrySel" class="mob" aria-label="País"></select><form class="ff" onsubmit="return false" autocomplete="off" role="search"><input id="cq" type="search" name="filtro-pais-x9" autocomplete="off" inputmode="search" enterkeyhint="search" autocorrect="off" autocapitalize="off" spellcheck="false" data-lpignore="true" data-1p-ignore data-form-type="other" placeholder="Procurar país" aria-label="Procurar país"></form><div id="ctry"></div>
  </aside>
  <div class="main"><div id="rOpts"><label class="mut" for="rMax">💾 Poupar dados</label><select id="rMax" aria-label="Poupar dados"><option value="0">Qualquer qualidade</option><option value="128">Até 128 kbps (≈58 MB/h)</option><option value="96">Até 96 kbps (≈43 MB/h)</option><option value="64">Até 64 kbps (≈29 MB/h)</option></select></div><div class="mut" id="cnt"></div><div id="prog"></div><div id="list"></div><button id="more" class="more hide">Mostrar mais</button><div id="adBox" class="adbox hide"><small>Publicidade</small></div></div>
  <section class="stage">
@@ -501,8 +503,8 @@ html.fit .app{height:calc(100vh - var(--hh,60px));height:calc(100dvh - var(--hh,
  <h3 id="accT">Entrar na conta</h3>
  <p class="mut">Opcional: crie uma conta para guardar os seus canais favoritos e o seu histórico e vê-los em qualquer aparelho. Pode usar a app sem conta.</p>
  <div id="accOut" class="dlg" style="padding:0">
-  <input id="accE" type="email" autocomplete="email" placeholder="Email" aria-label="Email">
-  <input id="accW" type="password" autocomplete="current-password" placeholder="Palavra-passe (mín. 6)" aria-label="Palavra-passe">
+  <form class="ff" onsubmit="return false"><input id="accE" type="email" autocomplete="email" placeholder="Email" aria-label="Email">
+  <input id="accW" type="password" autocomplete="current-password" placeholder="Palavra-passe (mín. 6)" aria-label="Palavra-passe"></form>
   <div class="accrow"><button id="accIn">Entrar</button><button id="accUp">Criar conta</button></div>
   <button id="accFg" type="button">Esqueci a palavra-passe</button>
  </div>
@@ -512,7 +514,7 @@ html.fit .app{height:calc(100vh - var(--hh,60px));height:calc(100dvh - var(--hh,
 </div></dialog>
 <dialog id="adm"><div class="dlg">
  <h3>Gerir canais</h3>
- <div id="pinBox" class="dlg" style="padding:0"><input id="pin" type="password" name="pin-adm" placeholder="PIN de administrador" autocomplete="new-password" data-lpignore="true" data-1p-ignore><button class="p" id="pinGo">Entrar</button></div>
+ <div id="pinBox" class="dlg" style="padding:0"><form class="ff" onsubmit="return false" autocomplete="off"><input id="pin" type="password" name="pin-adm" placeholder="PIN de administrador" autocomplete="new-password" data-lpignore="true" data-1p-ignore></form><button class="p" id="pinGo">Entrar</button></div>
  <div id="admBox" class="dlg hide" style="padding:0">
   <b>Pessoas online</b>
   <div class="adm" id="onList"></div>
