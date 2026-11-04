@@ -10,7 +10,7 @@
 <noscript><script>/* ativa o ajuste ao ecrã só em Plasma/Linux desktop. Forçar: ?plasma=1  Desligar: ?plasma=0 */
 (function(){try{var u=navigator.userAgent,q=new URLSearchParams(location.search).get("plasma"),k="bbs_fit";if(q==="1"||q==="0")localStorage.setItem(k,q);var f=localStorage.getItem(k);var on=f==="1"||(f!=="0"&&/Falkon|Konqueror|QtWebEngine|X11; (Ubuntu; )?Linux|KDE/i.test(u)&&!/Android|SmartTV|Tizen|Web0S|CrOS/i.test(u));if(on)document.documentElement.classList.add("fit")}catch(e){}})();
 </script>
-<style>.lic{display:none!important}.epn{display:block;color:var(--ac);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+<style>.epn{display:block;color:var(--ac);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #prog h4{margin:6px 0}#prog button{display:flex;width:100%;gap:8px;text-align:left;margin:0 0 4px;align-items:center;flex-wrap:wrap}#prog button.on{border-color:var(--live)}#prog small{color:var(--mut);margin-left:auto}
 .epg{margin:4px 0 12px;background:var(--sf);border:1px solid var(--ln);border-radius:10px;padding:8px 12px;max-height:260px;overflow:auto}.epg summary{cursor:pointer;font-weight:600}.epg div{padding:3px 0;font-size:14px}.epg div.on{color:var(--ac);font-weight:600}
 .chi{margin:4px 0 10px;background:var(--sf);border:1px solid var(--ln);border-radius:10px;padding:10px 12px}.chi .chh{display:flex;gap:8px;align-items:center;justify-content:space-between}.chi .chh b{font-size:16px}.chi h4{margin:8px 0 2px}.chi p{margin:0;font-size:14px}
@@ -349,6 +349,7 @@ header #q.pulse{animation:qpulse 1.2s ease 2}
  header{gap:8px 8px;padding:8px 10px;padding-top:calc(8px + env(safe-area-inset-top));align-items:center}
  header .hl{order:1;flex:0 0 auto;display:flex;align-items:center;gap:6px;min-width:0}
  header .logo span{display:none}header .logo img{width:38px;height:38px}
+ header #cmpB{order:1;flex:0 0 auto;font-size:0;min-height:40px;min-width:42px;padding:6px 10px}header #cmpB::before{content:"☰";font-size:18px}
  header .seg{order:2;flex:1 1 auto;display:flex;justify-content:center;margin:0}
  header .seg button{flex:1 1 0;min-height:40px;padding:8px 10px;font-size:14px}
  header .menu{order:3;flex:0 0 auto}header .menu summary{min-width:42px;min-height:40px;display:flex;align-items:center;justify-content:center;padding:6px 10px;font-size:18px}
@@ -418,19 +419,6 @@ form.ff{display:contents;margin:0}
 </head>
 <body>
 
-<div class="lic" id="lic">
- <div class="card">
-  <h1 class="logo"><img src="logo.png" alt="BBS Internet Cafe Entertainments" width="40" height="40"><span>BBS Internet Cafe <i>Entertainments</i></span></h1>
-  <p class="mut" style="margin:0">Televisão de Moçambique e Angola num só sítio, em qualquer ecrã.</p>
-  <ul><li>Gravação sem limite de tempo</li><li>Favoritos e pesquisa</li><li>Importação de listas M3U</li></ul>
-  <label for="licCode" class="mut">Código de licença</label>
-  <input id="licCode" autocomplete="off" placeholder="Introduza o código">
-  <button class="p" id="licGo">Ativar</button>
-  <button id="demoGo">Experimentar durante 24 horas</button>
-  <p id="licMsg" class="mut" role="status" style="margin:0"></p>
-  <p class="mut" style="margin:0">Sem licença? Contacte o seu gestor. Versão <span class="ver"></span></p>
- </div>
-</div>
 
 <header>
  <div class="hl"><a class="logo" href="./"><img src="logo.png" alt="BBS Internet Cafe Entertainments" width="40" height="40"><span>BBS Internet Cafe <i>Entertainments</i></span></a><span id="hver" class="hv" title="Versão da app"></span></div>
@@ -442,7 +430,7 @@ form.ff{display:contents;margin:0}
   <span id="onN" class="st mut hide" title="Pessoas online" aria-label="Pessoas online"></span>
   <span id="visN" class="st mut hide" title="Visitas hoje (reinicia à meia-noite)" aria-label="Visitas hoje"></span>
   <button id="rndB" aria-label="Aleatório" title="Aleatório">🎲 Aleatório</button>
-  <button id="cmpB" type="button" aria-pressed="false" title="Lista compacta (V)">☰ Compacto</button>
+  <button id="cmpB" type="button" aria-pressed="false" aria-label="Lista compacta" title="Lista compacta (V)">☰ Compacto</button>
   <details class="menu" id="hMenu"><summary aria-label="Menu" title="Menu">⚙️ <span>Menu</span></summary>
    <div class="mp">
     <label class="mrow"><span class="mut">Tema</span><select id="theme" aria-label="Tema"><option value="">Noite</option><option value="black">Preto</option><option value="light">Claro</option></select></label>
@@ -565,8 +553,7 @@ form.ff{display:contents;margin:0}
 const APP_VERSION="4.8.0",
 CHANGELOG=["4.8.2: 14 fontes extra (Redbox, Tubi, LocalNow, Tablo, Xiaomi, Fire TV, Cineverse, Distro, Roku, Xumo, LG, Vizio, Klowd, Samsung TV Plus), cada uma com etiqueta própria","4.8.1: etiqueta de origem em cada canal (Free-TV, iptv-org, YouTube, BBS) e pesquisa por origem, ex.: «free-tv»","4.8.0: mais canais da lista Free-TV/IPTV, já distribuídos pelas categorias (notícias, desporto, música, infantil, filmes…)","4.7.0: conta opcional (email e palavra-passe) para guardar favoritos e histórico e vê-los em qualquer aparelho","4.6.3: canais com tradução e legendas mostram o sinal CC no ícone","4.6.2: categorias reordenadas (Filmes, Séries, Novelas, Música, Documentários primeiro); nova categoria Tradução e legendas","4.6.1: ecrã inteiro: imagem completa dentro da área segura do telemóvel (logo do canal já não fica cortado)","4.6.0: logo sobre o vídeo a girar suavemente como uma moeda","4.5.9: ecrã inteiro no telemóvel ajustado ao ecrã (sem imagem afastada para baixo), aviso de sair desaparece suavemente em 2 s, logo mais pequeno sobre o vídeo","4.5.8: telemóvel: cabeçalho reorganizado (logo, TV/Rádio e menu na 1.ª linha, pesquisa grande na 2.ª, estado e Aleatório na 3.ª)","4.5.7: telemóvel: botão flutuante 🔍 Pesquisar (leva à pesquisa de qualquer ponto) e caixa de pesquisa com lupa e contorno bem visível","4.5.6: Gerir canais: o admin vê o que cada pessoa online está a fazer agora (a ver, a ouvir, pausa, a gravar, a navegar), há quanto tempo, e os canais mais vistos","4.5.5: link partilhado de rádio/canal: botão “Toque para ouvir” e som ligado no próprio toque (corrigido também quando o leitor é recriado)","4.5.4: versão da app em destaque no cabeçalho","4.5.3: pré-visualização do link partilhado (og:image com o endereço real do site)","4.5.2: menu ⚙️ já não fica escondido atrás da coluna de anúncios","4.5.1: links partilhados começam logo a reproduzir (computador: volume a 80%; telemóvel: volume pelos botões do aparelho; som ligado ao primeiro toque se o navegador bloquear)","4.5.0: espaço “Publicite seus serviços ou empresa aqui” por baixo dos anúncios, com imagens geridas pelo admin","4.4.0: sinal da rede em barras (como no telemóvel)","4.3.0: cabeçalho reorganizado (rede com tipo e velocidade, menu ⚙️ com tema, idioma e conta)","4.2.1: versão da app visível no cabeçalho","4.2.0: retoma sozinho a reprodução quando a rede volta (também em segundo plano)","4.1.0: telemóvel: leitor sem saltos ao subir/descer, rádio compacta sem 'Sobre' nem quadro flutuante, cabeçalho mais arrumado","4.0.0: controlos no ecrã de bloqueio (Media Session), partilhar link de um canal, recentes, país automático, poupar dados na rádio","3.9.1: gravação de rádio mais fiável (CORS) e aviso claro quando a rádio bloqueia a gravação","3.9.0: leitor de vídeo e rádio reorganizado (informação, definições e botões em grupos), mesma posição","3.8.0: rádios em lista (país, nome, frequência, género, qualidade, idioma) com ordenação; gravação sem limite; vídeo em MP4 e rádio em MP3","3.7.0: modo Rádio com estações de todo o mundo (radio-browser.info), por país e género, pesquisa e favoritos","3.6.0: programação diária (EPG) com horários, pesquisa de programas que mostra o canal, correção do \"admin:\" no campo de país","3.5.0: legendas e língua de áudio (YouTube e canais HLS com várias faixas)","3.4.0: mais canais do YouTube (Moçambique, Angola, África do Sul, Brasil) via scripts/gerar-youtube-lista.mjs","3.3.0: canais do YouTube (links watch, youtu.be, /live e /channel) e lista canais-youtube.json","3.2.0: instalar como app, idioma PT/EN, qualidade de vídeo, gravação","3.1.1: AdSense e melhorias para telemóvel","3.0.2: melhorias para telemóvel (ecrã inteiro iPhone, seletor de países, leitor compacto)","3.0.1: removidos os canais sem link","3.0.0: estilo TV Garden e todos os canais do mundo (iptv-org)","2.3.0: importação mundial e correções" ,"2.2.0: canais da África do Sul","2.1.0: visual moderno e canais organizados por categorias","2.0.1: corrige arranque com licença guardada (botões sem resposta)","2.0.0: interface nova, lista lateral, hls com recuperação de erros, segurança (XSS), <dialog>, importação M3U mais fiável","1.1.0: importação M3U por link"];
 const SUPABASE_URL="https://xnynwonqqbxbusbgngwg.supabase.co",SUPABASE_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhueW53b25xcWJ4YnVzYmduZ3dnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMyNTc1ODEsImV4cCI6MjEwODgzMzU4MX0.sxjDW551yFGpIdcvWVuvImMTI0JWwduPNIcX0yFfb2g";   // opcional (ver SQL no fim)
-const REQUIRE_LICENSE=false,   // false = site público (necessário para o AdSense conseguir rever o conteúdo)
-ALLOW_RECORD=true,       // true = mostra o botão Gravar; false = esconde
+const ALLOW_RECORD=true,       // true = mostra o botão Gravar; false = esconde
 ADS_MOBILE=true,      // anúncios Adsterra no FIM da página em telemóvel/tablet; false = desligar
 ADS_RAIL=true,       // anúncios na barra da direita (copiados do BBS POS); false = desligar
 ADSENSE_CLIENT="",ADSENSE_SLOT="";  // ex.: "ca-pub-1234567890123456" e o id do bloco de anúncios; deixe vazio até ser aprovado
@@ -670,24 +657,8 @@ try{const nc=navigator.connection;if(nc&&nc.addEventListener)nc.addEventListener
 function setTheme(t){document.body.className=t;S("tv_theme",t);$("theme").value=t}
 $("theme").onchange=e=>setTheme(e.target.value);setTheme(L("tv_theme",""));
 
-/* ---- licença ---- */
-function openApp(){$("lic").classList.add("hide");applyMode(true);setTimeout(openShared,300);loadBad();loadRemote();loadWorld();loadYT();loadFTV();loadExtra();initAds();adsEnd();render()}
-function demo(){let d=L("tv_demo",null);if(!d){d=Date.now()+864e5;S("tv_demo",d)}
- if(Date.now()>d){$("licMsg").textContent=T("A demonstração expirou. Introduza uma licença.");return}
- S("tv_lic",{demo:1,exp:d});openApp()}
-async function checkLic(){
- const code=$("licCode").value.trim();if(!code)return;
- if(!sb){$("licMsg").textContent=T("Servidor de licenças não configurado.");return}
- $("licMsg").textContent=T("A verificar…");
- try{const{data,error}=await sb.rpc("validar_licenca",{p_codigo:code});
-  const r=Array.isArray(data)?data[0]:data;
-  if(error||!r){$("licMsg").textContent=T("Licença inválida.");return}
-  if(r.estado!=="ativa"||(r.expira&&new Date(r.expira)<new Date())){$("licMsg").textContent=T("Licença expirada ou bloqueada.");return}
-  S("tv_lic",{code,exp:r.expira?+new Date(r.expira):0});openApp()}
- catch(e){$("licMsg").textContent=T("Sem ligação ao servidor. Tente novamente.")}}
-$("licGo").onclick=checkLic;$("demoGo").onclick=demo;
-$("licCode").onkeydown=e=>{if(e.key==="Enter")checkLic()};
-$("out").onclick=()=>{stopAll();localStorage.removeItem("tv_lic");$("lic").classList.remove("hide");$("licMsg").textContent=""};
+/* ---- arranque (sem código de acesso) ---- */
+function openApp(){applyMode(true);setTimeout(openShared,300);loadBad();loadRemote();loadWorld();loadYT();loadFTV();loadExtra();initAds();adsEnd();render()}
 
 async function loadRemote(){
  if(!sb)return;
@@ -1572,7 +1543,7 @@ $("pmList").onclick=e=>{const b=e.target.closest("[data-pd]");if(!b)return;if(!a
 Object.assign(EN,{"Publicite seus serviços ou empresa aqui":"Advertise your services or business here","Espaço disponível":"Space available","Publicidade":"Advertising","Apagar esta imagem?":"Delete this image?","Sem nome":"No name"});
 renderPromos();loadPromos();
 /* ---- anúncios na barra da direita (copiados do BBS POS) ---- */
-const ADS_SAME_ORIGIN=!0,AD_SANDBOX="allow-scripts allow-popups allow-popups-to-escape-sandbox"+(ADS_SAME_ORIGIN?" allow-same-origin":""),ADS={mounted:!1,closed:!1,rt:null},adDoc=a=>'<!doctype html><html><head><meta charset="utf-8"><style>html,body{margin:0;padding:0;background:transparent;overflow:hidden}</style></head><body>'+a+"</body></html>",adBan=(a,e,t)=>`<script>atOptions={'key':'${a}','format':'iframe','height':${t},'width':${e},'params':{}};<\/script><script src="https://www.highrevenueformat.com/${a}/invoke.js"><\/script>`,AD_SKY={w:160,h:600,html:adBan("564e7adc0ff1990d56cdd393faeeec06",160,600)},AD_320={w:320,h:50,html:adBan("ddcbd0d50628c33713525ea2badce6ff",320,50)},AD_300={w:300,h:250,html:adBan("be2d947b712bcc91c50359d1854bbb67",300,250)+'<script src="https://pl30778021.profitableratecpmnetwork.com/78/fa/00/78fa00cf4dcda3dedf40132f76226af6.js"><\/script>'},AD_NAT={w:320,h:260,html:'<script async="async" data-cfasync="false" src="https://pl30778022.profitableratecpmnetwork.com/edbac03e0788a019f72e8767b9dc91d4/invoke.js"><\/script><div id="container-edbac03e0788a019f72e8767b9dc91d4"></div>'};function adsMount(){const a=innerWidth,e=innerHeight-60-26,t=a>=1600;if(a<1200)return!1;const o=$("ad-slots");o.innerHTML="";let i=0;return(t?[AD_300,AD_320,AD_NAT,AD_SKY]:[AD_SKY]).forEach(n=>{if(i&&i+n.h>e+40)return;i+=n.h+10;const s=document.createElement("iframe");s.width=n.w,s.height=n.h,s.scrolling="no",s.title="Publicidade",s.setAttribute("sandbox",AD_SANDBOX),s.srcdoc=adDoc(n.html),o.appendChild(s)}),o.children.length?($("ad-rail").classList.add("on"),$("ad-rail").classList.toggle("wide",t),document.body.classList.add("ads-on"),document.body.classList.toggle("ads-wide",t),!0):!1}function adsUnmount(){$("ad-slots").innerHTML="",$("ad-rail").classList.remove("on","wide"),document.body.classList.remove("ads-on","ads-wide")}function adsSync(){const a=!ADS.closed&&ADS_RAIL&&$("lic").classList.contains("hide")&&innerWidth>=1200;a&&!ADS.mounted?ADS.mounted=adsMount():!a&&ADS.mounted&&(adsUnmount(),ADS.mounted=!1)}function adsClose(){ADS.closed=!0,adsSync()}setInterval(adsSync,1500),addEventListener("resize",()=>{clearTimeout(ADS.rt),ADS.rt=setTimeout(()=>{ADS.mounted&&(adsUnmount(),ADS.mounted=!1),adsSync()},600)}),setInterval(()=>{const a=document.getElementById("ad-rail");a&&a.querySelectorAll("iframe").forEach(t=>{t.srcdoc?t.srcdoc=t.srcdoc:t.src&&(t.src=t.src)})},6e4);
+const ADS_SAME_ORIGIN=!0,AD_SANDBOX="allow-scripts allow-popups allow-popups-to-escape-sandbox"+(ADS_SAME_ORIGIN?" allow-same-origin":""),ADS={mounted:!1,closed:!1,rt:null},adDoc=a=>'<!doctype html><html><head><meta charset="utf-8"><style>html,body{margin:0;padding:0;background:transparent;overflow:hidden}</style></head><body>'+a+"</body></html>",adBan=(a,e,t)=>`<script>atOptions={'key':'${a}','format':'iframe','height':${t},'width':${e},'params':{}};<\/script><script src="https://www.highrevenueformat.com/${a}/invoke.js"><\/script>`,AD_SKY={w:160,h:600,html:adBan("564e7adc0ff1990d56cdd393faeeec06",160,600)},AD_320={w:320,h:50,html:adBan("ddcbd0d50628c33713525ea2badce6ff",320,50)},AD_300={w:300,h:250,html:adBan("be2d947b712bcc91c50359d1854bbb67",300,250)+'<script src="https://pl30778021.profitableratecpmnetwork.com/78/fa/00/78fa00cf4dcda3dedf40132f76226af6.js"><\/script>'},AD_NAT={w:320,h:260,html:'<script async="async" data-cfasync="false" src="https://pl30778022.profitableratecpmnetwork.com/edbac03e0788a019f72e8767b9dc91d4/invoke.js"><\/script><div id="container-edbac03e0788a019f72e8767b9dc91d4"></div>'};function adsMount(){const a=innerWidth,e=innerHeight-60-26,t=a>=1600;if(a<1200)return!1;const o=$("ad-slots");o.innerHTML="";let i=0;return(t?[AD_300,AD_320,AD_NAT,AD_SKY]:[AD_SKY]).forEach(n=>{if(i&&i+n.h>e+40)return;i+=n.h+10;const s=document.createElement("iframe");s.width=n.w,s.height=n.h,s.scrolling="no",s.title="Publicidade",s.setAttribute("sandbox",AD_SANDBOX),s.srcdoc=adDoc(n.html),o.appendChild(s)}),o.children.length?($("ad-rail").classList.add("on"),$("ad-rail").classList.toggle("wide",t),document.body.classList.add("ads-on"),document.body.classList.toggle("ads-wide",t),!0):!1}function adsUnmount(){$("ad-slots").innerHTML="",$("ad-rail").classList.remove("on","wide"),document.body.classList.remove("ads-on","ads-wide")}function adsSync(){const a=!ADS.closed&&ADS_RAIL&&innerWidth>=1200;a&&!ADS.mounted?ADS.mounted=adsMount():!a&&ADS.mounted&&(adsUnmount(),ADS.mounted=!1)}function adsClose(){ADS.closed=!0,adsSync()}setInterval(adsSync,1500),addEventListener("resize",()=>{clearTimeout(ADS.rt),ADS.rt=setTimeout(()=>{ADS.mounted&&(adsUnmount(),ADS.mounted=!1),adsSync()},600)}),setInterval(()=>{const a=document.getElementById("ad-rail");a&&a.querySelectorAll("iframe").forEach(t=>{t.srcdoc?t.srcdoc=t.srcdoc:t.src&&(t.src=t.src)})},6e4);
 /* ---- anúncios Adsterra no fim da página (ecrãs pequenos): carregam só quando o utilizador chega perto ---- */
 const AD_END=[{w:300,h:250,html:adBan("be2d947b712bcc91c50359d1854bbb67",300,250)},{w:320,h:50,html:AD_320.html}];
 function adsEnd(){
@@ -1594,7 +1565,7 @@ function initAds(){
  document.head.appendChild(sc)}
 $("yr").textContent=new Date().getFullYear();
 if(!ALLOW_RECORD){$("recB").classList.add("hide");$("recT").classList.add("hide")}
-if(!REQUIRE_LICENSE)$("out").classList.add("hide");
+$("out").classList.add("hide");
 
 /* ---- instalar app (PWA) ---- */
 const instB=$("instB"),pop=$("instPop"),inStandalone=()=>matchMedia("(display-mode: standalone)").matches||navigator.standalone===true,
@@ -1605,7 +1576,7 @@ function popText(){const ios=isIOS&&!dp;
  $("instNo").textContent=T(ios?"Ok":"Agora não");$("instGo").classList.toggle("hide",ios)}
 const showInst=()=>{if(!inStandalone())instB.classList.remove("hide")};
 function tryPop(){if(popShown||!popDelay||inStandalone()||!(dp||isIOS))return;
- if(Date.now()-L("tv_inst_no",0)<6048e5||!$("lic").classList.contains("hide"))return;   // lembra de novo após 7 dias
+ if(Date.now()-L("tv_inst_no",0)<6048e5)return;   // lembra de novo após 7 dias
  popShown=true;popText();pop.classList.remove("hide")}
 if(isIOS)showInst();
 addEventListener("beforeinstallprompt",e=>{e.preventDefault();dp=e;showInst();tryPop()});
@@ -1683,7 +1654,7 @@ if(sb&&sb.auth){sb.auth.onAuthStateChange((ev,ses)=>{cUser=(ses&&ses.user)||null
   if(cUser&&cPulled!==cUser.id)cPull()},0)})}
 cUI();
 /* arranque: só depois de tudo estar definido */
-{const l=L("tv_lic",null);if(!REQUIRE_LICENSE||(l&&(!l.exp||l.exp>Date.now())))openApp()}
+openApp();
 /* SQL Supabase (opcional). Não exponha a tabela de licenças: valide por função.
 create table canais(id text primary key,name text,pais text,cat text,url text,logo text);
 create table sobre(canal text primary key,texto text);
