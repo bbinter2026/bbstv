@@ -428,6 +428,61 @@ html.fit .app{height:calc(100vh - var(--hh,60px));height:calc(100dvh - var(--hh,
 #cmpB[aria-pressed="true"]{border-color:var(--ac);color:var(--ac)}
 
 form.ff{display:contents;margin:0}
+/* ===== v4.11 telemóvel: botões arrumados, menu visível, ecrã estável, volume, App info ===== */
+html{overflow-x:hidden;overflow-x:clip;overscroll-behavior-x:none}
+body{overscroll-behavior-x:none}
+.stage,.screen{touch-action:pan-y}
+body.pfs-on,.screen.pfs,.screen:fullscreen,.screen:-webkit-full-screen{touch-action:none;overscroll-behavior:none}
+@media(max-width:1100px){.app,header{max-width:100vw;overflow-x:clip}header{overflow:visible}}
+
+/* App info numa janela (não ocupa espaço na página) */
+#infoD{max-width:720px;max-height:86vh;overflow:auto}
+#infoD section.info{margin:0;padding:0;max-width:none;font-size:14px;line-height:1.5}
+#infoD section.info h2{font-size:17px;margin:0 0 8px}
+#infoD section.info h3{font-size:14px;margin:12px 0 2px}
+#infoD section.info p{margin:0 0 6px}
+#infoD section.info .cols{grid-template-columns:1fr;gap:0}
+#infoF{cursor:pointer}
+
+/* volume: botão + barra */
+.volp{position:absolute;z-index:8;right:0;bottom:calc(100% + 6px);width:min(100%,300px);display:flex;align-items:center;gap:10px;padding:8px 10px;background:var(--sf);border:1px solid var(--ln);border-radius:12px;box-shadow:0 8px 26px #0009}
+.volp[hidden]{display:none}
+.volp .vm{flex:none;width:40px;height:40px;padding:0;font-size:18px;border-radius:10px;display:grid;place-items:center}
+.volp .vr{flex:1;min-width:0;width:auto;padding:0;height:34px;border:0;background:none;accent-color:var(--ac);touch-action:none}
+.volp .vo{flex:none;min-width:3.2em;text-align:right;font-variant-numeric:tabular-nums;font-size:13px;color:var(--tx)}
+.ctl-r{position:relative}
+#volB[aria-expanded="true"]{border-color:var(--ac);color:var(--ac)}
+#volO{display:none;position:absolute;z-index:6;top:calc(12px + env(safe-area-inset-top));right:124px;width:40px;height:40px;place-items:center;padding:0;border-radius:10px;background:#0008;color:#fff;border:1px solid #fff3;font-size:18px;line-height:1;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .6s ease,visibility 0s linear .6s}
+.screen:fullscreen #volO,.screen:-webkit-full-screen #volO,.screen.pfs #volO{display:grid}
+.screen:fullscreen.act #volO,.screen:-webkit-full-screen.act #volO,.screen.pfs.act #volO{opacity:1;visibility:visible;pointer-events:auto;transition:opacity .25s ease}
+#volP2{display:none;top:calc(60px + env(safe-area-inset-top));right:16px;bottom:auto;width:min(300px,calc(100% - 32px));background:#000d;border-color:#fff3}
+.screen:fullscreen #volP2:not([hidden]),.screen:-webkit-full-screen #volP2:not([hidden]),.screen.pfs #volP2:not([hidden]){display:flex}
+#volP2 .vo{color:#fff}
+body.radio-on #volO{display:none!important}
+
+@media(max-width:1100px){
+ /* botões do leitor em grelha, 3 por linha, todos do mesmo tamanho */
+ .ctl-r{display:grid;grid-template-columns:repeat(auto-fit,minmax(96px,1fr));gap:8px;justify-content:stretch}
+ .ctl-r>button{flex:none;min-height:42px;padding:8px 4px;font-size:13px;line-height:1.15;white-space:normal;display:flex;align-items:center;justify-content:center;gap:4px;text-align:center}
+ #recT{grid-column:1/-1}
+ .volp{left:0;right:0;width:auto}
+ /* menu ⚙️ como folha por baixo: nunca sai do ecrã */
+ header .menu{position:static}
+ .menu .mp{position:fixed;left:10px;right:10px;top:auto;bottom:calc(10px + env(safe-area-inset-bottom));z-index:120;min-width:0;max-height:min(78vh,600px);overflow-y:auto;box-shadow:0 -10px 40px #000c}
+ .menu .mp>button,.menu .mp .mrow{min-height:44px}
+ .menu .mp>#accB{max-width:none}
+ .menu[open] summary::after{content:"";position:fixed;inset:0;z-index:119;background:#0008}
+}
+@media(max-width:700px){
+ /* 1.ª linha: logo · TV/Rádio · idioma · menu; 2.ª: rede/visitas/online + compacto + aleatório; 3.ª: pesquisa */
+ header #netChip{order:5}header #onN{order:6}header #visN{order:7}
+ header #cmpB{order:8;margin-left:auto}
+ header #rndB{order:9;margin-left:0;font-size:0;padding:6px 10px;min-height:40px;min-width:42px}header #rndB::before{content:"🎲";font-size:18px}
+ header #q{order:10;flex:1 1 100%}
+ header .seg{min-width:0}header .seg button{padding:8px 6px}
+ header #langSel{padding:6px 4px;min-width:0;font-size:13px}
+ header #cmpB{min-height:40px}
+}
 </style>
 </head>
 <body>
@@ -448,6 +503,7 @@ form.ff{display:contents;margin:0}
   <details class="menu" id="hMenu"><summary aria-label="Menu" title="Menu">⚙️ <span>Menu</span></summary>
    <div class="mp">
     <label class="mrow"><span class="mut">Tema</span><select id="theme" aria-label="Tema"><option value="">Noite</option><option value="black">Preto</option><option value="light">Claro</option></select></label>
+    <button id="infoB" type="button">ℹ️ App info</button>
     <button id="kbH">⌨️ Atalhos</button>
     <button id="shFavB">🔗 Partilhar favoritos</button>
      <button id="accB">👤 Entrar / Criar conta</button>
@@ -468,12 +524,12 @@ form.ff{display:contents;margin:0}
  <div class="main"><div id="rOpts"><label class="mut" for="rMax">💾 Poupar dados</label><select id="rMax" aria-label="Poupar dados"><option value="0">Qualquer qualidade</option><option value="128">Até 128 kbps (≈58 MB/h)</option><option value="96">Até 96 kbps (≈43 MB/h)</option><option value="64">Até 64 kbps (≈29 MB/h)</option></select></div><div class="mut" id="cnt"></div><div id="shBar" class="hide"><span>🔗 Lista de favoritos partilhada</span><button id="shSave" type="button">★ Guardar nos meus favoritos</button></div><div id="prog"></div><div id="list"></div><button id="more" class="more hide">Mostrar mais</button><div id="adBox" class="adbox hide"><small>Publicidade</small></div></div>
  <section class="stage">
   <button id="fsO" aria-label="Ecrã inteiro">⛶</button><button id="miniUp" aria-label="Subir ao leitor">↑</button><button id="miniX" type="button" aria-label="Fechar leitor" title="Fechar">✕</button>
-  <div class="screen" id="vbox"><div id="vin" class="vin"><div class="idle"><b>Escolha um canal</b>A lista de canais está ao centro (ou por baixo, no telemóvel).</div></div><button id="fsX">✕ Sair do ecrã inteiro</button><button id="trkB" type="button" aria-haspopup="true" aria-expanded="false">🌐</button><div id="trkP" hidden></div></div>
+  <div class="screen" id="vbox"><div id="vin" class="vin"><div class="idle"><b>Escolha um canal</b>A lista de canais está ao centro (ou por baixo, no telemóvel).</div></div><button id="fsX">✕ Sair do ecrã inteiro</button><button id="trkB" type="button" aria-haspopup="true" aria-expanded="false">🌐</button><div id="trkP" hidden></div><button id="volO" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Volume"><span class="vi">🔊</span></button><div id="volP2" class="volp" hidden><button type="button" class="vm" aria-label="Silenciar / ligar som">🔊</button><input type="range" class="vr" min="0" max="100" step="1" value="100" aria-label="Volume"><output class="vo">100%</output></div></div>
   <div class="bar">
    <div class="info"><h2 id="now">Sem canal</h2><div class="mut" id="sub"></div></div>
    <div class="ctl">
     <div class="ctl-l"><select id="qSel" aria-label="Qualidade de vídeo" title="Poupe dados reduzindo a qualidade (funciona nos canais HLS)"><option value="auto">Qualidade: Auto</option><option value="720">Alta · até 720p</option><option value="480">Média · até 480p</option><option value="360">Baixa · até 360p</option><option value="min">Mínima · poupa dados</option></select><span id="trk"></span><span id="qNow" class="mut"></span></div>
-    <div class="ctl-r"><span id="recT" class="rec" aria-live="off"></span><button id="eqB" type="button" title="Equalizador">🎚️ EQ</button><button id="audB" type="button" disabled>🎧 Ouvir</button><button id="shB" disabled>Partilhar</button><button id="recB" disabled>Gravar</button><button id="fsB" disabled>Ecrã inteiro</button></div>
+    <div class="ctl-r"><span id="recT" class="rec" aria-live="off"></span><button id="volB" type="button" aria-haspopup="true" aria-expanded="false" title="Volume"><span class="vi">🔊</span> Volume</button><button id="eqB" type="button" title="Equalizador">🎚️ EQ</button><button id="audB" type="button" disabled>🎧 Ouvir</button><button id="shB" disabled>Partilhar</button><button id="recB" disabled>Gravar</button><button id="fsB" disabled>Ecrã inteiro</button><div id="volP" class="volp" hidden><button type="button" class="vm" aria-label="Silenciar / ligar som">🔊</button><input type="range" class="vr" min="0" max="100" step="1" value="100" aria-label="Volume"><output class="vo">100%</output></div></div>
    </div>
   </div>
   <section id="chInfo" class="chi hide" aria-live="polite"></section>
@@ -481,7 +537,7 @@ form.ff{display:contents;margin:0}
  </section>
 </div>
 
-<section class="info">
+<dialog id="infoD" aria-label="App info"><div class="dlg"><section class="info">
  <h2>BBS Internet Cafe – televisão online de Moçambique e do mundo</h2>
  <p data-i="intro">O BBS Internet Cafe reúne, num só sítio, ligações a canais de televisão de transmissão livre: emissores de Moçambique, Angola, Cabo Verde, Portugal, Brasil, África do Sul e de mais de 200 países e regiões. Pode explorar os canais por país e por categoria (notícias, desporto, música, infantil, filmes e séries, documentários, religião e outras), pesquisar pelo nome, guardar favoritos e escolher um tema claro ou escuro.</p>
  <div class="cols">
@@ -491,10 +547,10 @@ form.ff{display:contents;margin:0}
   <div data-i="c3"><h3>Porque é que um canal não abre?</h3><p>Os emissores podem desligar ou mudar a transmissão, ou impedir a sua exibição noutros sites. Experimente outro canal ou volte mais tarde.</p>
    <h3>Posso sugerir um canal?</h3><p>Sim, através da página de <a href="contacto.html">contacto</a>.</p></div>
  </div>
-</section>
+</section><button id="infoX" type="button" class="p">Fechar</button></div></dialog>
 
 <footer>
- <nav aria-label="Informação"><a href="sobre.html">Sobre</a><a href="privacidade.html">Política de privacidade</a><a href="termos.html">Termos de utilização</a><a href="direitos-de-autor.html">Direitos de autor</a><a href="contacto.html">Contacto</a></nav>
+ <nav aria-label="Informação"><a href="#app-info" id="infoF">App info</a><a href="sobre.html">Sobre</a><a href="privacidade.html">Política de privacidade</a><a href="termos.html">Termos de utilização</a><a href="direitos-de-autor.html">Direitos de autor</a><a href="contacto.html">Contacto</a></nav>
  <p>© <span id="yr"></span> BBS Internet Cafe. O conteúdo dos canais pertence aos respetivos emissores.</p>
 </footer>
 
@@ -1756,6 +1812,42 @@ grant execute on function validar_licenca(text) to anon;
 -- Publicidade própria: ver supabase_promos.sql (tabela promos + funções guardar_promo/apagar_promo protegidas pelo PIN).
 -- Conta opcional (favoritos e histórico na nuvem): ver supabase_perfis.sql e ativar Authentication > Providers > Email.
 */
+</script>
+<script>
+/* v4.11: volume com barra (subir/descer/silenciar) + janela App info */
+(function(){
+ const CAN=(()=>{try{const t=document.createElement("video");t.volume=.5;return t.volume===.5}catch(e){return false}})();
+ const pairs=[["volB","volP"],["volO","volP2"]].map(a=>({b:$(a[0]),p:$(a[1])}));
+ const med=()=>document.querySelector("#vin video,#vin audio");
+ function sync(){
+  const m=med(),mu=!!m&&(m.muted||m.volume===0),pc=m?Math.round((m.muted?0:m.volume)*100):100,ic=mu?"🔇":"🔊";
+  pairs.forEach(x=>{const vi=x.b.querySelector(".vi");if(vi)vi.textContent=ic;
+   x.p.querySelector(".vm").textContent=ic;x.p.querySelector(".vr").value=pc;x.p.querySelector(".vo").textContent=pc+"%"})}
+ function closeAll(except){pairs.forEach(x=>{if(x.p!==except){x.p.hidden=true;x.b.setAttribute("aria-expanded","false")}})}
+ pairs.forEach(x=>{
+  const r=x.p.querySelector(".vr"),mb=x.p.querySelector(".vm");
+  x.b.addEventListener("click",e=>{
+   e.stopPropagation();const m=med();
+   if(!m){toast("Sem reprodução.");return}
+   if(!CAN){m.muted=!m.muted;toast(m.muted?"🔇 Silêncio":"🔊 Som ligado (volume pelos botões do aparelho)",1800);sync();return}
+   const open=x.p.hidden;closeAll(open?x.p:null);x.p.hidden=!open;x.b.setAttribute("aria-expanded",String(open));sync();if(typeof act==="function")act()});
+  r.addEventListener("input",()=>{const m=med();if(!m)return;const v=Math.max(0,Math.min(1,(+r.value)/100));m.volume=v;m.muted=v===0;sync();if(typeof act==="function")act()});
+  mb.addEventListener("click",()=>{const m=med();if(!m)return;if(m.muted||m.volume===0){m.muted=false;if(m.volume===0)m.volume=.5}else m.muted=true;sync();if(typeof act==="function")act()});
+  ["click","dblclick","pointerdown","wheel"].forEach(ev=>x.p.addEventListener(ev,e=>e.stopPropagation()));
+  x.b.addEventListener("dblclick",e=>e.stopPropagation());
+ });
+ document.addEventListener("click",e=>{if(!e.target.closest("#volB,#volP,#volO,#volP2"))closeAll(null)});
+ addEventListener("keydown",e=>{if(e.key==="Escape")closeAll(null)});
+ const vin=$("vin");
+ vin.addEventListener("volumechange",sync,true);
+ new MutationObserver(()=>{closeAll(null);sync()}).observe(vin,{childList:true});
+ sync();
+
+ const d=$("infoD"),open=e=>{if(e)e.preventDefault();try{d.showModal()}catch(_){d.setAttribute("open","")}};
+ $("infoB").addEventListener("click",open);$("infoF").addEventListener("click",open);
+ $("infoX").addEventListener("click",()=>d.close());
+ d.addEventListener("click",e=>{if(e.target===d)d.close()});
+})();
 </script>
 </body>
 </html>
