@@ -428,6 +428,38 @@ html.fit .app{height:calc(100vh - var(--hh,60px));height:calc(100dvh - var(--hh,
 #cmpB[aria-pressed="true"]{border-color:var(--ac);color:var(--ac)}
 
 form.ff{display:contents;margin:0}
+/* um só volume: esconde o volume/mudo nativo do leitor (fica só o botão 🔊 Volume) */
+#vin video::-webkit-media-controls-mute-button,#vin video::-webkit-media-controls-volume-slider,#vin video::-webkit-media-controls-volume-control-container,#vin video::-webkit-media-controls-volume-slider-container,#vin video::-webkit-media-controls-volume-control-hover-background,
+#vin audio::-webkit-media-controls-mute-button,#vin audio::-webkit-media-controls-volume-slider,#vin audio::-webkit-media-controls-volume-control-container,#vin audio::-webkit-media-controls-volume-slider-container,#vin audio::-webkit-media-controls-volume-control-hover-background{display:none!important}
+
+
+/* volume único, dentro do leitor (substitui o nativo) */
+.screen video::-webkit-media-controls-mute-button{display:none!important}
+.screen video::-webkit-media-controls-volume-slider{display:none!important}
+.screen video::-webkit-media-controls-volume-control-container{display:none!important}
+#volO{display:grid;position:absolute;z-index:6;top:8px;left:88px;width:34px;height:34px;place-items:center;padding:0;border-radius:10px;background:#0008;color:#fff;border:1px solid #fff3;font-size:17px;line-height:1;opacity:.85}
+#volP2{top:48px;left:8px;right:auto;bottom:auto;width:min(300px,calc(100% - 16px));background:#000d;border-color:#fff3}
+#volP2:not([hidden]){display:flex}#volP2 .vo{color:#fff}
+.screen:has(audio) #volO,.screen:has(audio) #volP2,body.radio-on #volO,body.radio-on #volP2{display:none!important}
+@media(max-width:1100px){#volO{left:8px}#volP2{left:8px}}
+body:not(.pfs-on) .stage.mini #volO,body:not(.pfs-on) .stage.mini #volP2{display:none!important}
+.screen:fullscreen #volO,.screen:-webkit-full-screen #volO,.screen.pfs #volO{top:calc(12px + env(safe-area-inset-top));left:auto;right:124px;width:40px;height:40px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .6s ease,visibility 0s linear .6s}
+.screen:fullscreen.act #volO,.screen:-webkit-full-screen.act #volO,.screen.pfs.act #volO{opacity:1;visibility:visible;pointer-events:auto;transition:opacity .25s ease}
+.screen:fullscreen #volP2,.screen:-webkit-full-screen #volP2,.screen.pfs #volP2{top:calc(60px + env(safe-area-inset-top));left:auto;right:16px;width:min(300px,calc(100% - 32px))}
+
+/* ecrã inteiro logo abaixo do leitor */
+.fsrow{display:flex;padding:8px 12px 0}
+@media(min-width:1101px){.fsrow{padding:8px 2px 0}}
+.fsrow #fsB{flex:1;min-height:42px;padding:8px 10px;font-size:14px;border-radius:10px}
+body.radio-on .fsrow,body.aud-on:not(.radio-on) .fsrow{display:none}
+.stage.mini .fsrow{display:none}
+#eqB.has-pre{font-weight:700}
+/* janelas abertas: a página por trás fica parada */
+html.dlg-open{overflow:hidden!important;overscroll-behavior:none}
+body.dlg-open{position:fixed;left:0;right:0;width:100%;top:var(--dsy,0px);overflow:hidden}
+dialog{overscroll-behavior:contain;max-height:90vh;overflow:auto}
+dialog::backdrop{touch-action:none}
+
 /* ===== v4.11 telemóvel: botões arrumados, menu visível, ecrã estável, volume, App info ===== */
 html{overflow-x:hidden;overflow-x:clip;overscroll-behavior-x:none}
 body{overscroll-behavior-x:none}
@@ -452,13 +484,7 @@ body.pfs-on,.screen.pfs,.screen:fullscreen,.screen:-webkit-full-screen{touch-act
 .volp .vo{flex:none;min-width:3.2em;text-align:right;font-variant-numeric:tabular-nums;font-size:13px;color:var(--tx)}
 .ctl-r{position:relative}
 #volB[aria-expanded="true"]{border-color:var(--ac);color:var(--ac)}
-#volO{display:none;position:absolute;z-index:6;top:calc(12px + env(safe-area-inset-top));right:124px;width:40px;height:40px;place-items:center;padding:0;border-radius:10px;background:#0008;color:#fff;border:1px solid #fff3;font-size:18px;line-height:1;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .6s ease,visibility 0s linear .6s}
-.screen:fullscreen #volO,.screen:-webkit-full-screen #volO,.screen.pfs #volO{display:grid}
-.screen:fullscreen.act #volO,.screen:-webkit-full-screen.act #volO,.screen.pfs.act #volO{opacity:1;visibility:visible;pointer-events:auto;transition:opacity .25s ease}
-#volP2{display:none;top:calc(60px + env(safe-area-inset-top));right:16px;bottom:auto;width:min(300px,calc(100% - 32px));background:#000d;border-color:#fff3}
-.screen:fullscreen #volP2:not([hidden]),.screen:-webkit-full-screen #volP2:not([hidden]),.screen.pfs #volP2:not([hidden]){display:flex}
 #volP2 .vo{color:#fff}
-body.radio-on #volO{display:none!important}
 
 @media(max-width:1100px){
  /* botões do leitor em grelha, 3 por linha, todos do mesmo tamanho */
@@ -525,11 +551,12 @@ body.radio-on #volO{display:none!important}
  <section class="stage">
   <button id="fsO" aria-label="Ecrã inteiro">⛶</button><button id="miniUp" aria-label="Subir ao leitor">↑</button><button id="miniX" type="button" aria-label="Fechar leitor" title="Fechar">✕</button>
   <div class="screen" id="vbox"><div id="vin" class="vin"><div class="idle"><b>Escolha um canal</b>A lista de canais está ao centro (ou por baixo, no telemóvel).</div></div><button id="fsX">✕ Sair do ecrã inteiro</button><button id="trkB" type="button" aria-haspopup="true" aria-expanded="false">🌐</button><div id="trkP" hidden></div><button id="volO" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Volume"><span class="vi">🔊</span></button><div id="volP2" class="volp" hidden><button type="button" class="vm" aria-label="Silenciar / ligar som">🔊</button><input type="range" class="vr" min="0" max="100" step="1" value="100" aria-label="Volume"><output class="vo">100%</output></div></div>
+  <div class="fsrow"><button id="fsB" type="button" disabled>Ecrã inteiro</button></div>
   <div class="bar">
    <div class="info"><h2 id="now">Sem canal</h2><div class="mut" id="sub"></div></div>
    <div class="ctl">
     <div class="ctl-l"><select id="qSel" aria-label="Qualidade de vídeo" title="Poupe dados reduzindo a qualidade (funciona nos canais HLS)"><option value="auto">Qualidade: Auto</option><option value="720">Alta · até 720p</option><option value="480">Média · até 480p</option><option value="360">Baixa · até 360p</option><option value="min">Mínima · poupa dados</option></select><span id="trk"></span><span id="qNow" class="mut"></span></div>
-    <div class="ctl-r"><span id="recT" class="rec" aria-live="off"></span><button id="volB" type="button" aria-haspopup="true" aria-expanded="false" title="Volume"><span class="vi">🔊</span> Volume</button><button id="eqB" type="button" title="Equalizador">🎚️ EQ</button><button id="audB" type="button" disabled>🎧 Ouvir</button><button id="shB" disabled>Partilhar</button><button id="recB" disabled>Gravar</button><button id="fsB" disabled>Ecrã inteiro</button><div id="volP" class="volp" hidden><button type="button" class="vm" aria-label="Silenciar / ligar som">🔊</button><input type="range" class="vr" min="0" max="100" step="1" value="100" aria-label="Volume"><output class="vo">100%</output></div></div>
+    <div class="ctl-r"><span id="recT" class="rec" aria-live="off"></span><button id="eqB" type="button" title="Equalizador">🎚️ EQ</button><button id="audB" type="button" disabled>🎧 Ouvir</button><button id="shB" disabled>Partilhar</button><button id="recB" disabled>Gravar</button></div>
    </div>
   </div>
   <section id="chInfo" class="chi hide" aria-live="polite"></section>
@@ -733,8 +760,8 @@ function net(){const on=navigator.onLine,c=navigator.connection||navigator.mozCo
 addEventListener("online",()=>{net();measureNet()});addEventListener("offline",net);net();measureNet();
 setInterval(measureNet,30000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)measureNet()});
 try{const nc=navigator.connection;if(nc&&nc.addEventListener)nc.addEventListener("change",net)}catch(e){}
-function setTheme(t){document.body.className=t;S("tv_theme",t);$("theme").value=t}
-$("theme").onchange=e=>setTheme(e.target.value);setTheme(L("tv_theme",""));
+function setTheme(t){document.body.className=t;S("tv_theme2",t);$("theme").value=t}
+$("theme").onchange=e=>setTheme(e.target.value);setTheme(L("tv_theme2",""));
 
 /* ---- arranque (sem código de acesso) ---- */
 function openApp(){applyMode(true);setTimeout(openShared,300);loadBad();loadRemote();loadWorld();loadYT();loadFTV();initAds();adsEnd();render()}
@@ -1817,7 +1844,7 @@ grant execute on function validar_licenca(text) to anon;
 /* v4.11: volume com barra (subir/descer/silenciar) + janela App info */
 (function(){
  const CAN=(()=>{try{const t=document.createElement("video");t.volume=.5;return t.volume===.5}catch(e){return false}})();
- const pairs=[["volB","volP"],["volO","volP2"]].map(a=>({b:$(a[0]),p:$(a[1])}));
+ const pairs=[["volO","volP2"]].map(a=>({b:$(a[0]),p:$(a[1])}));
  const med=()=>document.querySelector("#vin video,#vin audio");
  function sync(){
   const m=med(),mu=!!m&&(m.muted||m.volume===0),pc=m?Math.round((m.muted?0:m.volume)*100):100,ic=mu?"🔇":"🔊";
@@ -1847,6 +1874,31 @@ grant execute on function validar_licenca(text) to anon;
  $("infoB").addEventListener("click",open);$("infoF").addEventListener("click",open);
  $("infoX").addEventListener("click",()=>d.close());
  d.addEventListener("click",e=>{if(e.target===d)d.close()});
+})();
+</script>
+<script>
+/* bloqueia o scroll da página por trás das janelas */
+(function(){
+ let y=0,on=false;
+ function chk(){
+  const o=!!document.querySelector("dialog[open]");
+  if(o===on)return;on=o;
+  if(o){y=scrollY;document.body.style.setProperty("--dsy",-y+"px");document.documentElement.classList.add("dlg-open");document.body.classList.add("dlg-open")}
+  else{document.documentElement.classList.remove("dlg-open");document.body.classList.remove("dlg-open");document.body.style.removeProperty("--dsy");scrollTo(0,y)}
+ }
+ const mo=new MutationObserver(chk);
+ document.querySelectorAll("dialog").forEach(d=>mo.observe(d,{attributes:true,attributeFilter:["open"]}));
+})();
+</script>
+<script>
+/* botão EQ mostra o equalizador escolhido */
+(function(){
+ const b=$("eqB");if(!b)return;
+ function upd(){const s=EQ.on?"🎚️ EQ: "+T(EQ.pre):"🎚️ EQ";if(b.textContent!==s)b.textContent=s;b.classList.toggle("has-pre",!!EQ.on);b.title=EQ.on?T(EQ.pre):"Equalizador"}
+ ["input","change","click"].forEach(e=>$("eqD").addEventListener(e,()=>setTimeout(upd,0)));
+ $("eqD").addEventListener("close",upd);
+ new MutationObserver(upd).observe(b,{attributes:true,attributeFilter:["class"]});
+ setInterval(upd,1500);upd();
 })();
 </script>
 </body>
