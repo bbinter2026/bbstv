@@ -95,7 +95,8 @@ button.p{background:var(--ac);border-color:var(--ac)}
 #tabs button:hover,#ctry button:hover{background:var(--sf2)}
 #tabs button.on,#ctry button.on{background:var(--sf2);box-shadow:inset 3px 0 var(--ac);font-weight:600}
 .n{margin-left:auto;color:var(--mut);font-size:12px;font-weight:400}
-.main{min-width:0}#cnt{margin:2px 2px 10px}
+.main{min-width:0}#cnt{margin:2px 2px 10px}#shBar{display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin:0 2px 10px;padding:8px 10px;border:1px solid var(--ln);border-radius:10px;background:var(--sf);font-size:13px}#shBar.hide{display:none!important}
+.eqr{display:flex;justify-content:space-between;align-items:center;gap:10px}#eqOn{width:auto!important;transform:scale(1.25)}#eqBands{display:flex;justify-content:space-between;gap:2px;margin:8px 0 2px}.eqc{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;font-size:11px;min-width:0}.eqs{position:relative;width:30px;height:132px}.eqs input{position:absolute;left:50%;top:50%;width:124px!important;margin:0;transform:translate(-50%,-50%) rotate(-90deg)}.eqc small{color:var(--mut)}#eqB.p{background:var(--ac);color:var(--acx)}
 #list{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;overflow:visible;flex:none}
 .ch{position:relative;background:var(--sf);border:1px solid var(--ln);border-radius:12px;transition:transform .12s,border-color .12s}
 .ch:hover{transform:translateY(-2px);border-color:var(--ac)}
@@ -139,7 +140,7 @@ button.p{background:var(--ac);border-color:var(--ac)}
 #toast{border-radius:18px;text-align:center}.bar .info{margin:0;padding:0;max-width:none}
 #instPop{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:95;display:flex;flex-wrap:wrap;gap:10px;align-items:center;background:var(--sf);border:1px solid var(--ac);border-radius:14px;padding:12px;box-shadow:0 8px 30px #000a;max-width:520px;margin:0 auto}#instPop img{border-radius:10px;flex:none}#instPop .ip{flex:1 1 170px;min-width:0;display:flex;flex-direction:column;gap:2px;font-size:13px}#instPop .ip span{color:var(--mut)}#instPop .ib{display:flex;gap:8px;margin-left:auto}
 .adend{text-align:center;padding:6px 8px calc(14px + env(safe-area-inset-bottom));min-height:60px}.adend small{display:block;margin-bottom:2px}#ad-end-slots{display:flex;flex-direction:column;align-items:center;gap:10px}.adend iframe{border:0;background:transparent;display:block;max-width:100%}@media(min-width:1200px){.adend{display:none!important}}
-#qSel,#trk select{max-width:200px;padding:6px 9px;font-size:13px}#trk{display:contents}#qNow{font-size:12px;white-space:nowrap}header #langSel{padding:6px 8px}
+#qSel,#trk select{max-width:200px;padding:6px 9px;font-size:13px}#trk{display:contents}#qNow{font-size:12px;white-space:nowrap}header #langSel{padding:6px 8px;flex:0 0 auto;cursor:pointer;font-weight:700}
 section.info{max-width:1100px;margin:14px auto 0;padding:0 16px;font-size:11.5px;line-height:1.4}
 section.info h2{font-size:13px;margin:0 0 4px}section.info h3{font-size:11.5px;margin:0 0 2px}
 section.info p{margin:0 0 4px}
@@ -198,7 +199,17 @@ body.ads-on:not(.ads-wide) .app{grid-template-columns:210px minmax(0,1fr) 380px}
 .seg button.on{background:var(--ac);color:var(--acx)}
 @media(max-width:520px){.seg button{padding:6px 10px;font-size:13px}}
 body.radio-on #qSel,body.radio-on #qNow{display:none!important}
+body.radio-on #audB{display:none!important}
+body.aud-on:not(.radio-on) #qSel,body.aud-on:not(.radio-on) #qNow,body.aud-on:not(.radio-on) #fsB,body.aud-on:not(.radio-on) #fsO{display:none!important}
+body.aud-on:not(.radio-on) .rad{height:100%}
+#audB.on{border-color:var(--ac);color:var(--ac);font-weight:700}
 .rad{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:10px;text-align:center;color:#fff;background:radial-gradient(circle at 50% 25%,hsl(var(--h) 45% 30%),#101114 80%)}
+.rad{position:relative;overflow:hidden}
+.rad .bgl{position:absolute;left:50%;top:50%;height:min(92%,230px);aspect-ratio:1;width:auto;margin:0;transform:translate(-50%,-50%);object-fit:contain;opacity:.13;pointer-events:none;z-index:0;filter:grayscale(.15);will-change:transform;animation:radCoin 6s linear infinite}
+@keyframes radCoin{from{transform:translate(-50%,-50%) perspective(700px) rotateY(0)}to{transform:translate(-50%,-50%) perspective(700px) rotateY(360deg)}}
+.rad.pause .bgl{animation-play-state:paused}
+.rad .art,.rad .txt,.rad audio{position:relative;z-index:1}
+@media(prefers-reduced-motion:reduce){.rad .bgl{animation:none}}
 .rad .art{position:relative;height:min(42%,150px);aspect-ratio:1;border-radius:18px;display:grid;place-items:center;font-size:44px;font-weight:700;background:hsl(var(--h) 45% 40%);overflow:hidden;box-shadow:0 8px 30px #0008;flex:none}
 .rad .art img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#fff;padding:6px}
 .rad b{font-size:18px;max-width:94%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -314,6 +325,7 @@ body.radio-on #now,body.radio-on #fsB,body.radio-on #fsO,body.radio-on .chi,body
  #netChip{order:5;padding:3px 8px;font-size:12px}
  #onN{order:6}#visN{order:6;padding:3px 8px;font-size:12px}
  #rndB{order:7;font-size:0;padding:6px 10px}#rndB::before{content:"🎲";font-size:18px}
+ header #langSel{order:8}
  .menu{order:8}.menu summary span{display:none}.menu summary{padding:8px 10px}
 }
 @media(max-width:400px){.logo span{display:none}}
@@ -352,6 +364,7 @@ header #q.pulse{animation:qpulse 1.2s ease 2}
  header #cmpB{order:1;flex:0 0 auto;font-size:0;min-height:40px;min-width:42px;padding:6px 10px}header #cmpB::before{content:"☰";font-size:18px}
  header .seg{order:2;flex:1 1 auto;display:flex;justify-content:center;margin:0}
  header .seg button{flex:1 1 0;min-height:40px;padding:8px 10px;font-size:14px}
+ header #langSel{order:3;min-height:40px;font-size:14px}
  header .menu{order:3;flex:0 0 auto}header .menu summary{min-width:42px;min-height:40px;display:flex;align-items:center;justify-content:center;padding:6px 10px;font-size:18px}
  header .hbr{order:4;flex:1 1 100%;height:0;display:block}
  header #q{order:5;flex:1 1 100%;width:100%;max-width:none;min-height:46px;font-size:16px;padding:11px 16px 11px 42px!important;background-position:14px 50%;background-size:20px;border:2px solid var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 22%,transparent)}
@@ -431,11 +444,12 @@ form.ff{display:contents;margin:0}
   <span id="visN" class="st mut hide" title="Visitas hoje (reinicia à meia-noite)" aria-label="Visitas hoje"></span>
   <button id="rndB" aria-label="Aleatório" title="Aleatório">🎲 Aleatório</button>
   <button id="cmpB" type="button" aria-pressed="false" aria-label="Lista compacta" title="Lista compacta (V)">☰ Compacto</button>
+  <select id="langSel" aria-label="Idioma" title="Idioma / Language"><option value="pt">🌐 PT</option><option value="en">🌐 EN</option></select>
   <details class="menu" id="hMenu"><summary aria-label="Menu" title="Menu">⚙️ <span>Menu</span></summary>
    <div class="mp">
     <label class="mrow"><span class="mut">Tema</span><select id="theme" aria-label="Tema"><option value="">Noite</option><option value="black">Preto</option><option value="light">Claro</option></select></label>
-    <label class="mrow"><span class="mut">Idioma</span><select id="langSel" aria-label="Idioma"><option value="pt">PT</option><option value="en">EN</option></select></label>
     <button id="kbH">⌨️ Atalhos</button>
+    <button id="shFavB">🔗 Partilhar favoritos</button>
      <button id="accB">👤 Entrar / Criar conta</button>
      <button id="instB" class="hide">📲 Instalar</button>
     <button id="admOpen">Gerir canais</button>
@@ -451,7 +465,7 @@ form.ff{display:contents;margin:0}
   <h4>Categorias</h4><div id="tabs"></div>
   <h4>Países</h4><select id="ctrySel" class="mob" aria-label="País"></select><form class="ff" onsubmit="return false" autocomplete="off" role="search"><input id="cq" type="search" name="filtro-pais-x9" autocomplete="off" inputmode="search" enterkeyhint="search" autocorrect="off" autocapitalize="off" spellcheck="false" data-lpignore="true" data-1p-ignore data-form-type="other" placeholder="Procurar país" aria-label="Procurar país"></form><div id="ctry"></div>
  </aside>
- <div class="main"><div id="rOpts"><label class="mut" for="rMax">💾 Poupar dados</label><select id="rMax" aria-label="Poupar dados"><option value="0">Qualquer qualidade</option><option value="128">Até 128 kbps (≈58 MB/h)</option><option value="96">Até 96 kbps (≈43 MB/h)</option><option value="64">Até 64 kbps (≈29 MB/h)</option></select></div><div class="mut" id="cnt"></div><div id="prog"></div><div id="list"></div><button id="more" class="more hide">Mostrar mais</button><div id="adBox" class="adbox hide"><small>Publicidade</small></div></div>
+ <div class="main"><div id="rOpts"><label class="mut" for="rMax">💾 Poupar dados</label><select id="rMax" aria-label="Poupar dados"><option value="0">Qualquer qualidade</option><option value="128">Até 128 kbps (≈58 MB/h)</option><option value="96">Até 96 kbps (≈43 MB/h)</option><option value="64">Até 64 kbps (≈29 MB/h)</option></select></div><div class="mut" id="cnt"></div><div id="shBar" class="hide"><span>🔗 Lista de favoritos partilhada</span><button id="shSave" type="button">★ Guardar nos meus favoritos</button></div><div id="prog"></div><div id="list"></div><button id="more" class="more hide">Mostrar mais</button><div id="adBox" class="adbox hide"><small>Publicidade</small></div></div>
  <section class="stage">
   <button id="fsO" aria-label="Ecrã inteiro">⛶</button><button id="miniUp" aria-label="Subir ao leitor">↑</button><button id="miniX" type="button" aria-label="Fechar leitor" title="Fechar">✕</button>
   <div class="screen" id="vbox"><div id="vin" class="vin"><div class="idle"><b>Escolha um canal</b>A lista de canais está ao centro (ou por baixo, no telemóvel).</div></div><button id="fsX">✕ Sair do ecrã inteiro</button><button id="trkB" type="button" aria-haspopup="true" aria-expanded="false">🌐</button><div id="trkP" hidden></div></div>
@@ -459,7 +473,7 @@ form.ff{display:contents;margin:0}
    <div class="info"><h2 id="now">Sem canal</h2><div class="mut" id="sub"></div></div>
    <div class="ctl">
     <div class="ctl-l"><select id="qSel" aria-label="Qualidade de vídeo" title="Poupe dados reduzindo a qualidade (funciona nos canais HLS)"><option value="auto">Qualidade: Auto</option><option value="720">Alta · até 720p</option><option value="480">Média · até 480p</option><option value="360">Baixa · até 360p</option><option value="min">Mínima · poupa dados</option></select><span id="trk"></span><span id="qNow" class="mut"></span></div>
-    <div class="ctl-r"><span id="recT" class="rec" aria-live="off"></span><button id="shB" disabled>Partilhar</button><button id="recB" disabled>Gravar</button><button id="fsB" disabled>Ecrã inteiro</button></div>
+    <div class="ctl-r"><span id="recT" class="rec" aria-live="off"></span><button id="eqB" type="button" title="Equalizador">🎚️ EQ</button><button id="audB" type="button" disabled>🎧 Ouvir</button><button id="shB" disabled>Partilhar</button><button id="recB" disabled>Gravar</button><button id="fsB" disabled>Ecrã inteiro</button></div>
    </div>
   </div>
   <section id="chInfo" class="chi hide" aria-live="polite"></section>
@@ -487,6 +501,14 @@ form.ff{display:contents;margin:0}
 <section id="ad-end" class="adend hide" aria-label="Publicidade"><small class="mut">Publicidade</small><div id="ad-end-slots"></div></section>
 <section id="promoEnd" class="promo promo-end" aria-label="Publicidade"></section>
 <aside id="ad-rail" aria-label="Publicidade"><button type="button" class="ad-x" onclick="adsClose()" title="Fechar anúncios">Publicidade ×</button><div id="ad-slots"></div><div id="promoRail" class="promo"></div></aside>
+<dialog id="eqD"><div class="dlg">
+ <h3>🎚️ Equalizador</h3>
+ <label class="eqr"><span>Ativar</span><input type="checkbox" id="eqOn"></label>
+ <label class="eqr"><span class="mut">Predefinição</span><select id="eqPre" style="width:auto"></select></label>
+ <div id="eqBands"></div>
+ <p class="mut" id="eqNote"></p>
+ <button type="button" id="eqX">Fechar</button>
+</div></dialog>
 <dialog id="accD"><div class="dlg">
  <h3 id="accT">Entrar na conta</h3>
  <p class="mut">Opcional: crie uma conta para guardar os seus canais favoritos e o seu histórico e vê-los em qualquer aparelho. Pode usar a app sem conta.</p>
@@ -550,8 +572,8 @@ form.ff{display:contents;margin:0}
 
 <script>
 /* ===== CONFIGURAÇÃO ===== */
-const APP_VERSION="4.8.0",
-CHANGELOG=["4.8.2: 14 fontes extra (Redbox, Tubi, LocalNow, Tablo, Xiaomi, Fire TV, Cineverse, Distro, Roku, Xumo, LG, Vizio, Klowd, Samsung TV Plus), cada uma com etiqueta própria","4.8.1: etiqueta de origem em cada canal (Free-TV, iptv-org, YouTube, BBS) e pesquisa por origem, ex.: «free-tv»","4.8.0: mais canais da lista Free-TV/IPTV, já distribuídos pelas categorias (notícias, desporto, música, infantil, filmes…)","4.7.0: conta opcional (email e palavra-passe) para guardar favoritos e histórico e vê-los em qualquer aparelho","4.6.3: canais com tradução e legendas mostram o sinal CC no ícone","4.6.2: categorias reordenadas (Filmes, Séries, Novelas, Música, Documentários primeiro); nova categoria Tradução e legendas","4.6.1: ecrã inteiro: imagem completa dentro da área segura do telemóvel (logo do canal já não fica cortado)","4.6.0: logo sobre o vídeo a girar suavemente como uma moeda","4.5.9: ecrã inteiro no telemóvel ajustado ao ecrã (sem imagem afastada para baixo), aviso de sair desaparece suavemente em 2 s, logo mais pequeno sobre o vídeo","4.5.8: telemóvel: cabeçalho reorganizado (logo, TV/Rádio e menu na 1.ª linha, pesquisa grande na 2.ª, estado e Aleatório na 3.ª)","4.5.7: telemóvel: botão flutuante 🔍 Pesquisar (leva à pesquisa de qualquer ponto) e caixa de pesquisa com lupa e contorno bem visível","4.5.6: Gerir canais: o admin vê o que cada pessoa online está a fazer agora (a ver, a ouvir, pausa, a gravar, a navegar), há quanto tempo, e os canais mais vistos","4.5.5: link partilhado de rádio/canal: botão “Toque para ouvir” e som ligado no próprio toque (corrigido também quando o leitor é recriado)","4.5.4: versão da app em destaque no cabeçalho","4.5.3: pré-visualização do link partilhado (og:image com o endereço real do site)","4.5.2: menu ⚙️ já não fica escondido atrás da coluna de anúncios","4.5.1: links partilhados começam logo a reproduzir (computador: volume a 80%; telemóvel: volume pelos botões do aparelho; som ligado ao primeiro toque se o navegador bloquear)","4.5.0: espaço “Publicite seus serviços ou empresa aqui” por baixo dos anúncios, com imagens geridas pelo admin","4.4.0: sinal da rede em barras (como no telemóvel)","4.3.0: cabeçalho reorganizado (rede com tipo e velocidade, menu ⚙️ com tema, idioma e conta)","4.2.1: versão da app visível no cabeçalho","4.2.0: retoma sozinho a reprodução quando a rede volta (também em segundo plano)","4.1.0: telemóvel: leitor sem saltos ao subir/descer, rádio compacta sem 'Sobre' nem quadro flutuante, cabeçalho mais arrumado","4.0.0: controlos no ecrã de bloqueio (Media Session), partilhar link de um canal, recentes, país automático, poupar dados na rádio","3.9.1: gravação de rádio mais fiável (CORS) e aviso claro quando a rádio bloqueia a gravação","3.9.0: leitor de vídeo e rádio reorganizado (informação, definições e botões em grupos), mesma posição","3.8.0: rádios em lista (país, nome, frequência, género, qualidade, idioma) com ordenação; gravação sem limite; vídeo em MP4 e rádio em MP3","3.7.0: modo Rádio com estações de todo o mundo (radio-browser.info), por país e género, pesquisa e favoritos","3.6.0: programação diária (EPG) com horários, pesquisa de programas que mostra o canal, correção do \"admin:\" no campo de país","3.5.0: legendas e língua de áudio (YouTube e canais HLS com várias faixas)","3.4.0: mais canais do YouTube (Moçambique, Angola, África do Sul, Brasil) via scripts/gerar-youtube-lista.mjs","3.3.0: canais do YouTube (links watch, youtu.be, /live e /channel) e lista canais-youtube.json","3.2.0: instalar como app, idioma PT/EN, qualidade de vídeo, gravação","3.1.1: AdSense e melhorias para telemóvel","3.0.2: melhorias para telemóvel (ecrã inteiro iPhone, seletor de países, leitor compacto)","3.0.1: removidos os canais sem link","3.0.0: estilo TV Garden e todos os canais do mundo (iptv-org)","2.3.0: importação mundial e correções" ,"2.2.0: canais da África do Sul","2.1.0: visual moderno e canais organizados por categorias","2.0.1: corrige arranque com licença guardada (botões sem resposta)","2.0.0: interface nova, lista lateral, hls com recuperação de erros, segurança (XSS), <dialog>, importação M3U mais fiável","1.1.0: importação M3U por link"];
+const APP_VERSION="4.10.0",
+CHANGELOG=["4.10.0: modo TV com botão 🎧 Ouvir / 📺 Ver — ouvir só o áudio como rádio (poupa dados) e continua a tocar com o telemóvel bloqueado e o ecrã desligado","4.9.0: partilhar a lista de favoritos (o link abre logo a lista); anúncios atualizam de 3 em 3 minutos; retoma sozinho depois de chamadas e outras interrupções; logo a girar em fundo transparente no leitor de rádio; rádios: descoberta automática de servidores quando os fixos falham; equalizador de 7 bandas","4.8.2: 14 fontes extra (Redbox, Tubi, LocalNow, Tablo, Xiaomi, Fire TV, Cineverse, Distro, Roku, Xumo, LG, Vizio, Klowd, Samsung TV Plus), cada uma com etiqueta própria","4.8.1: etiqueta de origem em cada canal (Free-TV, iptv-org, YouTube, BBS) e pesquisa por origem, ex.: «free-tv»","4.8.0: mais canais da lista Free-TV/IPTV, já distribuídos pelas categorias (notícias, desporto, música, infantil, filmes…)","4.7.0: conta opcional (email e palavra-passe) para guardar favoritos e histórico e vê-los em qualquer aparelho","4.6.3: canais com tradução e legendas mostram o sinal CC no ícone","4.6.2: categorias reordenadas (Filmes, Séries, Novelas, Música, Documentários primeiro); nova categoria Tradução e legendas","4.6.1: ecrã inteiro: imagem completa dentro da área segura do telemóvel (logo do canal já não fica cortado)","4.6.0: logo sobre o vídeo a girar suavemente como uma moeda","4.5.9: ecrã inteiro no telemóvel ajustado ao ecrã (sem imagem afastada para baixo), aviso de sair desaparece suavemente em 2 s, logo mais pequeno sobre o vídeo","4.5.8: telemóvel: cabeçalho reorganizado (logo, TV/Rádio e menu na 1.ª linha, pesquisa grande na 2.ª, estado e Aleatório na 3.ª)","4.5.7: telemóvel: botão flutuante 🔍 Pesquisar (leva à pesquisa de qualquer ponto) e caixa de pesquisa com lupa e contorno bem visível","4.5.6: Gerir canais: o admin vê o que cada pessoa online está a fazer agora (a ver, a ouvir, pausa, a gravar, a navegar), há quanto tempo, e os canais mais vistos","4.5.5: link partilhado de rádio/canal: botão “Toque para ouvir” e som ligado no próprio toque (corrigido também quando o leitor é recriado)","4.5.4: versão da app em destaque no cabeçalho","4.5.3: pré-visualização do link partilhado (og:image com o endereço real do site)","4.5.2: menu ⚙️ já não fica escondido atrás da coluna de anúncios","4.5.1: links partilhados começam logo a reproduzir (computador: volume a 80%; telemóvel: volume pelos botões do aparelho; som ligado ao primeiro toque se o navegador bloquear)","4.5.0: espaço “Publicite seus serviços ou empresa aqui” por baixo dos anúncios, com imagens geridas pelo admin","4.4.0: sinal da rede em barras (como no telemóvel)","4.3.0: cabeçalho reorganizado (rede com tipo e velocidade, menu ⚙️ com tema, idioma e conta)","4.2.1: versão da app visível no cabeçalho","4.2.0: retoma sozinho a reprodução quando a rede volta (também em segundo plano)","4.1.0: telemóvel: leitor sem saltos ao subir/descer, rádio compacta sem 'Sobre' nem quadro flutuante, cabeçalho mais arrumado","4.0.0: controlos no ecrã de bloqueio (Media Session), partilhar link de um canal, recentes, país automático, poupar dados na rádio","3.9.1: gravação de rádio mais fiável (CORS) e aviso claro quando a rádio bloqueia a gravação","3.9.0: leitor de vídeo e rádio reorganizado (informação, definições e botões em grupos), mesma posição","3.8.0: rádios em lista (país, nome, frequência, género, qualidade, idioma) com ordenação; gravação sem limite; vídeo em MP4 e rádio em MP3","3.7.0: modo Rádio com estações de todo o mundo (radio-browser.info), por país e género, pesquisa e favoritos","3.6.0: programação diária (EPG) com horários, pesquisa de programas que mostra o canal, correção do \"admin:\" no campo de país","3.5.0: legendas e língua de áudio (YouTube e canais HLS com várias faixas)","3.4.0: mais canais do YouTube (Moçambique, Angola, África do Sul, Brasil) via scripts/gerar-youtube-lista.mjs","3.3.0: canais do YouTube (links watch, youtu.be, /live e /channel) e lista canais-youtube.json","3.2.0: instalar como app, idioma PT/EN, qualidade de vídeo, gravação","3.1.1: AdSense e melhorias para telemóvel","3.0.2: melhorias para telemóvel (ecrã inteiro iPhone, seletor de países, leitor compacto)","3.0.1: removidos os canais sem link","3.0.0: estilo TV Garden e todos os canais do mundo (iptv-org)","2.3.0: importação mundial e correções" ,"2.2.0: canais da África do Sul","2.1.0: visual moderno e canais organizados por categorias","2.0.1: corrige arranque com licença guardada (botões sem resposta)","2.0.0: interface nova, lista lateral, hls com recuperação de erros, segurança (XSS), <dialog>, importação M3U mais fiável","1.1.0: importação M3U por link"];
 const SUPABASE_URL="https://xnynwonqqbxbusbgngwg.supabase.co",SUPABASE_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhueW53b25xcWJ4YnVzYmduZ3dnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMyNTc1ODEsImV4cCI6MjEwODgzMzU4MX0.sxjDW551yFGpIdcvWVuvImMTI0JWwduPNIcX0yFfb2g";   // opcional (ver SQL no fim)
 const ALLOW_RECORD=true,       // true = mostra o botão Gravar; false = esconde
 ADS_MOBILE=true,      // anúncios Adsterra no FIM da página em telemóvel/tablet; false = desligar
@@ -630,6 +652,7 @@ function merge(saved){
  if(!Array.isArray(saved))return SEED.map(c=>({...c}));
  return[...SEED.map(s=>{const o=saved.find(c=>c.id===s.id);return o?{...s,url:o.url||s.url,logo:o.logo||"",official:!!(s.official&&(!o.url||o.url===s.url))}:{...s}}),
   ...saved.filter(c=>c&&c.url&&isStream(c.url)&&!SEED.some(s=>s.id===c.id))]}
+let audioOnly=false,audNow=false;try{audioOnly=!!JSON.parse(localStorage.getItem("tv_aud")||"false")}catch(e){}   // modo TV: ver (vídeo) ou ouvir (só áudio, como rádio)
 let chans=merge(L("tv_chans",null)),favs=L("tv_favs",[]),tab="Todos",ctry="",cur=null,hls=null,retries=0;
 S("tv_chans",chans);
 
@@ -658,7 +681,7 @@ function setTheme(t){document.body.className=t;S("tv_theme",t);$("theme").value=
 $("theme").onchange=e=>setTheme(e.target.value);setTheme(L("tv_theme",""));
 
 /* ---- arranque (sem código de acesso) ---- */
-function openApp(){applyMode(true);setTimeout(openShared,300);loadBad();loadRemote();loadWorld();loadYT();loadFTV();loadExtra();initAds();adsEnd();render()}
+function openApp(){applyMode(true);setTimeout(openShared,300);loadBad();loadRemote();loadWorld();loadYT();loadFTV();initAds();adsEnd();render()}
 
 async function loadRemote(){
  if(!sb)return;
@@ -671,6 +694,9 @@ async function loadRemote(){
 /* ---- lista ---- */
 const hue=s=>{let h=0;for(const c of s)h=(h*31+c.charCodeAt(0))%360;return h};
 const CATS={"Filmes":"🎬","Séries":"📺","Novelas":"💃","Música":"🎵","Documentários":"🎞️","Notícias":"📰","Desporto":"⚽","Infantil":"🧸","Públicos":"🏛️","Privados":"📡","Educação e cultura":"🎓","Entretenimento":"🎭","Estilo de vida":"🍳","Religião":"🙏","Geral":"🌐","Outros":"📦"};
+/* fetch com tempo limite; se uma extensão/script de terceiros que envolve o fetch não aceitar o AbortSignal (erro postMessage), repete sem sinal */
+async function sfetchS(u,ac){try{return await fetch(u,{signal:ac.signal})}catch(e){if(!ac.signal.aborted&&/postMessage|could not be cloned/i.test(String(e&&e.message)))return await fetch(u);throw e}}
+const SH_TAB="Lista partilhada";let shared=null;
 const TL_TAB="Tradução e legendas",PRI_CATS=["Filmes","Séries","Novelas","Música","Documentários"];
 const na=s=>String(s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
 const RX=[[/notic|news|inform|business/,"Notícias"],[/desport|sport|futeb|football/,"Desporto"],[/music|mtv|musica/,"Música"],[/infant|kids|crianc|cartoon|animat|family/,"Infantil"],[/novela|soap/,"Novelas"],[/film|movie|cinema/,"Filmes"],[/serie|tv show/,"Séries"],[/documentar/,"Documentários"],[/educ|scien|cultur|legisl/,"Educação e cultura"],[/entertain|comedy|classic|interactive/,"Entretenimento"],[/lifestyle|cooking|travel|outdoor|auto|shop|relax|weather/,"Estilo de vida"],[/relig|igreja|gospel|crist/,"Religião"],[/public/,"Públicos"],[/general/,"Geral"]];
@@ -702,10 +728,10 @@ async function loadYT(){try{const r=await fetch("canais-youtube.json",{cache:"no
  if(!j||!Array.isArray(j.c))return;const have=new Set(ytc.map(c=>c.id));
  for(const a of j.c){const id="yt_"+a[0];if(have.has(id)||!a[5]||!a[5][0])continue;ytc.push({id,name:a[1],pais:a[2],cat:a[3],logo:a[4]||"",url:a[5][0],alts:a[5],official:false})}
  render()}catch(e){}}
-let world=[],wk=new Set(),ftv=[],ext=[];
+let world=[],wk=new Set(),ftv=[];
 let badSet=new Set();
 const wkey=c=>c._k||(c._k=norm(c.name)+"|"+c.pais);
-const pool=()=>mode==="radio"?(rmax?radio.filter(c=>!c.br||c.br<=rmax):radio):(()=>{const mine=chans.filter(c=>c.url&&isStream(c.url)),own=new Set(mine.map(wkey));const yt=ytc.filter(c=>!own.has(wkey(c))),yk=new Set(yt.map(wkey));return mine.concat(yt,world.filter(c=>c.pais!=="Internacional"&&!own.has(wkey(c))&&!yk.has(wkey(c))&&!badSet.has(c.id)),ftv.filter(c=>c.pais!=="Internacional"&&!own.has(wkey(c))&&!yk.has(wkey(c))&&!wk.has(wkey(c))&&!badSet.has(c.id)),ext.filter(c=>c.pais!=="Internacional"&&!own.has(wkey(c))&&!yk.has(wkey(c))&&!wk.has(wkey(c))&&!badSet.has(c.id)))})();   // os seus canais têm prioridade sobre os do mundo com o mesmo nome
+const pool=()=>mode==="radio"?(rmax?radio.filter(c=>!c.br||c.br<=rmax):radio):(()=>{const mine=chans.filter(c=>c.url&&isStream(c.url)),own=new Set(mine.map(wkey));const yt=ytc.filter(c=>!own.has(wkey(c))),yk=new Set(yt.map(wkey));return mine.concat(yt,world.filter(c=>c.pais!=="Internacional"&&!own.has(wkey(c))&&!yk.has(wkey(c))&&!badSet.has(c.id)),ftv.filter(c=>c.pais!=="Internacional"&&!own.has(wkey(c))&&!yk.has(wkey(c))&&!wk.has(wkey(c))&&!badSet.has(c.id)))})();   // os seus canais têm prioridade sobre os do mundo com o mesmo nome
 /* ---- estado dos canais: os visitantes comunicam se o canal tocou ou não; os que falham sempre ficam escondidos ---- */
 const reported=new Set();
 async function loadBad(){if(!sb)return;
@@ -798,38 +824,6 @@ async function loadFTV(){
   const t=await r.text();if(!t.includes("#EXTM3U"))throw new Error("M3U inválida");
   const out=parseFTV(t);if(out.length){ftv=out;IDBC.set("ftv_v1",{t:Date.now(),data:out});render()}
  }catch(e){console.error("Free-TV",e)}}
-/* ---- fontes extra (apsattv.com e i.mjh.nz): cada uma com a sua etiqueta. Tenta primeiro canais-extras.json (gerado por scripts/gerar-extras.mjs, evita CORS), depois as listas diretamente ---- */
-const EXT_SRC=[["Redbox","https://www.apsattv.com/redbox.m3u"],["Tubi","https://www.apsattv.com/tubi.m3u"],["LocalNow","https://www.apsattv.com/localnow.m3u"],["Tablo","https://www.apsattv.com/tablo.m3u"],["Xiaomi","https://www.apsattv.com/xiaomi.m3u"],["Fire TV","https://www.apsattv.com/firetv.m3u"],["Cineverse","https://www.apsattv.com/cineverse.m3u"],["Distro","https://www.apsattv.com/distro.m3u"],["Roku Channel","https://www.apsattv.com/rok.m3u"],["Xumo","https://www.apsattv.com/xumo.m3u"],["LG Channels","https://www.apsattv.com/lg.m3u"],["Vizio","https://www.apsattv.com/vizio.m3u"],["Klowd","https://www.apsattv.com/klowd.m3u"],["Samsung TV Plus","https://i.mjh.nz/SamsungTVPlus/all.m3u8"]];
-function parseX(txt,src){
- const secure=location.protocol==="https:",dn=new Intl.DisplayNames(["pt"],{type:"region"}),map=new Map(),sk=src.toLowerCase().replace(/[^a-z0-9]/g,"");
- let name="",logo="",cc="",grp="";
- for(const raw of String(txt||"").split(/\r?\n/)){
-  const l=raw.trim();
-  if(l.startsWith("#EXTINF")){
-   const i=l.lastIndexOf(",");name=(i>=0?l.slice(i+1):"").trim();
-   logo=(l.match(/tvg-logo="([^"]*)"/i)||[])[1]||"";cc=(l.match(/tvg-country="([^"]*)"/i)||[])[1]||"";grp=(l.match(/group-title="([^"]*)"/i)||[])[1]||"";
-  }else if(name&&/^https?:\/\//i.test(l)){
-   if(isStream(l)&&!(secure&&/^http:\/\//i.test(l))){
-    let pais="Internacional";try{pais=dn.of(cc.toUpperCase())||pais}catch(e){}
-    const id="x_"+sk+"_"+(norm(name)||"canal")+"_"+(cc||"xx").toLowerCase();let o=map.get(id);
-    if(o){if(!o.alts.includes(l))o.alts.push(l);if(!o.logo&&logo)o.logo=logo}
-    else map.set(id,{id,name,pais,cat:ftvCat(grp+" "+name),logo,url:l,alts:[l],src,official:false});
-   }
-   name="";logo="";cc="";grp="";
-  }
- }
- return[...map.values()]}
-async function loadExtra(){
- const c=await IDBC.get("ext_v1");
- if(c&&Array.isArray(c.data)&&c.data.length){ext=c.data;render();if(Date.now()-c.t<WTTL)return}
- let out=null;
- try{const r=await fetch("canais-extras.json",{cache:"no-cache"});if(r.ok){const j=await r.json();
-  if(j&&Array.isArray(j.c)&&j.c.length)out=j.c.map(a=>({id:a[0],name:a[1],pais:a[2],cat:a[3],logo:a[4]||"",url:a[5][0],alts:a[5],src:a[6],official:false}))}}catch(e){}
- if(!out){const res=await Promise.allSettled(EXT_SRC.map(async([n,u])=>{const ac=new AbortController(),t=setTimeout(()=>ac.abort(),20000);
-   try{const r=await fetch(u,{signal:ac.signal});if(!r.ok)throw new Error("HTTP "+r.status);const x=await r.text();if(!x.includes("#EXTM3U"))throw new Error("M3U inválida");return parseX(x,n)}finally{clearTimeout(t)}}));
-  res.forEach((r,i)=>{if(r.status!=="fulfilled")console.warn("Fonte extra falhou:",EXT_SRC[i][0],r.reason&&r.reason.message)});
-  out=res.flatMap(r=>r.status==="fulfilled"?r.value:[])}
- if(out.length){ext=out;IDBC.set("ext_v1",{t:Date.now(),data:out});render()}}
 /* ---- apresentação ---- */
 /* ---- RÁDIO: estações do mundo via radio-browser.info (API aberta e gratuita) ---- */
 let mode=L("tv_mode","tv")==="radio"?"radio":"tv";
@@ -846,8 +840,15 @@ function rfreq(n){n=String(n||"");let m;
 const rcat=t=>{t=na(t);if(!t.trim())return"Geral";return(RRX.find(r=>r[0].test(t))||[])[1]||"Geral"};
 const RB_HOSTS=["https://de1.api.radio-browser.info","https://nl1.api.radio-browser.info","https://at1.api.radio-browser.info","https://fi1.api.radio-browser.info"],RTTL=12*36e5;
 let rbI=0;
-async function rb(path){let err;for(let k=0;k<RB_HOSTS.length;k++){const h=RB_HOSTS[(rbI+k)%RB_HOSTS.length],ctl=new AbortController(),t=setTimeout(()=>ctl.abort(),15000);
-  try{const r=await fetch(h+path,{signal:ctl.signal});clearTimeout(t);if(!r.ok)throw new Error(r.status);rbI=(rbI+k)%RB_HOSTS.length;return await r.json()}catch(e){clearTimeout(t);err=e}}
+let rbDiscT=0;
+/* se os servidores fixos falharem, pergunta à radio-browser quais estão ativos agora (no máximo 1 vez por minuto) */
+async function rbDiscover(){if(Date.now()-rbDiscT<60000)return false;rbDiscT=Date.now();
+ try{const ac=new AbortController(),t=setTimeout(()=>ac.abort(),8000);let r;try{r=await sfetchS("https://all.api.radio-browser.info/json/servers",ac)}finally{clearTimeout(t)}
+  const j=await r.json(),hs=[...new Set((Array.isArray(j)?j:[]).map(x=>x&&x.name).filter(n=>/^[a-z0-9-]+\.api\.radio-browser\.info$/i.test(n||"")).map(n=>"https://"+n.toLowerCase()))];
+  if(!hs.length||hs.every(h=>RB_HOSTS.includes(h)))return false;RB_HOSTS.splice(0,RB_HOSTS.length,...hs,...RB_HOSTS.filter(h=>!hs.includes(h)));rbI=0;return true}catch(e){return false}}
+async function rb(path,again){let err;for(let k=0;k<RB_HOSTS.length;k++){const h=RB_HOSTS[(rbI+k)%RB_HOSTS.length],ctl=new AbortController(),t=setTimeout(()=>ctl.abort(),15000);
+  try{const r=await sfetchS(h+path,ctl);clearTimeout(t);if(!r.ok)throw new Error(r.status);rbI=(rbI+k)%RB_HOSTS.length;return await r.json()}catch(e){clearTimeout(t);err=e}}
+ if(!again&&await rbDiscover())return rb(path,true);
  throw err}
 const rdn=new Intl.DisplayNames(["pt"],{type:"region"});
 const rpais=cc=>{try{const u=String(cc||"").toUpperCase(),n=u&&rdn.of(u);return n&&n!==u?n:""}catch(e){return""}};
@@ -880,7 +881,7 @@ async function loadRadio(){
   else{rT=Date.now();rsave()}
   render();autoApply()
  }catch(e){toast("Não foi possível carregar as rádios. Verifique a Internet e tente de novo.")}
- finally{rLoading=false}}
+ finally{rLoading=false;render()}}
 async function radioCountry(p){
  if(mode!=="radio"||!p||rfetched.has(p))return;const code=pc[p];if(!code)return;rfetched.add(p);rbusy++;
  try{const j=await rb("/json/stations/search?hidebroken=true&order=clickcount&reverse=true&limit=500&countrycode="+code);rbusy--;if(radd(j))rsave();render()}
@@ -924,7 +925,7 @@ function autoApply(){if(userPick||skipAuto||ctry)return;const p=detCountry();if(
  ctry=p;shown=120;render();if(mode==="radio")radioCountry(p)}
 function stepSt(d){if(!view.length)return;const i=cur?view.findIndex(x=>x.id===cur.id):-1,n=view[((i<0?(d>0?-1:0):i)+d+view.length)%view.length];if(n&&n.url)play(n.id)}
 function msInit(){if(!("mediaSession"in navigator))return;const ms=navigator.mediaSession,tr=(a,f)=>{try{ms.setActionHandler(a,f)}catch(e){}};
- tr("play",()=>{const v=$("v");if(!v)return;userPaused=false;if(v.error||v.ended||(!v.paused&&stale(5000))){rcN=0;scheduleReconnect(true)}else v.play().catch(()=>scheduleReconnect(true))});tr("pause",()=>{const v=$("v");if(v)v.pause()});
+ tr("play",()=>{const v=$("v");if(!v)return;userPaused=false;if(v.error||v.ended||(!v.paused&&stale(5000))){rcN=0;scheduleReconnect(true)}else v.play().catch(()=>scheduleReconnect(true))});tr("pause",()=>{const v=$("v");if(v){msPauseAt=Date.now();v.pause()}});
  tr("stop",()=>stopAll());tr("previoustrack",()=>stepSt(-1));tr("nexttrack",()=>stepSt(1))}
 function msSet(c){if(!("mediaSession"in navigator)||!window.MediaMetadata)return;const lg=/^https:/i.test(c.logo||"")?c.logo:"icon-192.png";
  try{navigator.mediaSession.metadata=new MediaMetadata({title:c.name,artist:cn_(c.pais)+(c.freq?" · "+c.freq:""),album:"BBS Internet Cafe",artwork:[{src:lg,sizes:"192x192"}]})}catch(e){}}
@@ -952,7 +953,59 @@ function armUnmute(showMsg){
  if(vin&&showMsg){const o=document.createElement("button");o.id="unmuteOv";o.type="button";o.textContent="🔊 "+T(radio?"Toque para ouvir":"Toque para ativar o som");
   o.style.cssText="position:absolute;inset:0;z-index:4;width:100%;height:100%;border:0;border-radius:inherit;background:#000a;color:#fff;font:700 clamp(15px,3.6vw,22px) system-ui,sans-serif;cursor:pointer;display:grid;place-items:center;padding:8px";
   vin.appendChild(o)}}
-async function openShared(){let id=null;try{id=new URLSearchParams(location.search).get("c")}catch(e){}
+const favIds=()=>{const r=mode==="radio";return favs.filter(i=>String(i).startsWith("r_")===r)};
+async function shareFavs(){const ids=favIds();if(!ids.length){toast("Ainda não tem favoritos para partilhar.");return}
+ const u=location.href.split(/[?#]/)[0]+"?fav="+ids.map(encodeURIComponent).join("~"),t="Os meus favoritos – BBS Internet Cafe";
+ if(navigator.share){try{await navigator.share({title:t,text:t,url:u});return}catch(e){if(e&&e.name==="AbortError")return}}
+ try{await navigator.clipboard.writeText(u);toast("Link copiado.")}catch(e){prompt(T("Copie o link:"),u)}}
+async function openFavs(raw){
+ const ids=[...new Set(String(raw).split("~").map(x=>x.trim()).filter(x=>x&&x.length<90))].slice(0,500);if(!ids.length)return;
+ const rd=ids.some(i=>i.startsWith("r_"));skipAuto=true;userPick=true;
+ if((mode==="radio")!==rd){mode=rd?"radio":"tv";S("tv_mode",mode);applyMode(false)}
+ shared=new Map(ids.map((i,n)=>[i,n]));tab=SH_TAB;ctry="";shown=120;$("q").value="";render();
+ if(rd){const need=ids.filter(i=>i.startsWith("r_")&&!radio.some(c=>c.id===i)).slice(0,60);
+  if(need.length){const rs=await Promise.allSettled(need.map(i=>rb("/json/stations/byuuid/"+encodeURIComponent(i.slice(2)))));let n=0;for(const r of rs)if(r.status==="fulfilled")n+=radd(r.value);if(n){rsave();render()}}}}
+$("shFavB").onclick=()=>{$("hMenu").open=false;shareFavs()};
+$("shSave").onclick=()=>{if(!shared)return;const have=new Set(pool().map(c=>c.id));let n=0;
+ for(const id of shared.keys()){if(!have.has(id)||favs.includes(id))continue;favs=[...favs,id];favHook(id);n++}
+ S("tv_favs",favs);render();toast(n?n+" favoritos guardados.":"Já tinha todos estes favoritos.")};
+/* ---- equalizador (Web Audio): 7 bandas, predefinições, guardado no aparelho. Só liga quando o som pode passar pelo Web Audio sem ficar mudo: rádios com CORS e vídeo HLS (hls.js). ---- */
+const EQ_F=[60,150,400,1000,2400,6000,15000],EQ_L=["60","150","400","1k","2,4k","6k","15k"],EQ_P={"Plano":[0,0,0,0,0,0,0],"Graves":[7,5,2,0,0,0,0],"Voz":[-3,-2,0,3,4,2,-1],"Agudos":[0,0,0,0,2,5,7],"Rock":[5,3,-1,-2,1,4,5],"Pop":[-1,2,4,3,0,-1,-2],"Clássica":[3,2,0,0,0,2,3]};
+const EQ=(()=>{const o=L("tv_eq",{})||{},g=Array.isArray(o.g)&&o.g.length===7?o.g.map(x=>Math.max(-12,Math.min(12,+x||0))):EQ_P["Plano"].slice();return{on:!!o.on,pre:typeof o.pre==="string"?o.pre:"Plano",g}})(),EQS={ctx:null,pre:null,fl:[],src:null,el:null};
+const eqSave=()=>S("tv_eq",{on:EQ.on,pre:EQ.pre,g:EQ.g});
+function eqApply(){if(!EQS.ctx)return;const t=EQS.ctx.currentTime;EQS.fl.forEach((b,i)=>b.gain.setTargetAtTime(EQ.on?EQ.g[i]:0,t,.03));EQS.pre.gain.setTargetAtTime(EQ.on?Math.pow(10,-Math.max(0,...EQ.g)/30):1,t,.03)}   // pré-ganho evita distorção quando se reforça
+function eqGraph(){if(EQS.ctx)return true;const C=window.AudioContext||window.webkitAudioContext;if(!C)return false;
+ try{const x=new C({latencyHint:"playback"}),pre=x.createGain();let prev=pre;
+  const fl=EQ_F.map((f,i)=>{const b=x.createBiquadFilter();b.type=i===0?"lowshelf":i===EQ_F.length-1?"highshelf":"peaking";b.frequency.value=f;if(b.type==="peaking")b.Q.value=1.1;prev.connect(b);prev=b;return b});
+  prev.connect(x.destination);x.onstatechange=()=>{if(EQ.on&&EQS.el&&x.state!=="running")x.resume().catch(()=>{})};
+  EQS.ctx=x;EQS.pre=pre;EQS.fl=fl;eqApply();return true}catch(e){return false}}
+const eqOK=v=>!!v&&((v.tagName==="AUDIO"&&v.crossOrigin==="anonymous")||(typeof hls!=="undefined"&&!!hls&&hls.media===v));
+function eqResume(){if(EQS.ctx&&EQS.ctx.state!=="running")EQS.ctx.resume().catch(()=>{})}
+function eqAttach(v){if(!EQ.on||!v||v._eq||!eqOK(v)||!eqGraph())return false;const x=EQS.ctx;if(x.state!=="running")return false;   // nunca liga a um contexto parado: o som ficaria mudo
+ try{if(EQS.src){try{EQS.src.disconnect()}catch(e){}}const s=x.createMediaElementSource(v);v._eq=1;s.connect(EQS.pre);EQS.src=s;EQS.el=v;return true}catch(e){return false}}
+function eqNote(){const n=$("eqNote"),b=$("eqB");if(!n||!b)return;const v=$("v"),on=EQ.on&&!!v&&EQS.el===v;b.classList.toggle("p",on);
+ n.textContent=!EQ.on?"":on?T("Equalizador ativo."):!cur?T("Escolha um canal primeiro."):eqOK(v)?T("A ativar… toque no ecrã se não ouvir diferença."):T("Este canal não permite equalizador (o emissor bloqueia).")}
+function eqUI(){const bs=$("eqBands");bs.innerHTML=EQ_F.map((f,i)=>`<div class="eqc"><span class="mut" id="eqv${i}">${EQ.g[i]>0?"+":""}${EQ.g[i]}</span><div class="eqs"><input type="range" min="-12" max="12" step="1" value="${EQ.g[i]}" data-b="${i}" aria-label="${EQ_L[i]} Hz"></div><small>${EQ_L[i]}</small></div>`).join("");
+ const sel=$("eqPre");sel.innerHTML=Object.keys(EQ_P).concat(["Personalizado"]).map(k=>`<option value="${esc(k)}">${esc(T(k))}</option>`).join("");sel.value=EQ.pre in EQ_P?EQ.pre:"Personalizado";$("eqOn").checked=EQ.on;eqNote()}
+$("eqBands").addEventListener("input",e=>{const i=+e.target.dataset.b;if(!(i>=0))return;EQ.g[i]=+e.target.value;EQ.pre="Personalizado";$("eqPre").value="Personalizado";$("eqv"+i).textContent=(EQ.g[i]>0?"+":"")+EQ.g[i];eqApply();eqSave()});
+$("eqPre").onchange=e=>{const p=EQ_P[e.target.value];if(!p)return;EQ.pre=e.target.value;EQ.g=p.slice();eqUI();eqApply();eqSave()};
+$("eqOn").onchange=async e=>{
+ if(e.target.checked){const v=$("v");
+  if(!cur||!v){e.target.checked=false;toast("Escolha um canal primeiro.");return}
+  if(!eqOK(v)){e.target.checked=false;toast("Este canal não permite equalizador (o emissor bloqueia). Experimente outro.",5000);return}
+  if(!eqGraph()){e.target.checked=false;toast("Este navegador não suporta equalizador.");return}
+  try{await EQS.ctx.resume()}catch(er){}
+  EQ.on=true;eqApply();
+  if(!eqAttach(v)){EQ.on=false;e.target.checked=false;toast("Não foi possível ligar o equalizador.")}}
+ else{EQ.on=false;eqApply();if(EQS.el&&cur){EQS.el=null;EQS.src=null;play(cur.id,true)}}   // recria o leitor sem passar pelo Web Audio
+ eqSave();eqNote()};
+$("eqB").onclick=()=>{eqUI();$("eqD").showModal()};$("eqX").onclick=()=>$("eqD").close();
+/* o Web Audio só arranca com um toque do utilizador: ao primeiro toque retoma o contexto e liga ao leitor atual */
+["click","touchend","keydown"].forEach(ev=>addEventListener(ev,()=>{if(!EQ.on)return;eqGraph();if(EQS.ctx&&EQS.ctx.state!=="running")EQS.ctx.resume().then(()=>{eqAttach($("v"));eqNote()}).catch(()=>{})},true));
+document.addEventListener("loadstart",e=>{const m=e.target;if(m&&m.matches&&m.matches("video,audio")){if(EQ.on)eqAttach(m);eqNote()}},true);
+
+async function openShared(){let id=null,fl=null;try{const P=new URLSearchParams(location.search);id=P.get("c");fl=P.get("fav")}catch(e){}
+ if(fl&&!id){await openFavs(fl);return}
  if(!id)return;try{history.replaceState(null,"",location.href.split(/[?#]/)[0])}catch(e){}
  skipAuto=true;
  if(id.startsWith("r_")){if(mode!=="radio"){mode="radio";S("tv_mode",mode);applyMode(false)}
@@ -964,13 +1017,35 @@ async function openShared(){let id=null;try{id=new URLSearchParams(location.sear
 $("shB").onclick=shareCur;
 $("rMax").value=String(rmax);$("rMax").onchange=e=>{rmax=+e.target.value||0;S("tv_rmax",rmax);shown=120;render()};
 msInit();
+/* ---- v4.10: modo TV — ver (vídeo) ou ouvir (só áudio, como rádio). Em «ouvir» o canal toca num leitor de áudio, que continua com o ecrã bloqueado/desligado ---- */
+function audBtn(){const b=$("audB");if(!b)return;
+ b.disabled=!cur||!!cur.radio;b.classList.toggle("on",audioOnly);
+ b.textContent=audioOnly?"📺 "+T("Ver"):"🎧 "+T("Ouvir");
+ b.title=T(audioOnly?"Voltar a ver o vídeo":"Só áudio, como rádio: continua a tocar com o ecrã bloqueado")}
+$("audB").onclick=()=>{audioOnly=!audioOnly;S("tv_aud",audioOnly);audBtn();
+ if(!cur||cur.radio)return;
+ if($("v")){toast(audioOnly?"🎧 Só áudio: continua a tocar com o ecrã bloqueado.":"📺 Vídeo ligado.",3500);userPaused=false;play(cur.id,true)}
+ else toast(audioOnly?"Este canal (YouTube ou página do emissor) não tem modo só áudio. Nos outros canais vai ouvir como rádio.":"📺 Modo vídeo.",5000)};
+Object.assign(EN,{"Ouvir":"Listen","Ver":"Watch","Voltar a ver o vídeo":"Back to video","Só áudio, como rádio: continua a tocar com o ecrã bloqueado":"Audio only, like radio: keeps playing with the screen locked","🎧 Só áudio: continua a tocar com o ecrã bloqueado.":"🎧 Audio only: keeps playing with the screen locked.","📺 Vídeo ligado.":"📺 Video on.","📺 Modo vídeo.":"📺 Video mode.","Este canal (YouTube ou página do emissor) não tem modo só áudio. Nos outros canais vai ouvir como rádio.":"This channel (YouTube or broadcaster page) has no audio-only mode. Other channels will play as radio."});
+audBtn();
 /* ---- v4.2: retoma sozinho quando a rede volta (também em segundo plano) ---- */
-let userPaused=false,wasOk=false,lastProg=0,rcT=null,rvT=null,rcN=0;
+let userPaused=false,wasOk=false,lastProg=0,rcT=null,rvT=null,rcN=0,lastGest=0,msPauseAt=0,devChg=0,intrT=null,pausedAt=0,sysAt=0,lastHide=0;
+/* pausa do sistema (chamada, alarme, outra app, notificação) ≠ pausa do utilizador: só conta como pausa do utilizador se veio de um toque/tecla na página, dos controlos do ecrã de bloqueio/auscultadores, ou se um dispositivo de áudio mudou (desligar auscultadores). Nos outros casos retoma sozinho. */
+["pointerdown","touchstart","keydown","click"].forEach(e=>addEventListener(e,()=>{lastGest=Date.now()},true));
+try{navigator.mediaDevices&&navigator.mediaDevices.addEventListener("devicechange",()=>{devChg=Date.now()})}catch(e){}
+/* sinais de interrupção do sistema (chamada, alarme, outra app): o iOS avisa por audioSession; noutros casos a página perde o foco/fica oculta. Sem um destes sinais, uma pausa é sempre tratada como pausa do utilizador. */
+try{const as=navigator.audioSession;if(as&&as.addEventListener)as.addEventListener("statechange",()=>{if(as.state==="interrupted")sysAt=Date.now()})}catch(e){}
+["blur","pagehide"].forEach(e=>addEventListener(e,()=>{lastHide=Date.now()}));document.addEventListener("visibilitychange",()=>{if(document.hidden)lastHide=Date.now()});
+function intrTry(){const v=$("v");eqResume();
+ if(!cur||userPaused||!v||!v.paused||v.ended){clearInterval(intrT);intrT=null;return}
+ v.play().then(()=>{lastProg=Date.now();if(Date.now()-pausedAt>20000){rcN=0;scheduleReconnect(true)}}).catch(()=>{})}   // depois de uma pausa longa volta ao direto
+function intrStart(){pausedAt=Date.now();clearInterval(intrT);let n=0;intrT=setInterval(()=>{if(++n>450){clearInterval(intrT);intrT=null;return}intrTry()},4000)}
+addEventListener("focus",()=>{if(intrT)intrTry()});document.addEventListener("visibilitychange",()=>{if(!document.hidden&&intrT)intrTry()});
 $("hver").textContent="v"+APP_VERSION;
 $("hMenu").addEventListener("click",e=>{if(e.target.closest(".mp button"))setTimeout(()=>{$("hMenu").open=false},0)});
 document.addEventListener("click",e=>{if(!e.target.closest("#hMenu"))$("hMenu").open=false});
 addEventListener("keydown",e=>{if(e.key==="Escape")$("hMenu").open=false});
-Object.assign(EN,{"Tema":"Theme","Idioma":"Language","Menu":"Menu","Rápida":"Fast","Fraca":"Weak","Média":"Medium","Lenta":"Slow","Móvel":"Mobile","Cabo":"Wired","Ligação à Internet":"Internet connection","Sem ligação à Internet":"No Internet connection","Aleatório":"Random"});
+Object.assign(EN,{"🎚️ Equalizador":"🎚️ Equalizer","Predefinição":"Preset","Ativar":"Enable","Equalizador ativo.":"Equalizer on.","Este canal não permite equalizador (o emissor bloqueia).":"This channel doesn’t allow the equalizer (the broadcaster blocks it).","Este canal não permite equalizador (o emissor bloqueia). Experimente outro.":"This channel doesn’t allow the equalizer (the broadcaster blocks it). Try another one.","Este navegador não suporta equalizador.":"This browser doesn’t support the equalizer.","Não foi possível ligar o equalizador.":"Couldn’t turn the equalizer on.","A ativar… toque no ecrã se não ouvir diferença.":"Turning on… tap the screen if you hear no difference.","Plano":"Flat","Graves":"Bass","Voz":"Voice","Agudos":"Treble","Clássica":"Classical","Personalizado":"Custom","Lista partilhada":"Shared list","🔗 Partilhar favoritos":"🔗 Share favorites","🔗 Lista de favoritos partilhada":"🔗 Shared favorites list","★ Guardar nos meus favoritos":"★ Save to my favorites","Ainda não tem favoritos para partilhar.":"You have no favorites to share yet.","Os meus favoritos – BBS Internet Cafe":"My favorites – BBS Internet Cafe","Já tinha todos estes favoritos.":"You already had all these favorites.","Tema":"Theme","Idioma":"Language","Menu":"Menu","Rápida":"Fast","Fraca":"Weak","Média":"Medium","Lenta":"Slow","Móvel":"Mobile","Cabo":"Wired","Ligação à Internet":"Internet connection","Sem ligação à Internet":"No Internet connection","Aleatório":"Random"});
 const stale=ms=>Date.now()-lastProg>ms,RC_D=[2,4,8,15,30];
 function scheduleReconnect(now){
  if(rcT){clearTimeout(rcT);rcT=null}
@@ -995,7 +1070,7 @@ setInterval(()=>{const v=$("v");if(!cur||!v||userPaused||!wasOk||rcT)return;if(n
 Object.assign(EN,{"A reconectar…":"Reconnecting…","Sem rede — retoma sozinho":"No network — will resume automatically"});
 Object.assign(EN,{"Recentes":"Recent","Partilhar":"Share","Link copiado.":"Link copied.","Copie o link:":"Copy the link:","Toque em ▶ ou no volume para ouvir.":"Tap ▶ or the volume to listen.","Toque no ecrã para ativar o som.":"Tap the screen to turn the sound on.","Toque para ouvir":"Tap to listen","Toque para ativar o som":"Tap to turn the sound on","💾 Poupar dados":"💾 Save data","Poupar dados":"Save data","Qualquer qualidade":"Any quality","Até 128 kbps (≈58 MB/h)":"Up to 128 kbps (≈58 MB/h)","Até 96 kbps (≈43 MB/h)":"Up to 96 kbps (≈43 MB/h)","Até 64 kbps (≈29 MB/h)":"Up to 64 kbps (≈29 MB/h)"});
 const ncors=new Set();   // rádios que não deixam ser lidas (sem CORS): tocam, mas não gravam
-const radioPanel=c=>{const lg=safeUrl(c.logo);return`<div class="rad" style="--h:${hue(c.name)}"><span class="art">${esc(c.name[0]||"📻")}${lg?`<img src="${esc(lg)}" alt="" referrerpolicy="no-referrer">`:""}</span><div class="txt"><b>${esc(c.name)}</b><span class="meta"><span>${flagH(c.pais)} ${esc(cn_(c.pais))}</span>${c.freq?`<span class="fq">${esc(c.freq)}</span>`:""}<span>${esc(T(c.cat))}</span>${c.br?`<span>≈${Math.round(c.br*.45)} MB/h</span>`:""}</span><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span></div><audio id="v" controls autoplay playsinline${ncors.has(c.id)?"":" crossorigin=\"anonymous\""}></audio></div>`};
+const radioPanel=(c,aud)=>{const lg=safeUrl(c.logo);return`<div class="rad" style="--h:${hue(c.name)}"><img class="bgl" src="logo.png" alt="" aria-hidden="true"><span class="art">${esc(c.name[0]||"📻")}${lg?`<img src="${esc(lg)}" alt="" referrerpolicy="no-referrer">`:""}</span><div class="txt"><b>${esc(c.name)}</b><span class="meta"><span>${flagH(c.pais)} ${esc(cn_(c.pais))}</span>${c.freq?`<span class="fq">${esc(c.freq)}</span>`:""}<span>${esc(T(c.cat))}</span>${c.br?`<span>≈${Math.round(c.br*.45)} MB/h</span>`:""}</span><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span></div><audio id="v" controls autoplay playsinline${aud||ncors.has(c.id)?"":" crossorigin=\"anonymous\""}></audio></div>`};
 function phMode(){$("q").placeholder=T(mode==="radio"?"Pesquisar rádios…":"Pesquisar canais…");net()}
 function applyMode(init){
  const r=mode==="radio";document.body.classList.toggle("radio-on",r);
@@ -1005,7 +1080,7 @@ function applyMode(init){
  if(typeof progSearch==="function")progSearch();render();autoApply()}
 function setMode(m){if(m===mode)return;userPick=false;mode=m;S("tv_mode",m);applyMode(false)}
 $("mTv").onclick=()=>setMode("tv");$("mRadio").onclick=()=>setMode("radio");
-$("vin").addEventListener("error",e=>{if(e.target.tagName==="IMG")e.target.remove()},true);
+$("vin").addEventListener("error",e=>{if(e.target.tagName==="IMG"&&!e.target.classList.contains("bgl"))e.target.remove()},true);
 Object.assign(EN,{"Esta rádio não permite gravação (o emissor bloqueia). Experimente outra.":"This station doesn’t allow recording (the broadcaster blocks it). Try another one.","Nome":"Name","Frequência":"Frequency","Género":"Genre","Qualidade":"Quality","Populares":"Popular","Gravar":"Record","Gravação sem limite de tempo":"Recording with no time limit","A carregar…":"Loading…","Não foi possível gravar em MP3; a usar outro formato.":"Couldn’t record as MP3; using another format.","Este navegador não grava em MP4; a gravar em WebM.":"This browser can’t record MP4; recording WebM.","📻 Rádio":"📻 Radio","Pesquisar rádios…":"Search radio stations…","rádios":"radios","Escolha uma rádio":"Choose a radio station","A lista de rádios está ao centro (ou por baixo, no telemóvel).":"The station list is in the middle (or below, on mobile).","A carregar rádios do mundo…":"Loading world radio stations…","Não foi possível carregar as rádios. Verifique a Internet e tente de novo.":"Couldn’t load radio stations. Check your Internet connection and try again.","Não foi possível carregar as rádios deste país.":"Couldn’t load this country’s radio stations.","Notícias e conversa":"News & talk","Pop e hits":"Pop & hits","Hip-hop e R&B":"Hip-hop & R&B","Dance e eletrónica":"Dance & electronic","Jazz e clássica":"Jazz & classical","Afro, latina e mundo":"Afro, Latin & world","Gospel e religião":"Gospel & religion","Cultura":"Culture"});
 
 let rLH="",shown=120,view=[],col=new Intl.Collator(LANG);const nk=new Map();
@@ -1014,26 +1089,27 @@ const nn=c=>{let v=nk.get(c);if(v===undefined){v=na(c.name+" "+c.pais+" "+cnE(c.
 function card(c,fs){const f=fs.has(c.id),lg=safeUrl(c.logo);
  return`<div class="ch ${cur&&cur.id===c.id?"cur":""} ${c.url?"":"off"}"><button class="pick" data-id="${esc(c.id)}"><span class="mono" style="background:hsl(${hue(c.name)} 45% 40%)">${esc(c.name[0]||"?")}${lg?`<img src="${esc(lg)}" alt="" loading="lazy" referrerpolicy="no-referrer">`:""}${hasTL(c)?`<i class="tlb" title="${esc(T("Tradução e legendas"))}" aria-label="${esc(T("Tradução e legendas"))}">CC</i>`:""}</span><span class="nm"><b>${esc(c.name)}</b><span class="mut">${flagH(c.pais)} ${esc(cn_(c.pais))}${c.url?(c.official?" · "+T("site oficial"):""):" · "+T("sem link")}${srcOf(c)?` <i class="src src-${srcOf(c).toLowerCase().replace(/[^a-z]/g,"")}">${srcOf(c)}</i>`:""}</span>${epgNow(c)}</span></button><button class="star ${f?"on":""}" data-fav="${esc(c.id)}" aria-label="${T(f?"Remover dos favoritos":"Adicionar aos favoritos")}" aria-pressed="${f}">${f?"★":"☆"}</button></div>`}
 function render(){
- const A=pool(),q=na($("q").value.trim()),cq=na($("cq").value.trim()),fs=new Set(favs),cn={},kn={},rs=new Set(rcl());let fv=0,rv=0,tlc=0;
+ if(tab===SH_TAB&&!shared)tab="Todos";
+ const A=pool(),q=na($("q").value.trim()),cq=na($("cq").value.trim()),fs=new Set(favs),cn={},kn={},rs=new Set(rcl());let fv=0,rv=0,tlc=0,shn=0;
  for(const c of A){if(q&&!nn(c).includes(q))continue;const k=catOf(c),f=fs.has(c.id),tl=mode!=="radio"&&hasTL(c);
-  if(!ctry||c.pais===ctry){kn[k]=(kn[k]||0)+1;if(f)fv++;if(rs.has(c.id))rv++;if(tl)tlc++}
-  if(tab==="Todos"||(tab==="Favoritos"?f:tab==="Recentes"?rs.has(c.id):tab===TL_TAB?tl:k===tab))cn[c.pais]=(cn[c.pais]||0)+1}
+  if(!ctry||c.pais===ctry){kn[k]=(kn[k]||0)+1;if(f)fv++;if(rs.has(c.id))rv++;if(tl)tlc++;if(shared&&shared.has(c.id))shn++}
+  if(tab==="Todos"||(tab===SH_TAB?(shared&&shared.has(c.id)):tab==="Favoritos"?f:tab==="Recentes"?rs.has(c.id):tab===TL_TAB?tl:k===tab))cn[c.pais]=(cn[c.pais]||0)+1}
  if(mode==="radio"&&tab==="Todos"&&!q)for(const p in rcount)if(!rfetched.has(p))cn[p]=Math.max(cn[p]||0,rcount[p]);
  if(ctry&&!(ctry in cn))cn[ctry]=0;
  const all=Object.values(kn).reduce((a,b)=>a+b,0),order=Object.keys(CT()).filter(k=>kn[k]||k===tab);
- $("tabs").innerHTML=[["Todos","▦",all],["Favoritos","★",fv],["Recentes","🕘",rv],...(()=>{const a=order.map(k=>[k,CT()[k],kn[k]||0]);if(mode!=="radio"){const i=a.findIndex(x=>!PRI_CATS.includes(x[0]));a.splice(i<0?a.length:i,0,[TL_TAB,"🌐",tlc])}return a})()].map(([t,i,n])=>`<button data-tab="${esc(t)}" class="${t===tab?"on":""}">${i} ${esc(T(t))}<span class="n">${n}</span></button>`).join("");
+ $("tabs").innerHTML=[...(shared?[[SH_TAB,"🔗",shn]]:[]),["Todos","▦",all],["Favoritos","★",fv],["Recentes","🕘",rv],...(()=>{const a=order.map(k=>[k,CT()[k],kn[k]||0]);if(mode!=="radio"){const i=a.findIndex(x=>!PRI_CATS.includes(x[0]));a.splice(i<0?a.length:i,0,[TL_TAB,"🌐",tlc])}return a})()].map(([t,i,n])=>`<button data-tab="${esc(t)}" class="${t===tab?"on":""}">${i} ${esc(T(t))}<span class="n">${n}</span></button>`).join("");
  const pin=["Moçambique","Angola","Cabo Verde","África do Sul"],rk=p=>pin.includes(p)?pin.indexOf(p):99;
  const ps=Object.keys(cn).filter(p=>!cq||na(p).includes(cq)||na(cn_(p)).includes(cq)).sort((a,b)=>rk(a)-rk(b)||col.compare(cn_(a),cn_(b)));
  const ctryH=`<button data-ctry="" class="${ctry?"":"on"}">🌍 ${T("Todos os países")}</button>`+ps.map(p=>`<button data-ctry="${esc(p)}" class="${p===ctry?"on":""}">${flagH(p)} ${esc(cn_(p))}<span class="n">${cn[p]}</span></button>`).join("");
  if(ctryH!==window._cH){window._cH=ctryH;$("ctry").innerHTML=ctryH}
  const selH=`<option value="">🌍 ${T("Todos os países")}</option>`+ps.map(p=>`<option value="${esc(p)}"${p===ctry?" selected":""}>${flag(p)} ${esc(cn_(p))} (${cn[p]})</option>`).join("");
  {const se=$("ctrySel");if(selH!==window._sH&&document.activeElement!==se){window._sH=selH;se.innerHTML=selH;se.value=ctry||""}}
- view=A.filter(c=>(!q||nn(c).includes(q))&&(!ctry||c.pais===ctry)&&(tab==="Todos"||(tab==="Favoritos"?fs.has(c.id):tab==="Recentes"?rs.has(c.id):tab===TL_TAB?hasTL(c):catOf(c)===tab)));
- const ri=new Map(rcl().map((x,i)=>[x,i]));view.sort(tab==="Recentes"?(a,b)=>ri.get(a.id)-ri.get(b.id):mode==="radio"?rcmp:(a,b)=>(!!b.url-!!a.url)||col.compare(a.name,b.name));const lim=mode==="radio"?shown*3:shown;
+ view=A.filter(c=>(!q||nn(c).includes(q))&&(!ctry||c.pais===ctry)&&(tab==="Todos"||(tab===SH_TAB?(shared&&shared.has(c.id)):tab==="Favoritos"?fs.has(c.id):tab==="Recentes"?rs.has(c.id):tab===TL_TAB?hasTL(c):catOf(c)===tab)));
+ const ri=new Map(rcl().map((x,i)=>[x,i]));view.sort(tab===SH_TAB&&shared?(a,b)=>shared.get(a.id)-shared.get(b.id):tab==="Recentes"?(a,b)=>ri.get(a.id)-ri.get(b.id):mode==="radio"?rcmp:(a,b)=>(!!b.url-!!a.url)||col.compare(a.name,b.name));const lim=mode==="radio"?shown*3:shown;
  $("list").classList.toggle("rlist",mode==="radio");const none=`<p class="mut">${T(mode==="radio"&&(rLoading||rbusy)?"A carregar…":"Nenhum canal encontrado.")}</p>`;
  const lh=mode==="radio"?(view.length?rhead()+view.slice(0,lim).map(c=>rrow(c,fs)).join(""):none):(view.slice(0,shown).map(c=>card(c,fs)).join("")||none);
  if(lh!==rLH){rLH=lh;$("list").innerHTML=lh}
- $("cnt").textContent=view.length+" "+T(mode==="radio"?"rádios":"canais")+(ctry?" · "+cn_(ctry):"")+(tab!=="Todos"?" · "+T(tab):"");
+ $("shBar").classList.toggle("hide",!(shared&&tab===SH_TAB));$("cnt").textContent=view.length+" "+T(mode==="radio"?"rádios":"canais")+(ctry?" · "+cn_(ctry):"")+(tab!=="Todos"?" · "+T(tab):"");
  $("more").classList.toggle("hide",view.length<=lim);$("more").textContent=T("Mostrar mais")+" ("+(view.length-lim)+")";saveUI()}
 $("q").oninput=()=>{shown=120;render();progSearch();radioSearch()};$("cq").oninput=render;
 $("ctrySel").onchange=e=>{userPick=true;ctry=e.target.value;shown=120;render();radioCountry(ctry)};
@@ -1051,17 +1127,18 @@ $("list").addEventListener("error",e=>{if(e.target.tagName==="IMG")e.target.remo
 let nowS={t:"Sem canal",s:""};
 function refNow(){$("now").textContent=nowS.t==="Sem canal"?T(nowS.t):nowS.t;$("sub").textContent=T(nowS.s)}
 function setNow(t,s){nowS={t,s:s||""};refNow()}
-function stopAll(){try{if(navigator.mediaSession)navigator.mediaSession.metadata=null}catch(e){}clearTimeout(rcT);rcT=null;clearTimeout(rvT);wasOk=false;if(recorder)stopRec();if(hls){hls.destroy();hls=null}clearTrk();showIdle();cur=null;chInfo();trackNow();miniCheck();setNow("Sem canal");$("qNow").textContent="";$("recB").disabled=$("fsB").disabled=$("shB").disabled=true}
+function stopAll(){audNow=false;document.body.classList.remove("aud-on");try{if(navigator.mediaSession)navigator.mediaSession.metadata=null}catch(e){}clearTimeout(rcT);rcT=null;clearTimeout(rvT);wasOk=false;if(recorder)stopRec();if(hls){hls.destroy();hls=null}clearTrk();showIdle();cur=null;chInfo();trackNow();miniCheck();setNow("Sem canal");$("qNow").textContent="";$("recB").disabled=$("fsB").disabled=$("shB").disabled=true}
 function idle(t,html){$("vin").innerHTML=`<div class="idle"><b>${esc(t==="Escolha um canal"||t==="Escolha uma rádio"?T(t):t)}</b>${html||""}</div>`}
 function showIdle(){const rd=mode==="radio",lt=rd?(rlast&&{id:rlast.id,name:rlast.name}):L("tv_last",null);
  idle(rd?"Escolha uma rádio":"Escolha um canal",esc(T(rd?"A lista de rádios está ao centro (ou por baixo, no telemóvel).":"A lista de canais está ao centro (ou por baixo, no telemóvel)."))+(lt&&lt.id?`<br><button data-last="${esc(lt.id)}">▶ ${esc(T("Continuar"))}: ${esc(lt.name||"")}</button>`:""))}
 $("vin").addEventListener("click",e=>{const b=e.target.closest("[data-last]");if(b)play(b.dataset.last)});
 let altI=0,wd=null;
 function nextAlt(){if(cur&&cur.alts&&altI<Math.min(cur.alts.length,4)-1){altI++;setNow(cur.name,"A tentar outro link…");play(cur.id,true);return true}return false}
-function mark(){trackNow();epgShow();chInfo();document.querySelectorAll("#list .ch.cur").forEach(e=>e.classList.remove("cur"));if(cur){const b=document.querySelector('#list [data-id="'+CSS.escape(cur.id)+'"]');if(b)b.closest(".ch").classList.add("cur")}}
+function mark(){audBtn();trackNow();epgShow();chInfo();document.querySelectorAll("#list .ch.cur").forEach(e=>e.classList.remove("cur"));if(cur){const b=document.querySelector('#list [data-id="'+CSS.escape(cur.id)+'"]');if(b)b.closest(".ch").classList.add("cur")}}
 function play(id,keep){
  const c=pool().find(x=>x.id===id)||(String(id).startsWith("r_")?radio.find(x=>x.id===id):null);if(!c){toast("Canal não encontrado (a lista ainda pode estar a carregar).");return}
  if(recorder)stopRec();
+ audNow=false;document.body.classList.remove("aud-on");
  if(hls){hls.destroy();hls=null}
  clearTrk();clearTimeout(wd);clearTimeout(rvT);if(!keep){altI=0;rcN=0;wasOk=false;if(rcT){clearTimeout(rcT);rcT=null}}userPaused=false;lastProg=Date.now();cur=c;retries=0;if(!keep)addRecent(c);if(c.radio){rlast={id:c.id,name:c.name,station:c};S("tv_rlast",rlast);rclick(c)}else S("tv_last",{id:c.id,name:c.name});$("qNow").textContent="";$("fsB").disabled=false;$("shB").disabled=false;$("recB").disabled=true;
  const url=safeUrl(altI&&c.alts?c.alts[altI]:c.url);
@@ -1077,18 +1154,27 @@ function play(id,keep){
   setNow(c.name,"Página incorporada");
   $("vin").innerHTML=`<iframe src="${esc(url)}" title="${esc(c.name)}" allow="autoplay;fullscreen;encrypted-media" allowfullscreen sandbox="allow-scripts allow-same-origin allow-presentation allow-popups"></iframe>`;
   mark();return}
- $("vin").innerHTML=c.radio?radioPanel(c):'<video id="v" controls playsinline autoplay controlslist="nofullscreen noremoteplayback" disablepictureinpicture></video>';
- const v=$("v");{const sv=L("tv_vol",null);if(sv){v.volume=Math.min(1,Math.max(0,+sv.v||0));v.muted=!!sv.m}else v.volume=VOL_DEF}v.addEventListener("volumechange",()=>{if(v._sys){v._sys=false;return}S("tv_vol",{v:v.volume,m:v.muted})});v.addEventListener("webkitbeginfullscreen",()=>{try{v.webkitExitFullscreen()}catch(e){}pfs(true)});setNow(c.name,"A carregar…");$("recB").disabled=false;if(c.radio){const rp=$("vin").firstChild;v.addEventListener("playing",()=>rp.classList.remove("pause"));v.addEventListener("pause",()=>rp.classList.add("pause"))}
+ const aud=!c.radio&&audioOnly;audNow=aud;document.body.classList.toggle("aud-on",aud);
+ $("vin").innerHTML=(c.radio||aud)?radioPanel(c,aud):'<video id="v" controls playsinline autoplay controlslist="nofullscreen noremoteplayback" disablepictureinpicture></video>';
+ const v=$("v");{const sv=L("tv_vol",null);if(sv){v.volume=Math.min(1,Math.max(0,+sv.v||0));v.muted=!!sv.m}else v.volume=VOL_DEF}v.addEventListener("volumechange",()=>{if(v._sys){v._sys=false;return}S("tv_vol",{v:v.volume,m:v.muted})});v.addEventListener("webkitbeginfullscreen",()=>{try{v.webkitExitFullscreen()}catch(e){}pfs(true)});setNow(c.name,"A carregar…");$("recB").disabled=false;if(c.radio||aud){const rp=$("vin").firstChild;v.addEventListener("playing",()=>rp.classList.remove("pause"));v.addEventListener("pause",()=>rp.classList.add("pause"))}
  v.onplaying=()=>{clearTimeout(wd);setNow(c.name,"Em direto");retries=0;wasOk=true;userPaused=false;rcN=0;lastProg=Date.now();report(c.id,true)};
+ v.addEventListener("playing",()=>{try{navigator.mediaSession.playbackState="playing"}catch(e){}});v.addEventListener("pause",()=>{try{navigator.mediaSession.playbackState="paused"}catch(e){}});
  v.addEventListener("timeupdate",()=>{lastProg=Date.now()});
- v.addEventListener("pause",()=>{if(v!==$("v")||v.ended||v._net)return;if(Date.now()-lastProg<2500)userPaused=true;else if(wasOk)scheduleReconnect()});
+ v.addEventListener("pause",()=>{if(v!==$("v")||v.ended||v._net)return;const t=Date.now(),fresh=t-lastProg<2500;
+ if(t-lastGest<1500||t-msPauseAt<1500||t-devChg<3000){userPaused=true;clearInterval(intrT);intrT=null;return}
+ if(!wasOk){if(fresh)userPaused=true;return}
+ if(!fresh){scheduleReconnect();return}
+ setTimeout(()=>{if(v!==$("v")||!v.paused||userPaused||v._net)return;const n=Date.now();
+  if(n-lastGest<2200||n-msPauseAt<2200||n-devChg<3500){userPaused=true;clearInterval(intrT);intrT=null;return}
+  const sys=(navigator.audioSession&&navigator.audioSession.state==="interrupted")||n-sysAt<4000||document.hidden||n-lastHide<4000;
+  if(sys)intrStart();else userPaused=true},700)});
  v.addEventListener("ended",()=>{if(v===$("v")&&wasOk&&!userPaused)scheduleReconnect()});
  v.onwaiting=()=>{nowS.s=navigator.onLine?"A carregar…":"Sem rede — retoma sozinho";refNow()};
  v.onerror=()=>{if(c.radio&&v.crossOrigin&&!ncors.has(c.id)){ncors.add(c.id);play(c.id,true);return}if(wasOk&&!userPaused){scheduleReconnect();return}if(!navigator.onLine){setNow(c.name,"Sem rede — retoma sozinho");return}if(!nextAlt()){setNow(c.name,"Erro no stream");report(c.id,false)}};
  wd=setTimeout(()=>{if(cur===c&&wasOk&&!userPaused&&stale(10000)){scheduleReconnect();return}if(cur===c&&v.paused&&!v.currentTime&&!nextAlt()){setNow(c.name,"Stream indisponível");report(c.id,false)}},12000);
  if((/\.m3u8/i.test(url)||c.hls)&&window.Hls&&Hls.isSupported()){
-  hls=new Hls({lowLatencyMode:false,manifestLoadingTimeOut:8000,manifestLoadingMaxRetry:1,manifestLoadingMaxRetryTimeout:3000,levelLoadingTimeOut:8000,levelLoadingMaxRetry:1,fragLoadingTimeOut:12000,fragLoadingMaxRetry:2,capLevelToPlayerSize:true,maxBufferLength:20});hls.loadSource(url);hls.attachMedia(v);
-  hls.on(Hls.Events.MANIFEST_PARSED,()=>{applyQ(true);if(c.radio&&rmax){hls.autoLevelCapping=0;hls.startLevel=0}trackMenus()});hls.on(Hls.Events.AUDIO_TRACKS_UPDATED,trackMenus);hls.on(Hls.Events.SUBTITLE_TRACKS_UPDATED,trackMenus);hls.on(Hls.Events.LEVEL_SWITCHED,(e,d)=>showQ(d.level));
+  hls=new Hls({lowLatencyMode:false,manifestLoadingTimeOut:8000,manifestLoadingMaxRetry:1,manifestLoadingMaxRetryTimeout:3000,levelLoadingTimeOut:8000,levelLoadingMaxRetry:1,fragLoadingTimeOut:12000,fragLoadingMaxRetry:2,capLevelToPlayerSize:true,maxBufferLength:aud?60:20});hls.loadSource(url);hls.attachMedia(v);
+  hls.on(Hls.Events.MANIFEST_PARSED,()=>{applyQ(true);if((c.radio&&rmax)||aud){hls.autoLevelCapping=0;hls.startLevel=0}trackMenus()});hls.on(Hls.Events.AUDIO_TRACKS_UPDATED,trackMenus);hls.on(Hls.Events.SUBTITLE_TRACKS_UPDATED,trackMenus);hls.on(Hls.Events.LEVEL_SWITCHED,(e,d)=>showQ(d.level));
   hls.on(Hls.Events.ERROR,(e,d)=>{if(!d.fatal)return;const code=d.response&&d.response.code;window.lastWhy=d.details+(code?" "+code:"");console.warn("HLS falhou:",c.name,url,d.details,code||"");
    if(d.type===Hls.ErrorTypes.NETWORK_ERROR&&(wasOk||!navigator.onLine)){scheduleReconnect();return}
    if(d.type===Hls.ErrorTypes.NETWORK_ERROR&&retries++<1){setNow(c.name,"A tentar reconectar…");hls.startLoad()}
@@ -1124,7 +1210,7 @@ function miniOn(){setSh();stg.classList.add("mini")}
 function miniOff(){stg.classList.remove("mini")}
 function miniCheck(){
  if(document.body.classList.contains("pfs-on")||document.fullscreenElement||document.webkitFullscreenElement)return;
- if(!matchMedia("(max-width:1100px)").matches||!cur||cur.radio){miniOff();return}   // rádio: sem quadro flutuante
+ if(!matchMedia("(max-width:1100px)").matches||!cur||cur.radio||audNow){miniOff();return}   // rádio: sem quadro flutuante
  const mini=stg.classList.contains("mini");if(!mini)setSh();
  const top=app0.getBoundingClientRect().top+scrollY;
  if(!mini){if(scrollY>top+shv*.5)miniOn()}else if(scrollY<top+shv*.2)miniOff()}
@@ -1229,7 +1315,7 @@ async function startRec(){
  const cs=v.captureStream?v.captureStream():v.mozCaptureStream?.();
  if(!cs){toast("Este navegador não suporta gravação.");return}
  if(cur.radio&&!hls&&ncors.has(cur.id)){toast("Esta rádio não permite gravação (o emissor bloqueia). Experimente outra.",5000);return}
- recName=cur.name;sec=0;recStarting=true;const radio_=!!cur.radio;
+ recName=cur.name;sec=0;recStarting=true;const radio_=!!cur.radio||audNow;
  try{if(radio_){try{recorder=await mp3Rec(cs)}catch(e){recorder=null;toast("Não foi possível gravar em MP3; a usar outro formato.")}}
   if(!recorder)recorder=mediaRec(cs,radio_)}
  finally{recStarting=false}
@@ -1543,7 +1629,7 @@ $("pmList").onclick=e=>{const b=e.target.closest("[data-pd]");if(!b)return;if(!a
 Object.assign(EN,{"Publicite seus serviços ou empresa aqui":"Advertise your services or business here","Espaço disponível":"Space available","Publicidade":"Advertising","Apagar esta imagem?":"Delete this image?","Sem nome":"No name"});
 renderPromos();loadPromos();
 /* ---- anúncios na barra da direita (copiados do BBS POS) ---- */
-const ADS_SAME_ORIGIN=!0,AD_SANDBOX="allow-scripts allow-popups allow-popups-to-escape-sandbox"+(ADS_SAME_ORIGIN?" allow-same-origin":""),ADS={mounted:!1,closed:!1,rt:null},adDoc=a=>'<!doctype html><html><head><meta charset="utf-8"><style>html,body{margin:0;padding:0;background:transparent;overflow:hidden}</style></head><body>'+a+"</body></html>",adBan=(a,e,t)=>`<script>atOptions={'key':'${a}','format':'iframe','height':${t},'width':${e},'params':{}};<\/script><script src="https://www.highrevenueformat.com/${a}/invoke.js"><\/script>`,AD_SKY={w:160,h:600,html:adBan("564e7adc0ff1990d56cdd393faeeec06",160,600)},AD_320={w:320,h:50,html:adBan("ddcbd0d50628c33713525ea2badce6ff",320,50)},AD_300={w:300,h:250,html:adBan("be2d947b712bcc91c50359d1854bbb67",300,250)+'<script src="https://pl30778021.profitableratecpmnetwork.com/78/fa/00/78fa00cf4dcda3dedf40132f76226af6.js"><\/script>'},AD_NAT={w:320,h:260,html:'<script async="async" data-cfasync="false" src="https://pl30778022.profitableratecpmnetwork.com/edbac03e0788a019f72e8767b9dc91d4/invoke.js"><\/script><div id="container-edbac03e0788a019f72e8767b9dc91d4"></div>'};function adsMount(){const a=innerWidth,e=innerHeight-60-26,t=a>=1600;if(a<1200)return!1;const o=$("ad-slots");o.innerHTML="";let i=0;return(t?[AD_300,AD_320,AD_NAT,AD_SKY]:[AD_SKY]).forEach(n=>{if(i&&i+n.h>e+40)return;i+=n.h+10;const s=document.createElement("iframe");s.width=n.w,s.height=n.h,s.scrolling="no",s.title="Publicidade",s.setAttribute("sandbox",AD_SANDBOX),s.srcdoc=adDoc(n.html),o.appendChild(s)}),o.children.length?($("ad-rail").classList.add("on"),$("ad-rail").classList.toggle("wide",t),document.body.classList.add("ads-on"),document.body.classList.toggle("ads-wide",t),!0):!1}function adsUnmount(){$("ad-slots").innerHTML="",$("ad-rail").classList.remove("on","wide"),document.body.classList.remove("ads-on","ads-wide")}function adsSync(){const a=!ADS.closed&&ADS_RAIL&&innerWidth>=1200;a&&!ADS.mounted?ADS.mounted=adsMount():!a&&ADS.mounted&&(adsUnmount(),ADS.mounted=!1)}function adsClose(){ADS.closed=!0,adsSync()}setInterval(adsSync,1500),addEventListener("resize",()=>{clearTimeout(ADS.rt),ADS.rt=setTimeout(()=>{ADS.mounted&&(adsUnmount(),ADS.mounted=!1),adsSync()},600)}),setInterval(()=>{const a=document.getElementById("ad-rail");a&&a.querySelectorAll("iframe").forEach(t=>{t.srcdoc?t.srcdoc=t.srcdoc:t.src&&(t.src=t.src)})},6e4);
+const ADS_SAME_ORIGIN=!0,AD_SANDBOX="allow-scripts allow-popups allow-popups-to-escape-sandbox"+(ADS_SAME_ORIGIN?" allow-same-origin":""),ADS={mounted:!1,closed:!1,rt:null},adDoc=a=>'<!doctype html><html><head><meta charset="utf-8"><style>html,body{margin:0;padding:0;background:transparent;overflow:hidden}</style></head><body>'+a+"</body></html>",adBan=(a,e,t)=>`<script>atOptions={'key':'${a}','format':'iframe','height':${t},'width':${e},'params':{}};<\/script><script src="https://www.highrevenueformat.com/${a}/invoke.js"><\/script>`,AD_SKY={w:160,h:600,html:adBan("564e7adc0ff1990d56cdd393faeeec06",160,600)},AD_320={w:320,h:50,html:adBan("ddcbd0d50628c33713525ea2badce6ff",320,50)},AD_300={w:300,h:250,html:adBan("be2d947b712bcc91c50359d1854bbb67",300,250)+'<script src="https://pl30778021.profitableratecpmnetwork.com/78/fa/00/78fa00cf4dcda3dedf40132f76226af6.js"><\/script>'},AD_NAT={w:320,h:260,html:'<script async="async" data-cfasync="false" src="https://pl30778022.profitableratecpmnetwork.com/edbac03e0788a019f72e8767b9dc91d4/invoke.js"><\/script><div id="container-edbac03e0788a019f72e8767b9dc91d4"></div>'};function adsMount(){const a=innerWidth,e=innerHeight-60-26,t=a>=1600;if(a<1200)return!1;const o=$("ad-slots");o.innerHTML="";let i=0;return(t?[AD_300,AD_320,AD_NAT,AD_SKY]:[AD_SKY]).forEach(n=>{if(i&&i+n.h>e+40)return;i+=n.h+10;const s=document.createElement("iframe");s.width=n.w,s.height=n.h,s.scrolling="no",s.title="Publicidade",s.setAttribute("sandbox",AD_SANDBOX),s.srcdoc=adDoc(n.html),o.appendChild(s)}),o.children.length?($("ad-rail").classList.add("on"),$("ad-rail").classList.toggle("wide",t),document.body.classList.add("ads-on"),document.body.classList.toggle("ads-wide",t),!0):!1}function adsUnmount(){$("ad-slots").innerHTML="",$("ad-rail").classList.remove("on","wide"),document.body.classList.remove("ads-on","ads-wide")}function adsSync(){const a=!ADS.closed&&ADS_RAIL&&innerWidth>=1200;a&&!ADS.mounted?ADS.mounted=adsMount():!a&&ADS.mounted&&(adsUnmount(),ADS.mounted=!1)}function adsClose(){ADS.closed=!0,adsSync()}setInterval(adsSync,1500),addEventListener("resize",()=>{clearTimeout(ADS.rt),ADS.rt=setTimeout(()=>{ADS.mounted&&(adsUnmount(),ADS.mounted=!1),adsSync()},600)}),setInterval(()=>{const a=document.getElementById("ad-rail");a&&a.querySelectorAll("iframe").forEach(t=>{t.srcdoc?t.srcdoc=t.srcdoc:t.src&&(t.src=t.src)})},18e4);
 /* ---- anúncios Adsterra no fim da página (ecrãs pequenos): carregam só quando o utilizador chega perto ---- */
 const AD_END=[{w:300,h:250,html:adBan("be2d947b712bcc91c50359d1854bbb67",300,250)},{w:320,h:50,html:AD_320.html}];
 function adsEnd(){
