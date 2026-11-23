@@ -2004,5 +2004,86 @@ grant execute on function validar_licenca(text) to anon;
  try{Object.assign(EN,{"Reconhecer música":"Identify music","🎵 Reconhecer música":"🎵 Identify music","Reconhecer música (tipo Shazam)":"Identify music (Shazam-style)","Toque em «Ouvir» enquanto a música toca.":"Tap “Listen” while the music is playing.","A ouvir o canal… (10 s)":"Listening to the channel… (10 s)","A ouvir pelo microfone… (10 s). Aproxime-se da coluna.":"Listening via microphone… (10 s). Move closer to the speaker.","A identificar…":"Identifying…","Música encontrada:":"Song found:","Música encontrada e guardada:":"Song found and saved:","Música encontrada e guardada. Limite de 10: a mais antiga foi apagada.":"Song found and saved. Limit of 10: the oldest was removed.","Guardadas":"Saved","Eliminar":"Delete","Ainda sem músicas guardadas.":"No saved songs yet.","Guardado na sua conta.":"Saved to your account.","Sem conta: guardado só neste aparelho. Entre numa conta para o ter em todo o lado.":"No account: saved on this device only. Sign in to have it everywhere.","Música eliminada.":"Song deleted.","Não foi possível identificar. Tente num momento com música mais clara.":"Couldn’t identify it. Try again when the music is clearer.","Limite grátis atingido: indique um token AudD nas definições.":"Free limit reached: add an AudD token in settings.","Erro do serviço de reconhecimento.":"Recognition service error.","Permissão do microfone negada.":"Microphone permission denied.","Este navegador não permite usar o microfone.":"This browser can’t use the microphone.","Não foi possível reconhecer agora. Verifique a ligação e tente de novo.":"Couldn’t identify right now. Check your connection and try again."})}catch(e){}
 })();
 </script>
+<style>
+.rad .np{display:block;max-width:94%;margin:2px auto 4px;font-size:15px;font-weight:600;color:var(--ac);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rad .np[hidden]{display:none}
+@media(max-width:1100px){.stage.mini .rad .np{display:none}}
+</style>
+<script>
+/* Título da música na rádio: ICY (Shoutcast/Icecast), estatísticas do servidor e ID3 em HLS */
+(function(){
+"use strict";
+var NP={id:null,title:"",tok:0,timer:null,ac:null,mode:null},POLL=25000;
+function cleanT(t,c){t=String(t||"").replace(/\s+/g," ").trim();
+ if(!t||t==="-"||t.length>200||/^(unknown|n\/a|null|undefined)$/i.test(t))return "";
+ if(c&&t.toLowerCase()===String(c.name||"").toLowerCase())return "";return t}
+function dec(u8){try{return new TextDecoder("utf-8",{fatal:true}).decode(u8)}catch(e){return new TextDecoder("windows-1252").decode(u8)}}
+function box(){return document.querySelector(".rad .txt")}
+function show(t){var b=box();if(!b)return;var el=b.querySelector(".np");
+ if(!el){el=document.createElement("span");el.className="np";el.setAttribute("aria-live","polite");b.insertBefore(el,b.querySelector(".meta"))}
+ if(t){el.textContent="♪ "+t;el.title=t;el.hidden=false}else{el.textContent="";el.hidden=true}}
+function ms(t){var c=cur;if(!c||!("mediaSession" in navigator)||!window.MediaMetadata)return;
+ var lg=/^https:/i.test(c.logo||"")?c.logo:"icon-192.png";
+ try{navigator.mediaSession.metadata=new MediaMetadata({title:t||c.name,artist:t?c.name:(cn_(c.pais)+(c.freq?" · "+c.freq:"")),album:"BBS Internet Cafe",artwork:[{src:lg,sizes:"192x192"}]})}catch(e){}}
+function set(t,c){if(!cur||cur.id!==c.id)return;t=cleanT(t,c);if(t===NP.title)return;NP.title=t;show(t);ms(t)}
+function wt(fn,ms){var ac=new AbortController(),t=setTimeout(function(){ac.abort()},ms||10000);NP.ac=ac;
+ return fn(ac.signal).finally(function(){clearTimeout(t)})}
+/* ICY: pede metadados no próprio stream e lê só o primeiro bloco (~16 KB). undefined = não suportado; null = sem info */
+async function icy(url,sig){
+ var r=await fetch(url,{headers:{"Icy-MetaData":"1"},signal:sig,cache:"no-store"});
+ var mi=parseInt(r.headers.get("icy-metaint"),10);
+ if(!r.ok||!mi||!r.body){try{r.body&&r.body.cancel()}catch(e){}return undefined}
+ var rd=r.body.getReader(),buf=new Uint8Array(0),need=mi+1,len=-1;
+ try{for(;;){
+  if(buf.length>=need){
+   if(len<0){len=buf[mi]*16;if(!len)return null;need=mi+1+len;continue}
+   return dec(buf.subarray(mi+1,mi+1+len))}
+  var x=await rd.read();if(x.done)return null;
+  var n=new Uint8Array(buf.length+x.value.length);n.set(buf);n.set(x.value,buf.length);buf=n}
+ }finally{try{rd.cancel()}catch(e){}}}
+function parseIcy(raw){var m=/StreamTitle='([\s\S]*?)';\s*(?:StreamUrl=|$)/.exec(raw)||/StreamTitle='([^']*)'/.exec(raw);return m?m[1]:null}
+async function jget(u,sig,txt){var r=await fetch(u,{signal:sig,cache:"no-store"});if(!r.ok)throw 0;return txt?r.text():r.json()}
+/* alternativas: Icecast status-json.xsl, Shoutcast v2 stats, Shoutcast v1 7.html */
+async function alt(url,sig){var o=new URL(url),b=o.origin,t;
+ try{var j=await jget(b+"/status-json.xsl",sig),s=j&&j.icestats&&j.icestats.source;
+  if(s){s=[].concat(s);var m=s.find(function(x){return x.listenurl&&x.listenurl.split("?")[0].slice(-o.pathname.length)===o.pathname})||(s.length===1?s[0]:null);
+   t=m&&(m.artist&&m.title?m.artist+" - "+m.title:m.title);if(t)return t}}catch(e){}
+ try{var j2=await jget(b+"/stats?sid=1&json=1",sig);if(j2&&j2.songtitle)return j2.songtitle}catch(e){}
+ try{var h=await jget(b+"/7.html",sig,true),p=h.replace(/<[^>]*>/g,"").trim().split(",");if(p.length>=7)return p.slice(6).join(",")}catch(e){}
+ return undefined}
+async function cycle(c,tok){
+ if(tok!==NP.tok)return;var url=c.url,title;
+ if(NP.mode!=="alt"){try{var raw=await wt(function(s){return icy(url,s)});if(raw!==undefined){NP.mode="icy";title=raw===null?null:parseIcy(raw)}}catch(e){}}
+ if(title===undefined&&NP.mode!=="icy"){try{var a=await wt(function(s){return alt(url,s)});if(a){NP.mode="alt";title=a}}catch(e){}}
+ if(tok!==NP.tok)return;
+ if(title===undefined&&!NP.mode){NP.mode="none";return}
+ if(typeof title==="string")set(title,c);
+ NP.timer=setTimeout(function(){cycle(c,tok)},POLL)}
+/* HLS: ID3 (TIT2 = título, TPE1 = artista) */
+function id3(u){var o={};if(!u||u.length<10||u[0]!==73||u[1]!==68||u[2]!==51)return o;
+ var ver=u[3],p=10,end=Math.min(u.length,10+((u[6]&127)<<21|(u[7]&127)<<14|(u[8]&127)<<7|(u[9]&127)));
+ while(p+10<=end){var id=String.fromCharCode(u[p],u[p+1],u[p+2],u[p+3]);if(!/^[A-Z0-9]{4}$/.test(id))break;
+  var sz=ver===4?((u[p+4]&127)<<21|(u[p+5]&127)<<14|(u[p+6]&127)<<7|(u[p+7]&127)):((u[p+4]<<24|u[p+5]<<16|u[p+6]<<8|u[p+7])>>>0),body=u.subarray(p+10,p+10+sz);
+  if((id==="TIT2"||id==="TPE1")&&body.length>1){var e=body[0],s;
+   try{s=new TextDecoder(e===1?"utf-16":e===2?"utf-16be":e===3?"utf-8":"iso-8859-1").decode(body.subarray(1))}catch(x){s=""}
+   o[id]=s.replace(/\0/g,"").trim()}
+  p+=10+sz}
+ return o}
+function hookHls(c,tok){if(typeof hls==="undefined"||!hls||!window.Hls)return;
+ hls.on(Hls.Events.FRAG_PARSING_METADATA,function(e,d){if(tok!==NP.tok)return;
+  (d.samples||[]).forEach(function(s){var f=id3(s.data),t=f.TIT2?(f.TPE1?f.TPE1+" - "+f.TIT2:f.TIT2):"";if(t)set(t,c)})})}
+function halt(){NP.tok++;clearTimeout(NP.timer);try{NP.ac&&NP.ac.abort()}catch(e){}NP.id=null;NP.title="";NP.mode=null}
+function start(){var c=cur;if(!c||!c.radio||!box()){halt();return}
+ var same=NP.id===c.id;
+ if(!same){halt();NP.id=c.id}else{clearTimeout(NP.timer);try{NP.ac&&NP.ac.abort()}catch(e){}}
+ var tok=++NP.tok;show(NP.title);if(NP.title)ms(NP.title);
+ if(/\.m3u8/i.test(c.url||"")||c.hls){hookHls(c,tok);return}
+ if(NP.mode==="none")return;
+ NP.timer=setTimeout(function(){cycle(c,tok)},same?500:1500)}
+var _play=window.play,_stop=window.stopAll;
+window.play=function(){var r=_play.apply(this,arguments);try{start()}catch(e){}return r};
+window.stopAll=function(){var r=_stop.apply(this,arguments);try{halt()}catch(e){}return r};
+})();
+</script>
 </body>
 </html>
