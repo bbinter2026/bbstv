@@ -6,7 +6,7 @@
 <meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="BBS Cafe"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>BBS Internet Cafe – Canais de TV online grátis de Moçambique e do mundo</title>
 <meta name="description" content="BBS Internet Cafe Entertainments: veja canais de televisão de Moçambique, Angola, Cabo Verde, Portugal, Brasil e de todo o mundo, organizados por país e categoria. Pesquisa, favoritos e sem registo.">
-<meta name="robots" content="index,follow"><link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="manifest" href="site.webmanifest"><meta name="theme-color" content="#202124"><meta property="og:site_name" content="BBS Internet Cafe Entertainments"><meta property="og:image" content="https://bbinter2026.github.io/bbstv/og-image.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="BBS Internet Cafe Entertainments"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://bbinter2026.github.io/bbstv/og-image.png"><meta property="og:type" content="website"><meta property="og:url" content="https://bbinter2026.github.io/bbstv/"><meta property="og:locale" content="pt_PT"><link rel="canonical" href="https://bbinter2026.github.io/bbstv/"><meta property="og:title" content="BBS Internet Cafe – Canais de TV online"><meta property="og:description" content="BBS Internet Cafe Entertainments: canais de TV de Moçambique e do mundo, organizados por país e categoria. Grátis e sem registo.">
+<meta name="robots" content="index,follow"><link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="manifest" href="site.webmanifest"><meta name="theme-color" content="#000000"><meta property="og:site_name" content="BBS Internet Cafe Entertainments"><meta property="og:image" content="https://bbinter2026.github.io/bbstv/og-image.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="BBS Internet Cafe Entertainments"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://bbinter2026.github.io/bbstv/og-image.png"><meta property="og:type" content="website"><meta property="og:url" content="https://bbinter2026.github.io/bbstv/"><meta property="og:locale" content="pt_PT"><link rel="canonical" href="https://bbinter2026.github.io/bbstv/"><meta property="og:title" content="BBS Internet Cafe – Canais de TV online"><meta property="og:description" content="BBS Internet Cafe Entertainments: canais de TV de Moçambique e do mundo, organizados por país e categoria. Grátis e sem registo.">
 <noscript><script>/* ativa o ajuste ao ecrã só em Plasma/Linux desktop. Forçar: ?plasma=1  Desligar: ?plasma=0 */
 (function(){try{var u=navigator.userAgent,q=new URLSearchParams(location.search).get("plasma"),k="bbs_fit";if(q==="1"||q==="0")localStorage.setItem(k,q);var f=localStorage.getItem(k);var on=f==="1"||(f!=="0"&&/Falkon|Konqueror|QtWebEngine|X11; (Ubuntu; )?Linux|KDE/i.test(u)&&!/Android|SmartTV|Tizen|Web0S|CrOS/i.test(u));if(on)document.documentElement.classList.add("fit")}catch(e){}})();
 </script>
@@ -594,14 +594,15 @@ body.pfs-on,.screen.pfs,.screen:fullscreen,.screen:-webkit-full-screen{touch-act
 </div></dialog>
 <style>#idB .idl{font-size:.8em;line-height:1.1}#idL{max-height:220px;overflow:auto;display:flex;flex-direction:column;gap:6px}.idr{display:flex;gap:8px;align-items:center;background:var(--sf2);border:1px solid var(--ln);border-radius:10px;padding:6px 8px}.idr .idi{flex:1;min-width:0}.idr .idi b,.idr .idi span{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.idr a{color:var(--ac);text-decoration:none;font-size:18px}.idr button,.idx{padding:2px 9px;line-height:1.3}</style>
 <dialog id="idD"><div class="dlg">
- <h3>🎵 Reconhecer música</h3>
+ <div class="idh"><h3>🎵 Reconhecer música</h3><button type="button" class="idc" id="idX" aria-label="Fechar" title="Fechar">✕</button></div>
  <div id="idS" class="mut" aria-live="polite">Toque em «Ouvir» enquanto a música toca.</div>
- <div id="idR" class="hide" style="position:relative;background:var(--sf2);border:1px solid var(--ln);border-radius:10px;padding:12px 44px 12px 12px">
+ <div id="idPg" class="pg" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" hidden><div class="pgr"><svg viewBox="0 0 100 100" aria-hidden="true"><circle class="bg" cx="50" cy="50" r="44"/><circle class="fg" id="idPgC" cx="50" cy="50" r="44"/></svg><b id="idPgN">0%</b></div><div class="pgeq" id="idPgE" aria-hidden="true"></div></div>
+  <div id="idR" class="hide" style="position:relative;background:var(--sf2);border:1px solid var(--ln);border-radius:10px;padding:12px 44px 12px 12px">
   <button type="button" class="d idx" id="idDel" aria-label="Eliminar" title="Eliminar" style="position:absolute;top:8px;right:8px">✕</button>
   <b id="idT" style="display:block;font-size:17px"></b><span id="idA"></span><div class="mut" id="idAl"></div>
   <div class="wrap" style="margin-top:8px"><a id="idY" class="hide" target="_blank" rel="noopener" style="color:var(--ac)">▶ YouTube</a><a id="idSp" class="hide" target="_blank" rel="noopener" style="color:var(--ac)">Spotify</a></div>
  </div>
- <div class="wrap"><button type="button" class="p" id="idGo">🎤 Ouvir</button><button type="button" id="idX">Fechar</button></div>
+ <div class="wrap"><button type="button" class="p" id="idGo">🎤 Ouvir</button></div>
  <h4 id="idLh" style="margin:6px 0 0"></h4><div id="idL"></div><div class="mut" id="idLn" style="font-size:12px"></div>
  <details><summary class="mut">Definições (AudD)</summary>
   <input id="idK" type="password" placeholder="Token da API AudD (api.audd.io)" aria-label="Token AudD" autocomplete="off" style="margin-top:6px">
@@ -609,7 +610,7 @@ body.pfs-on,.screen.pfs,.screen:fullscreen,.screen:-webkit-full-screen{touch-act
   <label class="mut" style="display:flex;gap:8px;align-items:center;margin-top:6px"><input type="checkbox" id="idMic" style="width:auto"> Usar sempre o microfone</label>
   <p class="mut" style="margin:6px 0 0">O token fica só neste aparelho. Sem token a AudD permite alguns testes grátis.</p>
  </details>
-</div></dialog>
+</div><div class="nb" id="idNb" aria-hidden="true"></div></dialog>
 <dialog id="accD"><div class="dlg">
  <h3 id="accT">Entrar na conta</h3>
  <p class="mut">Opcional: crie uma conta para guardar os seus canais favoritos e o seu histórico e vê-los em qualquer aparelho. Pode usar a app sem conta.</p>
@@ -1923,15 +1924,34 @@ grant execute on function validar_licenca(text) to anon;
 <script>
 /* reconhecimento de música (estilo Shazam) via AudD: grava ~10 s do canal (ou do microfone) e envia para identificação */
 (function(){
- const B=$("idB"),D=$("idD"),S_=$("idS"),R=$("idR"),K=$("idK"),P=$("idP"),M=$("idMic"),GO=$("idGo"),SEC=10;
- let busy=false;
+ const B=$("idB"),D=$("idD"),S_=$("idS"),R=$("idR"),K=$("idK"),P=$("idP"),M=$("idMic"),GO=$("idGo"),SEC=10,PG=$("idPg"),PN=$("idPgN"),PC=$("idPgC"),PE=$("idPgE");
+ let busy=false,lvl=0;
  try{B.firstChild.textContent=T("🎵 Reconhecer música");B.title=T("Reconhecer música (tipo Shazam)")}catch(e){}
  K.value=localStorage.getItem("tv_audd")||"";P.value=localStorage.getItem("tv_auddp")||"";M.checked=localStorage.getItem("tv_auddm")==="1";
  K.onchange=()=>localStorage.setItem("tv_audd",K.value.trim());
  P.onchange=()=>localStorage.setItem("tv_auddp",P.value.trim());
  M.onchange=()=>localStorage.setItem("tv_auddm",M.checked?"1":"0");
  const say=t=>{S_.textContent=T(t)};
- B.onclick=()=>{R.classList.add("hide");say("Toque em «Ouvir» enquanto a música toca.");try{D.showModal()}catch(e){D.setAttribute("open","")}};
+ /* percentagem + efeitos de música: ouvir 0-80%, identificar 80-99%, resultado 100% */
+ const RM=matchMedia("(prefers-reduced-motion:reduce)");
+ PE.innerHTML=Array.from({length:16},(_,i)=>'<i style="animation-duration:'+(.7+((i*37)%10)/14).toFixed(2)+'s;animation-delay:-'+(((i*53)%10)/10).toFixed(1)+'s"></i>').join("");
+ let pv=0;
+ function pset(v){pv=Math.max(0,Math.min(100,v));const n=Math.round(pv);PN.textContent=n+"%";PC.style.strokeDashoffset=(276.46*(1-pv/100)).toFixed(1);PG.setAttribute("aria-valuenow",n)}
+ function notes(){const nb=$("idNb");if(!nb||RM.matches)return;const G=["\u266a","\u266b","\u266c","\u2669"],C=["var(--ac)","var(--ok)","var(--live)","#8ab4ff"];
+  for(let i=0;i<18;i++){const e=document.createElement("span");e.textContent=G[i%4];
+   e.style.cssText="left:"+(8+Math.random()*84).toFixed(1)+"%;color:"+C[i%4]+";--dx:"+((Math.random()-.5)*120).toFixed(0)+"px;--r:"+((Math.random()-.5)*80).toFixed(0)+"deg;font-size:"+(16+Math.random()*18).toFixed(0)+"px;animation-delay:"+(Math.random()*.35).toFixed(2)+"s;animation-duration:"+(1.3+Math.random()*.9).toFixed(2)+"s";
+   e.onanimationend=()=>e.remove();nb.appendChild(e)}}
+ const pg={t:0,ph:"listen",t0:0,h:0,
+  start(){clearInterval(pg.t);clearTimeout(pg.h);PG.hidden=false;PG.classList.remove("ok","out");PG.classList.add("run");pg.ph="listen";pg.t0=performance.now();pset(0);
+   pg.t=setInterval(()=>{const dt=(performance.now()-pg.t0)/1000;if(pg.ph==="listen")pset(Math.min(80,dt/SEC*80));else pset(pv+(99-pv)*.04);
+    PG.style.setProperty("--lv",Math.min(1,lvl*2.5).toFixed(2))},100)},
+  listen(){pg.ph="listen";pg.t0=performance.now()},
+  ident(){pg.ph="ident";pset(Math.max(pv,80))},
+  done(ok){clearInterval(pg.t);PG.classList.remove("run");clearTimeout(pg.h);
+   if(ok){pset(100);PG.classList.add("ok");notes();R.classList.remove("pop");void R.offsetWidth;R.classList.add("pop");
+    pg.h=setTimeout(()=>{PG.classList.add("out");pg.h=setTimeout(()=>{PG.hidden=true;PG.classList.remove("ok","out")},450)},1600)}
+   else{PG.classList.add("out");pg.h=setTimeout(()=>{PG.hidden=true;PG.classList.remove("out")},300)}}};
+ B.onclick=()=>{R.classList.add("hide");if(!busy){PG.hidden=true;PG.classList.remove("run","ok","out")}say("Toque em «Ouvir» enquanto a música toca.");try{D.showModal()}catch(e){D.setAttribute("open","")}};
  $("idX").onclick=()=>D.close();
  function pickMime(){const l=["audio/mp4","audio/webm;codecs=opus","audio/webm"];return window.MediaRecorder&&l.find(m=>MediaRecorder.isTypeSupported(m))||""}
  /* grava um MediaStream de áudio durante SEC s; devolve {blob,peak} */
@@ -1940,7 +1960,7 @@ grant execute on function validar_licenca(text) to anon;
   try{rc=new MediaRecorder(new MediaStream(stream.getAudioTracks()),mime?{mimeType:mime}:{})}catch(e){no(e);return}
   try{const AC=window.AudioContext||window.webkitAudioContext;ctx=new AC();an=ctx.createAnalyser();an.fftSize=1024;buf=new Uint8Array(an.fftSize);
    ctx.createMediaStreamSource(new MediaStream(stream.getAudioTracks())).connect(an);ctx.resume().catch(()=>{});
-   iv=setInterval(()=>{an.getByteTimeDomainData(buf);for(let i=0;i<buf.length;i++){const d=Math.abs(buf[i]-128)/128;if(d>peak)peak=d}},100)}catch(e){peak=1}
+   iv=setInterval(()=>{an.getByteTimeDomainData(buf);let m=0;for(let i=0;i<buf.length;i++){const d=Math.abs(buf[i]-128)/128;if(d>peak)peak=d;if(d>m)m=d}lvl=m},100)}catch(e){peak=1}
   rc.ondataavailable=e=>{if(e.data.size)parts.push(e.data)};
   rc.onstop=()=>{clearInterval(iv);try{ctx&&ctx.close()}catch(e){}ok({blob:new Blob(parts,{type:rc.mimeType||mime||"audio/webm"}),peak})};
   rc.onerror=e=>{clearInterval(iv);no(e.error||e)};
@@ -1992,15 +2012,15 @@ grant execute on function validar_licenca(text) to anon;
  setInterval(()=>{const id=(typeof cUser!=="undefined"&&cUser&&cUser.id)||null;if(id!==uid){uid=id;list=loadLocal();render();cloudLoad()}},1000);
  uid=(typeof cUser!=="undefined"&&cUser&&cUser.id)||null;list=loadLocal();render();
  GO.onclick=async()=>{
-  if(busy)return;busy=true;GO.disabled=true;R.classList.add("hide");
+  if(busy)return;busy=true;GO.disabled=true;R.classList.add("hide");pg.start();
   try{
    let blob=null;
    if(!M.checked){try{say("A ouvir o canal… (10 s)");blob=await fromStream()}catch(e){blob=null}}
-   if(!blob){say("A ouvir pelo microfone… (10 s). Aproxime-se da coluna.");blob=await fromMic()}
-   say("A identificar…");show(await send(blob))
+   if(!blob){say("A ouvir pelo microfone… (10 s). Aproxime-se da coluna.");pg.listen();blob=await fromMic()}
+   say("A identificar…");pg.ident();show(await send(blob))
   }catch(e){
    const n=e&&e.name==="NotAllowedError"?"Permissão do microfone negada.":e&&e.message==="nomic"?"Este navegador não permite usar o microfone.":"Não foi possível reconhecer agora. Verifique a ligação e tente de novo.";say(n)
-  }finally{busy=false;GO.disabled=false}};
+  }finally{busy=false;GO.disabled=false;pg.done(!R.classList.contains("hide"))}};
  try{Object.assign(EN,{"Reconhecer música":"Identify music","🎵 Reconhecer música":"🎵 Identify music","Reconhecer música (tipo Shazam)":"Identify music (Shazam-style)","Toque em «Ouvir» enquanto a música toca.":"Tap “Listen” while the music is playing.","A ouvir o canal… (10 s)":"Listening to the channel… (10 s)","A ouvir pelo microfone… (10 s). Aproxime-se da coluna.":"Listening via microphone… (10 s). Move closer to the speaker.","A identificar…":"Identifying…","Música encontrada:":"Song found:","Música encontrada e guardada:":"Song found and saved:","Música encontrada e guardada. Limite de 10: a mais antiga foi apagada.":"Song found and saved. Limit of 10: the oldest was removed.","Guardadas":"Saved","Eliminar":"Delete","Ainda sem músicas guardadas.":"No saved songs yet.","Guardado na sua conta.":"Saved to your account.","Sem conta: guardado só neste aparelho. Entre numa conta para o ter em todo o lado.":"No account: saved on this device only. Sign in to have it everywhere.","Música eliminada.":"Song deleted.","Não foi possível identificar. Tente num momento com música mais clara.":"Couldn’t identify it. Try again when the music is clearer.","Limite grátis atingido: indique um token AudD nas definições.":"Free limit reached: add an AudD token in settings.","Erro do serviço de reconhecimento.":"Recognition service error.","Permissão do microfone negada.":"Microphone permission denied.","Este navegador não permite usar o microfone.":"This browser can’t use the microphone.","Não foi possível reconhecer agora. Verifique a ligação e tente de novo.":"Couldn’t identify right now. Check your connection and try again."})}catch(e){}
 })();
 </script>
@@ -2021,7 +2041,7 @@ function dec(u8){try{return new TextDecoder("utf-8",{fatal:true}).decode(u8)}cat
 function box(){return document.querySelector(".rad .txt")}
 function show(t){var b=box();if(!b)return;var el=b.querySelector(".np");
  if(!el){el=document.createElement("span");el.className="np";el.setAttribute("aria-live","polite");b.insertBefore(el,b.querySelector(".meta"))}
- if(t){el.textContent="♪ "+t;el.title=t;el.hidden=false}else{el.textContent="";el.hidden=true}}
+ if(t){el.textContent="♪ "+t;el.title=t;el.hidden=false;el.classList.remove("chg");void el.offsetWidth;el.classList.add("chg")}else{el.textContent="";el.hidden=true}}
 function ms(t){var c=cur;if(!c||!("mediaSession" in navigator)||!window.MediaMetadata)return;
  var lg=/^https:/i.test(c.logo||"")?c.logo:"icon-192.png";
  try{navigator.mediaSession.metadata=new MediaMetadata({title:t||c.name,artist:t?c.name:(cn_(c.pais)+(c.freq?" · "+c.freq:"")),album:"BBS Internet Cafe",artwork:[{src:lg,sizes:"192x192"}]})}catch(e){}}
@@ -2085,5 +2105,100 @@ window.play=function(){var r=_play.apply(this,arguments);try{start()}catch(e){}r
 window.stopAll=function(){var r=_stop.apply(this,arguments);try{halt()}catch(e){}return r};
 })();
 </script>
+<style>
+/* v4.11 reconhecimento: botão {x}, percentagem e efeitos de música */
+#idD{overflow-x:hidden}
+#idD .idh{display:flex;align-items:center;justify-content:space-between;gap:10px}
+#idD .idc{width:34px;height:34px;padding:0;border-radius:50%;font-size:16px;line-height:1;display:grid;place-items:center;flex:none}
+#idD .idc:hover{border-color:var(--live);color:var(--live);rotate:90deg}
+.pg{display:flex;align-items:center;gap:16px;padding:10px 12px;background:var(--sf2);border:1px solid var(--ln);border-radius:12px;transition:opacity .4s,scale .4s;animation:pgIn .35s ease}
+.pg[hidden]{display:none}.pg.out{opacity:0;scale:.96}
+.pgr{position:relative;width:84px;height:84px;flex:none}
+.pgr svg{width:100%;height:100%;transform:rotate(-90deg)}
+.pgr circle{fill:none;stroke-width:7}.pgr .bg{stroke:var(--ln)}
+.pgr .fg{stroke:var(--ac);stroke-linecap:round;stroke-dasharray:276.46;stroke-dashoffset:276.46;transition:stroke-dashoffset .25s linear,stroke .3s}
+.pgr b{position:absolute;inset:0;display:grid;place-items:center;font-size:20px;font-variant-numeric:tabular-nums}
+.pg.run .pgr{animation:pgPulse 1.2s ease-in-out infinite}
+.pg.ok .fg{stroke:var(--ok)}.pg.ok .pgr{animation:pgPop .55s cubic-bezier(.2,1.5,.4,1)}.pg.ok .pgr b{color:var(--ok)}
+.pgeq{flex:1;display:flex;gap:3px;align-items:flex-end;height:calc(22px + 36px*var(--lv,.4));transition:height .15s}
+.pgeq i{flex:1;height:100%;background:linear-gradient(to top,var(--ac),var(--live));border-radius:3px;transform-origin:bottom;transform:scaleY(.15);animation:eq 1s infinite ease-in-out;animation-play-state:paused}
+.pg.run .pgeq i{animation-play-state:running}.pg.ok .pgeq i{animation-play-state:running;background:var(--ok)}
+@keyframes pgIn{from{opacity:0;translate:0 8px}}
+@keyframes pgPulse{50%{filter:drop-shadow(0 0 10px var(--ac))}}
+@keyframes pgPop{0%{scale:1}50%{scale:1.18}100%{scale:1}}
+#idR.pop{animation:idPop .6s cubic-bezier(.2,1.3,.4,1)}
+@keyframes idPop{from{opacity:0;scale:.9;translate:0 12px}60%{box-shadow:0 0 0 6px color-mix(in srgb,var(--ok) 35%,transparent)}to{box-shadow:0 0 0 0 transparent}}
+.nb{position:absolute;inset:0;overflow:hidden;pointer-events:none;border-radius:14px}
+.nb span{position:absolute;bottom:22%;opacity:0;animation:noteUp 1.6s ease-out forwards;text-shadow:0 1px 6px #0006}
+@keyframes noteUp{0%{opacity:0;transform:translate(0,0) rotate(0) scale(.5)}15%{opacity:1}100%{opacity:0;transform:translate(var(--dx),-260px) rotate(var(--r)) scale(1.15)}}
+/* v4.11 cliques e transições */
+button,select,input,summary,a{transition:background-color .2s,border-color .2s,color .2s,box-shadow .2s,scale .12s ease,rotate .2s,opacity .2s}
+button:not(:disabled):active{scale:.95}.pick:not(:disabled):active{scale:.97}
+button.p:not(:disabled):hover{box-shadow:0 4px 16px color-mix(in srgb,var(--ac) 40%,transparent)}
+dialog[open]{animation:dlgIn .26s cubic-bezier(.2,.9,.3,1.1)}dialog[open]::backdrop{animation:bdIn .26s ease}
+@keyframes dlgIn{from{opacity:0;transform:translateY(14px) scale(.96)}to{opacity:1;transform:none}}
+@keyframes bdIn{from{opacity:0}to{opacity:1}}
+.rad{animation:radIn .3s ease}@keyframes radIn{from{opacity:0}to{opacity:1}}
+.rad .np.chg{animation:npIn .5s ease}@keyframes npIn{from{opacity:0;translate:0 6px}to{opacity:1;translate:0 0}}
+.rpl{position:fixed;z-index:2147483647;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:var(--ac);opacity:.45;pointer-events:none;animation:rpl .55s ease-out forwards}
+@keyframes rpl{to{transform:scale(7);opacity:0}}
+@media(prefers-reduced-motion:reduce){.rpl,.nb{display:none}dialog[open],dialog[open]::backdrop,.rad,.rad .np.chg,.pg,#idR.pop,.pg.run .pgr,.pg.ok .pgr{animation:none!important}button:active{scale:1!important}}
+</style>
+<script>
+/* efeito de clique (onda) em botões, links e cartões */
+document.addEventListener("pointerdown",function(e){
+ if(matchMedia("(prefers-reduced-motion:reduce)").matches)return;
+ var t=e.target.closest&&e.target.closest("button,a[href],summary,.pick,[role=button]");
+ if(!t||t.disabled)return;
+ var r=document.createElement("span");r.className="rpl";r.style.left=e.clientX+"px";r.style.top=e.clientY+"px";
+ (t.closest("dialog")||document.body).appendChild(r);
+ r.addEventListener("animationend",function(){r.remove()});setTimeout(function(){r.remove()},800)},{passive:true});
+</script>
+<style id="tema-roxo">
+/* v4.12 tema roxo (estilo cartões "Our Services"): só cores, brilhos e efeitos — tamanhos e botões ficam iguais */
+:root{--bg:#000;--sf:#150b2b;--sf2:#22123f;--ln:#3b2766;--tx:#f4efff;--mut:#b9a9de;--ac:#a66bff;--acx:#fff;--acg:linear-gradient(135deg,#7c3aed,#b45cf0);--card:linear-gradient(160deg,#2b1856 0%,#150b2b 70%);--glow:#a66bff55;color-scheme:dark}
+body.black{--bg:#000;--sf:#0e0620;--sf2:#190e33;--ln:#2d1f52}
+body.light{--bg:#f5f1ff;--sf:#ffffff;--sf2:#ece5ff;--ln:#d9ccff;--tx:#1c1038;--mut:#6a5a96;--ac:#7c3aed;--acx:#fff;--acg:linear-gradient(135deg,#7c3aed,#a855f7);--card:linear-gradient(160deg,#fff 0%,#f1eaff 100%);--glow:#7c3aed33;color-scheme:light}
+body{background:var(--bg)}
+body.light{background-image:radial-gradient(900px 520px at 10% -8%,#d9c7ff,transparent 65%),radial-gradient(800px 480px at 100% 0%,#eadbff,transparent 60%)}
+::selection{background:#a66bff66}
+*{scrollbar-color:#4b2f85 transparent}
+header{background:#000000d9;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid var(--ln);box-shadow:0 1px 24px #7c3aed22}
+body.light header{background:#ffffffd9}
+.mark,.logo .mark{background:var(--acg);color:#fff;box-shadow:0 0 14px var(--glow)}
+.logo i{color:var(--ac)}
+/* cartões: gradiente roxo + borda luminosa */
+.ch,.card,.row.cur,.idr,#shBar,.epg,.chi,.pg,#idR,.nav details,.rad{background:var(--card);border-color:var(--ln)}
+.ch{box-shadow:inset 0 1px 0 #ffffff12,0 6px 20px #00000040}
+.ch:hover{border-color:var(--ac);box-shadow:0 0 0 1px var(--ac),0 8px 26px var(--glow),inset 0 1px 0 #ffffff1a}
+.ch.cur{border-color:var(--ac);box-shadow:0 0 0 1px var(--ac),0 0 22px var(--glow)}
+.row:hover{background:var(--sf2)}
+dialog{background:var(--card);border:1px solid var(--ln);box-shadow:0 20px 60px #000a,0 0 40px var(--glow)}
+dialog::backdrop{background:#07021070;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.lic{background:var(--bg)}
+/* botões: mesmos tamanhos, novas cores */
+button,input,select,textarea{background:color-mix(in srgb,var(--sf2) 88%,transparent);border-color:var(--ln)}
+input:focus,select:focus,textarea:focus{border-color:var(--ac);box-shadow:0 0 0 3px #a66bff30;outline:0}
+button:hover{border-color:var(--ac);box-shadow:0 0 14px var(--glow)}
+button.p,.idle a{background:var(--acg);border-color:transparent;color:#fff}
+button.p:not(:disabled):hover{box-shadow:0 6px 22px #a66bff70;filter:brightness(1.1)}
+.tabs button.on,#tabs button.on,#ctry button.on{background:linear-gradient(135deg,#7c3aed55,#b45cf033);border-color:var(--ac);color:var(--tx);box-shadow:inset 3px 0 var(--ac),0 0 14px var(--glow)}
+.tabs button.on{background:var(--acg);color:#fff;box-shadow:0 0 14px var(--glow)}
+#tabs button:hover,#ctry button:hover{background:#a66bff1f}
+.tlb{background:var(--acg);color:#fff}
+.src-freetv,.epn,.rad .np,a{color:var(--ac)}
+.tag{border-color:var(--ln)}
+.screen{border-color:var(--ln);box-shadow:0 10px 40px #00000080,0 0 30px #7c3aed22}
+.rad{background:radial-gradient(600px 300px at 50% 0%,#5b21b655,transparent 70%),var(--card)}
+.eq i,.pgeq i{background:linear-gradient(to top,#7c3aed,#e879f9)}
+.pgr .fg{stroke:#b57cff;filter:drop-shadow(0 0 6px #a66bffaa)}
+.pg.ok .fg{filter:drop-shadow(0 0 8px var(--ok))}
+.pg{box-shadow:0 0 26px #7c3aed33,inset 0 1px 0 #ffffff10}
+#idD .idc{background:var(--sf2)}
+#toast{background:var(--card);color:var(--tx);border:1px solid var(--ac);box-shadow:0 8px 30px var(--glow)}
+.rpl{background:#c9a4ff}
+:focus-visible{outline-color:#c9a4ff}
+</style>
+
 </body>
 </html>
