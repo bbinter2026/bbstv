@@ -523,7 +523,7 @@ body.pfs-on,.screen.pfs,.screen:fullscreen,.screen:-webkit-full-screen{touch-act
   <span id="netChip" class="st mut" aria-live="polite"><span class="bars l0" id="bars" role="img" aria-label="Sinal da rede"><i></i><i></i><i></i><i></i></span><span id="net"></span><span id="netd"></span></span>
   <span id="onN" class="st mut hide" title="Pessoas online" aria-label="Pessoas online"></span>
   <span id="visN" class="st mut hide" title="Visitas hoje (reinicia à meia-noite)" aria-label="Visitas hoje"></span>
-  <button id="rndB" aria-label="Aleatório" title="Aleatório">🎲 Aleatório</button>
+  <button id="hPrev" type="button" aria-label="Canal anterior" title="Canal anterior (B)" disabled>◀</button><button id="rndB" aria-label="Aleatório" title="Aleatório (R)">🎲 Aleatório</button><button id="hNext" type="button" aria-label="Seguinte" title="Seguinte" disabled>▶</button>
   <button id="cmpB" type="button" aria-pressed="false" aria-label="Lista compacta" title="Lista compacta (V)">☰ Compacto</button>
   <select id="langSel" aria-label="Idioma" title="Idioma / Language"><option value="pt">🌐 PT</option><option value="en">🌐 EN</option></select>
   <details class="menu" id="hMenu"><summary aria-label="Menu" title="Menu">⚙️ <span>Menu</span></summary>
@@ -532,6 +532,7 @@ body.pfs-on,.screen.pfs,.screen:fullscreen,.screen:-webkit-full-screen{touch-act
     <button id="infoB" type="button">ℹ️ App info</button>
     <button id="kbH">⌨️ Atalhos</button>
     <button id="shFavB">🔗 Partilhar favoritos</button>
+     <button id="fbB" type="button">⚽ Alertas de futebol</button>
      <button id="accB">👤 Entrar / Criar conta</button>
      <button id="instB" class="hide">📲 Instalar</button>
     <button id="admOpen">Gerir canais</button>
@@ -541,13 +542,14 @@ body.pfs-on,.screen.pfs,.screen:fullscreen,.screen:-webkit-full-screen{touch-act
  </div>
 </header>
 <button id="srchFab" type="button" aria-label="Pesquisar">🔍 <span>Pesquisar</span></button>
+<div id="qnav" class="qnav" role="group" aria-label="Navegação rápida de canais"><button id="qPrev" type="button" aria-label="Canal anterior" title="Canal anterior" disabled>◀</button><button id="qRnd" type="button" aria-label="Aleatório" title="Aleatório">🎲</button><button id="qNext" type="button" aria-label="Seguinte" title="Seguinte" disabled>▶</button><button id="qFav" type="button" aria-label="Favorito" title="Favorito" aria-pressed="false" disabled>☆</button></div>
 
 <div class="app">
  <aside class="nav">
   <h4>Categorias</h4><div id="tabs"></div>
   <h4>Países</h4><select id="ctrySel" class="mob" aria-label="País"></select><form class="ff" onsubmit="return false" autocomplete="off" role="search"><input id="cq" type="search" name="filtro-pais-x9" autocomplete="off" inputmode="search" enterkeyhint="search" autocorrect="off" autocapitalize="off" spellcheck="false" data-lpignore="true" data-1p-ignore data-form-type="other" placeholder="Procurar país" aria-label="Procurar país"></form><div id="ctry"></div>
  </aside>
- <div class="main"><div id="rOpts"><label class="mut" for="rMax">💾 Poupar dados</label><select id="rMax" aria-label="Poupar dados"><option value="0">Qualquer qualidade</option><option value="128">Até 128 kbps (≈58 MB/h)</option><option value="96">Até 96 kbps (≈43 MB/h)</option><option value="64">Até 64 kbps (≈29 MB/h)</option></select></div><div class="mut" id="cnt"></div><div id="shBar" class="hide"><span>🔗 Lista de favoritos partilhada</span><button id="shSave" type="button">★ Guardar nos meus favoritos</button></div><div id="prog"></div><div id="list"></div><button id="more" class="more hide">Mostrar mais</button><div id="adBox" class="adbox hide"><small>Publicidade</small></div></div>
+ <div class="main"><div id="rOpts"><label class="mut" for="rMax">💾 Poupar dados</label><select id="rMax" aria-label="Poupar dados"><option value="0">Qualquer qualidade</option><option value="128">Até 128 kbps (≈58 MB/h)</option><option value="96">Até 96 kbps (≈43 MB/h)</option><option value="64">Até 64 kbps (≈29 MB/h)</option></select></div><div class="mut" id="cnt"></div><button id="shCtry" type="button" class="hide"></button><div id="fbBar" class="hide" aria-live="polite"></div><div id="shBar" class="hide"><span>🔗 Lista de favoritos partilhada</span><button id="shSave" type="button">★ Guardar nos meus favoritos</button></div><div id="prog"></div><div id="list"></div><button id="more" class="more hide">Mostrar mais</button><div id="adBox" class="adbox hide"><small>Publicidade</small></div></div>
  <section class="stage">
   <button id="fsO" aria-label="Ecrã inteiro">⛶</button><button id="miniUp" aria-label="Subir ao leitor">↑</button><button id="miniX" type="button" aria-label="Fechar leitor" title="Fechar">✕</button>
   <div class="screen" id="vbox"><div id="vin" class="vin"><div class="idle"><b>Escolha um canal</b>A lista de canais está ao centro (ou por baixo, no telemóvel).</div></div><button id="fsX">✕ Sair do ecrã inteiro</button><button id="trkB" type="button" aria-haspopup="true" aria-expanded="false">🌐</button><div id="trkP" hidden></div><button id="volO" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Volume"><span class="vi">🔊</span></button><div id="volP2" class="volp" hidden><button type="button" class="vm" aria-label="Silenciar / ligar som">🔊</button><input type="range" class="vr" min="0" max="100" step="1" value="100" aria-label="Volume"><output class="vo">100%</output></div></div>
@@ -556,7 +558,7 @@ body.pfs-on,.screen.pfs,.screen:fullscreen,.screen:-webkit-full-screen{touch-act
    <div class="info"><h2 id="now">Sem canal</h2><div class="mut" id="sub"></div></div>
    <div class="ctl">
     <div class="ctl-l"><select id="qSel" aria-label="Qualidade de vídeo" title="Poupe dados reduzindo a qualidade (funciona nos canais HLS)"><option value="auto">Qualidade: Auto</option><option value="720">Alta · até 720p</option><option value="480">Média · até 480p</option><option value="360">Baixa · até 360p</option><option value="min">Mínima · poupa dados</option></select><span id="trk"></span><span id="qNow" class="mut"></span></div>
-    <div class="ctl-r"><span id="recT" class="rec" aria-live="off"></span><button id="eqB" type="button" title="Equalizador">🎚️ EQ</button><button id="idB" type="button" title="Reconhecer música (tipo Shazam)"><span class="idl">🎵 Reconhecer música</span></button><button id="audB" type="button" disabled>🎧 Ouvir</button><button id="shB" disabled>Partilhar</button><button id="recB" disabled>Gravar</button></div>
+    <div class="ctl-r"><span id="recT" class="rec" aria-live="off"></span><button id="bFav" type="button" aria-pressed="false" disabled>☆ Favorito</button><button id="eqB" type="button" title="Equalizador">🎚️ EQ</button><button id="idB" type="button" title="Reconhecer música (tipo Shazam)"><span class="idl">🎵 Reconhecer música</span></button><button id="audB" type="button" disabled>🎧 Ouvir</button><button id="shB" disabled>Partilhar</button><button id="recB" disabled>Gravar</button></div>
    </div>
   </div>
   <section id="chInfo" class="chi hide" aria-live="polite"></section>
@@ -674,8 +676,8 @@ body.pfs-on,.screen.pfs,.screen:fullscreen,.screen:-webkit-full-screen{touch-act
 
 <script>
 /* ===== CONFIGURAÇÃO ===== */
-const APP_VERSION="4.10.0",
-CHANGELOG=["4.10.0: modo TV com botão 🎧 Ouvir / 📺 Ver — ouvir só o áudio como rádio (poupa dados) e continua a tocar com o telemóvel bloqueado e o ecrã desligado","4.9.0: partilhar a lista de favoritos (o link abre logo a lista); anúncios atualizam de 3 em 3 minutos; retoma sozinho depois de chamadas e outras interrupções; logo a girar em fundo transparente no leitor de rádio; rádios: descoberta automática de servidores quando os fixos falham; equalizador de 7 bandas","4.8.2: 14 fontes extra (Redbox, Tubi, LocalNow, Tablo, Xiaomi, Fire TV, Cineverse, Distro, Roku, Xumo, LG, Vizio, Klowd, Samsung TV Plus), cada uma com etiqueta própria","4.8.1: etiqueta de origem em cada canal (Free-TV, iptv-org, YouTube, BBS) e pesquisa por origem, ex.: «free-tv»","4.8.0: mais canais da lista Free-TV/IPTV, já distribuídos pelas categorias (notícias, desporto, música, infantil, filmes…)","4.7.0: conta opcional (email e palavra-passe) para guardar favoritos e histórico e vê-los em qualquer aparelho","4.6.3: canais com tradução e legendas mostram o sinal CC no ícone","4.6.2: categorias reordenadas (Filmes, Séries, Novelas, Música, Documentários primeiro); nova categoria Tradução e legendas","4.6.1: ecrã inteiro: imagem completa dentro da área segura do telemóvel (logo do canal já não fica cortado)","4.6.0: logo sobre o vídeo a girar suavemente como uma moeda","4.5.9: ecrã inteiro no telemóvel ajustado ao ecrã (sem imagem afastada para baixo), aviso de sair desaparece suavemente em 2 s, logo mais pequeno sobre o vídeo","4.5.8: telemóvel: cabeçalho reorganizado (logo, TV/Rádio e menu na 1.ª linha, pesquisa grande na 2.ª, estado e Aleatório na 3.ª)","4.5.7: telemóvel: botão flutuante 🔍 Pesquisar (leva à pesquisa de qualquer ponto) e caixa de pesquisa com lupa e contorno bem visível","4.5.6: Gerir canais: o admin vê o que cada pessoa online está a fazer agora (a ver, a ouvir, pausa, a gravar, a navegar), há quanto tempo, e os canais mais vistos","4.5.5: link partilhado de rádio/canal: botão “Toque para ouvir” e som ligado no próprio toque (corrigido também quando o leitor é recriado)","4.5.4: versão da app em destaque no cabeçalho","4.5.3: pré-visualização do link partilhado (og:image com o endereço real do site)","4.5.2: menu ⚙️ já não fica escondido atrás da coluna de anúncios","4.5.1: links partilhados começam logo a reproduzir (computador: volume a 80%; telemóvel: volume pelos botões do aparelho; som ligado ao primeiro toque se o navegador bloquear)","4.5.0: espaço “Publicite seus serviços ou empresa aqui” por baixo dos anúncios, com imagens geridas pelo admin","4.4.0: sinal da rede em barras (como no telemóvel)","4.3.0: cabeçalho reorganizado (rede com tipo e velocidade, menu ⚙️ com tema, idioma e conta)","4.2.1: versão da app visível no cabeçalho","4.2.0: retoma sozinho a reprodução quando a rede volta (também em segundo plano)","4.1.0: telemóvel: leitor sem saltos ao subir/descer, rádio compacta sem 'Sobre' nem quadro flutuante, cabeçalho mais arrumado","4.0.0: controlos no ecrã de bloqueio (Media Session), partilhar link de um canal, recentes, país automático, poupar dados na rádio","3.9.1: gravação de rádio mais fiável (CORS) e aviso claro quando a rádio bloqueia a gravação","3.9.0: leitor de vídeo e rádio reorganizado (informação, definições e botões em grupos), mesma posição","3.8.0: rádios em lista (país, nome, frequência, género, qualidade, idioma) com ordenação; gravação sem limite; vídeo em MP4 e rádio em MP3","3.7.0: modo Rádio com estações de todo o mundo (radio-browser.info), por país e género, pesquisa e favoritos","3.6.0: programação diária (EPG) com horários, pesquisa de programas que mostra o canal, correção do \"admin:\" no campo de país","3.5.0: legendas e língua de áudio (YouTube e canais HLS com várias faixas)","3.4.0: mais canais do YouTube (Moçambique, Angola, África do Sul, Brasil) via scripts/gerar-youtube-lista.mjs","3.3.0: canais do YouTube (links watch, youtu.be, /live e /channel) e lista canais-youtube.json","3.2.0: instalar como app, idioma PT/EN, qualidade de vídeo, gravação","3.1.1: AdSense e melhorias para telemóvel","3.0.2: melhorias para telemóvel (ecrã inteiro iPhone, seletor de países, leitor compacto)","3.0.1: removidos os canais sem link","3.0.0: estilo TV Garden e todos os canais do mundo (iptv-org)","2.3.0: importação mundial e correções" ,"2.2.0: canais da África do Sul","2.1.0: visual moderno e canais organizados por categorias","2.0.1: corrige arranque com licença guardada (botões sem resposta)","2.0.0: interface nova, lista lateral, hls com recuperação de erros, segurança (XSS), <dialog>, importação M3U mais fiável","1.1.0: importação M3U por link"];
+const APP_VERSION="4.11.0",
+CHANGELOG=["4.11.0: botões ◀ ▶ para voltar/seguir no histórico de canais (também com o botão Voltar do telemóvel); o aleatório seleciona o canal na lista; favorito no leitor (TV e rádio); leitor e botões já não mexem ao trocar de canal; partilhar canais por país; alerta de futebol ao vivo","4.10.0: modo TV com botão 🎧 Ouvir / 📺 Ver — ouvir só o áudio como rádio (poupa dados) e continua a tocar com o telemóvel bloqueado e o ecrã desligado","4.9.0: partilhar a lista de favoritos (o link abre logo a lista); anúncios atualizam de 3 em 3 minutos; retoma sozinho depois de chamadas e outras interrupções; logo a girar em fundo transparente no leitor de rádio; rádios: descoberta automática de servidores quando os fixos falham; equalizador de 7 bandas","4.8.2: 14 fontes extra (Redbox, Tubi, LocalNow, Tablo, Xiaomi, Fire TV, Cineverse, Distro, Roku, Xumo, LG, Vizio, Klowd, Samsung TV Plus), cada uma com etiqueta própria","4.8.1: etiqueta de origem em cada canal (Free-TV, iptv-org, YouTube, BBS) e pesquisa por origem, ex.: «free-tv»","4.8.0: mais canais da lista Free-TV/IPTV, já distribuídos pelas categorias (notícias, desporto, música, infantil, filmes…)","4.7.0: conta opcional (email e palavra-passe) para guardar favoritos e histórico e vê-los em qualquer aparelho","4.6.3: canais com tradução e legendas mostram o sinal CC no ícone","4.6.2: categorias reordenadas (Filmes, Séries, Novelas, Música, Documentários primeiro); nova categoria Tradução e legendas","4.6.1: ecrã inteiro: imagem completa dentro da área segura do telemóvel (logo do canal já não fica cortado)","4.6.0: logo sobre o vídeo a girar suavemente como uma moeda","4.5.9: ecrã inteiro no telemóvel ajustado ao ecrã (sem imagem afastada para baixo), aviso de sair desaparece suavemente em 2 s, logo mais pequeno sobre o vídeo","4.5.8: telemóvel: cabeçalho reorganizado (logo, TV/Rádio e menu na 1.ª linha, pesquisa grande na 2.ª, estado e Aleatório na 3.ª)","4.5.7: telemóvel: botão flutuante 🔍 Pesquisar (leva à pesquisa de qualquer ponto) e caixa de pesquisa com lupa e contorno bem visível","4.5.6: Gerir canais: o admin vê o que cada pessoa online está a fazer agora (a ver, a ouvir, pausa, a gravar, a navegar), há quanto tempo, e os canais mais vistos","4.5.5: link partilhado de rádio/canal: botão “Toque para ouvir” e som ligado no próprio toque (corrigido também quando o leitor é recriado)","4.5.4: versão da app em destaque no cabeçalho","4.5.3: pré-visualização do link partilhado (og:image com o endereço real do site)","4.5.2: menu ⚙️ já não fica escondido atrás da coluna de anúncios","4.5.1: links partilhados começam logo a reproduzir (computador: volume a 80%; telemóvel: volume pelos botões do aparelho; som ligado ao primeiro toque se o navegador bloquear)","4.5.0: espaço “Publicite seus serviços ou empresa aqui” por baixo dos anúncios, com imagens geridas pelo admin","4.4.0: sinal da rede em barras (como no telemóvel)","4.3.0: cabeçalho reorganizado (rede com tipo e velocidade, menu ⚙️ com tema, idioma e conta)","4.2.1: versão da app visível no cabeçalho","4.2.0: retoma sozinho a reprodução quando a rede volta (também em segundo plano)","4.1.0: telemóvel: leitor sem saltos ao subir/descer, rádio compacta sem 'Sobre' nem quadro flutuante, cabeçalho mais arrumado","4.0.0: controlos no ecrã de bloqueio (Media Session), partilhar link de um canal, recentes, país automático, poupar dados na rádio","3.9.1: gravação de rádio mais fiável (CORS) e aviso claro quando a rádio bloqueia a gravação","3.9.0: leitor de vídeo e rádio reorganizado (informação, definições e botões em grupos), mesma posição","3.8.0: rádios em lista (país, nome, frequência, género, qualidade, idioma) com ordenação; gravação sem limite; vídeo em MP4 e rádio em MP3","3.7.0: modo Rádio com estações de todo o mundo (radio-browser.info), por país e género, pesquisa e favoritos","3.6.0: programação diária (EPG) com horários, pesquisa de programas que mostra o canal, correção do \"admin:\" no campo de país","3.5.0: legendas e língua de áudio (YouTube e canais HLS com várias faixas)","3.4.0: mais canais do YouTube (Moçambique, Angola, África do Sul, Brasil) via scripts/gerar-youtube-lista.mjs","3.3.0: canais do YouTube (links watch, youtu.be, /live e /channel) e lista canais-youtube.json","3.2.0: instalar como app, idioma PT/EN, qualidade de vídeo, gravação","3.1.1: AdSense e melhorias para telemóvel","3.0.2: melhorias para telemóvel (ecrã inteiro iPhone, seletor de países, leitor compacto)","3.0.1: removidos os canais sem link","3.0.0: estilo TV Garden e todos os canais do mundo (iptv-org)","2.3.0: importação mundial e correções" ,"2.2.0: canais da África do Sul","2.1.0: visual moderno e canais organizados por categorias","2.0.1: corrige arranque com licença guardada (botões sem resposta)","2.0.0: interface nova, lista lateral, hls com recuperação de erros, segurança (XSS), <dialog>, importação M3U mais fiável","1.1.0: importação M3U por link"];
 const SUPABASE_URL="https://xnynwonqqbxbusbgngwg.supabase.co",SUPABASE_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhueW53b25xcWJ4YnVzYmduZ3dnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMyNTc1ODEsImV4cCI6MjEwODgzMzU4MX0.sxjDW551yFGpIdcvWVuvImMTI0JWwduPNIcX0yFfb2g";   // opcional (ver SQL no fim)
 const ALLOW_RECORD=true,       // true = mostra o botão Gravar; false = esconde
 ADS_MOBILE=true,      // anúncios Adsterra no FIM da página em telemóvel/tablet; false = desligar
@@ -757,6 +759,7 @@ function merge(saved){
 let audioOnly=false,audNow=false;try{audioOnly=!!JSON.parse(localStorage.getItem("tv_aud")||"false")}catch(e){}   // modo TV: ver (vídeo) ou ouvir (só áudio, como rádio)
 let chans=merge(L("tv_chans",null)),favs=L("tv_favs",[]),tab="Todos",ctry="",cur=null,hls=null,retries=0;
 S("tv_chans",chans);
+var rndMode=false,navMv=false,hist={tv:[],radio:[]},hi={tv:-1,radio:-1};   // v4.11: histórico de canais (◀ ▶)
 
 /* ---- rede / tema ---- */
 let rttMs=null,mBusy=false;
@@ -1106,7 +1109,8 @@ $("eqB").onclick=()=>{eqUI();$("eqD").showModal()};$("eqX").onclick=()=>$("eqD")
 ["click","touchend","keydown"].forEach(ev=>addEventListener(ev,()=>{if(!EQ.on)return;eqGraph();if(EQS.ctx&&EQS.ctx.state!=="running")EQS.ctx.resume().then(()=>{eqAttach($("v"));eqNote()}).catch(()=>{})},true));
 document.addEventListener("loadstart",e=>{const m=e.target;if(m&&m.matches&&m.matches("video,audio")){if(EQ.on)eqAttach(m);eqNote()}},true);
 
-async function openShared(){let id=null,fl=null;try{const P=new URLSearchParams(location.search);id=P.get("c");fl=P.get("fav")}catch(e){}
+async function openShared(){let id=null,fl=null,ps=null,pm=null;try{const P=new URLSearchParams(location.search);id=P.get("c");fl=P.get("fav");ps=P.get("pais");pm=P.get("m")}catch(e){}
+ if(ps&&!id&&!fl){await openCountry(ps,pm);return}
  if(fl&&!id){await openFavs(fl);return}
  if(!id)return;try{history.replaceState(null,"",location.href.split(/[?#]/)[0])}catch(e){}
  skipAuto=true;
@@ -1212,17 +1216,17 @@ function render(){
  const lh=mode==="radio"?(view.length?rhead()+view.slice(0,lim).map(c=>rrow(c,fs)).join(""):none):(view.slice(0,shown).map(c=>card(c,fs)).join("")||none);
  if(lh!==rLH){rLH=lh;$("list").innerHTML=lh}
  $("shBar").classList.toggle("hide",!(shared&&tab===SH_TAB));$("cnt").textContent=view.length+" "+T(mode==="radio"?"rádios":"canais")+(ctry?" · "+cn_(ctry):"")+(tab!=="Todos"?" · "+T(tab):"");
- $("more").classList.toggle("hide",view.length<=lim);$("more").textContent=T("Mostrar mais")+" ("+(view.length-lim)+")";saveUI()}
+ $("more").classList.toggle("hide",view.length<=lim);$("more").textContent=T("Mostrar mais")+" ("+(view.length-lim)+")";saveUI();favBtn();navBtns()}
 $("q").oninput=()=>{shown=120;render();progSearch();radioSearch()};$("cq").oninput=render;
 $("ctrySel").onchange=e=>{userPick=true;ctry=e.target.value;shown=120;render();radioCountry(ctry)};
 $("more").onclick=()=>{shown+=120;render()};
 $("ctry").onclick=e=>{const b=e.target.closest("[data-ctry]");if(b){userPick=true;ctry=b.dataset.ctry;shown=120;render();radioCountry(ctry)}};
 $("tabs").onclick=e=>{const b=e.target.closest("[data-tab]");if(b){tab=b.dataset.tab;shown=120;render()}};
-$("rndB").onclick=()=>{const p=view.filter(c=>c.url&&!c.official);if(!p.length){toast("Sem canais para sortear.");return}play(p[Math.floor(Math.random()*p.length)].id)};
+$("rndB").onclick=randomPick;
 $("list").onclick=e=>{const so=e.target.closest("[data-sort]");if(so){const k=so.dataset.sort;rsort=rsort.k===k?{k,d:-rsort.d}:{k,d:(k==="pop"||k==="q")?-1:1};render();return}
  const f=e.target.closest("[data-fav]");
  if(f){const id=f.dataset.fav;favs=favs.includes(id)?favs.filter(x=>x!==id):[...favs,id];S("tv_favs",favs);favHook(id);render();return}
- const p=e.target.closest("[data-id]");if(p)play(p.dataset.id)};
+ const p=e.target.closest("[data-id]");if(p){rndMode=false;play(p.dataset.id)}};
 $("list").addEventListener("error",e=>{if(e.target.tagName==="IMG")e.target.remove()},true);
 
 /* ---- player ---- */
@@ -1236,13 +1240,13 @@ function showIdle(){const rd=mode==="radio",lt=rd?(rlast&&{id:rlast.id,name:rlas
 $("vin").addEventListener("click",e=>{const b=e.target.closest("[data-last]");if(b)play(b.dataset.last)});
 let altI=0,wd=null;
 function nextAlt(){if(cur&&cur.alts&&altI<Math.min(cur.alts.length,4)-1){altI++;setNow(cur.name,"A tentar outro link…");play(cur.id,true);return true}return false}
-function mark(){audBtn();trackNow();epgShow();chInfo();document.querySelectorAll("#list .ch.cur").forEach(e=>e.classList.remove("cur"));if(cur){const b=document.querySelector('#list [data-id="'+CSS.escape(cur.id)+'"]');if(b)b.closest(".ch").classList.add("cur")}}
+function mark(){favBtn();navBtns();audBtn();trackNow();epgShow();chInfo();document.querySelectorAll("#list .ch.cur").forEach(e=>e.classList.remove("cur"));if(cur){const b=document.querySelector('#list [data-id="'+CSS.escape(cur.id)+'"]');if(b)b.closest(".ch").classList.add("cur")}}
 function play(id,keep){
  const c=pool().find(x=>x.id===id)||(String(id).startsWith("r_")?radio.find(x=>x.id===id):null);if(!c){toast("Canal não encontrado (a lista ainda pode estar a carregar).");return}
  if(recorder)stopRec();
  audNow=false;document.body.classList.remove("aud-on");
  if(hls){hls.destroy();hls=null}
- clearTrk();clearTimeout(wd);clearTimeout(rvT);if(!keep){altI=0;rcN=0;wasOk=false;if(rcT){clearTimeout(rcT);rcT=null}}userPaused=false;lastProg=Date.now();cur=c;retries=0;if(!keep)addRecent(c);if(c.radio){rlast={id:c.id,name:c.name,station:c};S("tv_rlast",rlast);rclick(c)}else S("tv_last",{id:c.id,name:c.name});$("qNow").textContent="";$("fsB").disabled=false;$("shB").disabled=false;$("recB").disabled=true;
+ clearTrk();clearTimeout(wd);clearTimeout(rvT);if(!keep){altI=0;rcN=0;wasOk=false;if(rcT){clearTimeout(rcT);rcT=null}}userPaused=false;lastProg=Date.now();cur=c;retries=0;if(!keep)addRecent(c);if(!keep&&!navMv)pushHist(c.id);if(c.radio){rlast={id:c.id,name:c.name,station:c};S("tv_rlast",rlast);rclick(c)}else S("tv_last",{id:c.id,name:c.name});$("qNow").textContent="";$("fsB").disabled=false;$("shB").disabled=false;$("recB").disabled=true;
  const url=safeUrl(altI&&c.alts?c.alts[altI]:c.url);
  if(!url){setNow(c.name,"Sem link");idle(c.name,esc(T("Este canal ainda não tem link. Abra “Gerir canais” para o adicionar.")));mark();return}
  if(c.official){setNow(c.name,"Transmissão no site do emissor");
@@ -1308,8 +1312,8 @@ addEventListener("keydown",e=>{if(e.key==="Escape")pfs(false)});
 /* telemóvel: ao descer na lista o leitor passa a um quadro pequeno no canto (sem precisar de subir ao topo) */
 const stg=document.querySelector(".stage"),app0=document.querySelector(".app"),vbx=$("vbox");let shv=0;
 function setSh(){if(stg.classList.contains("mini"))return;shv=vbx.offsetTop+vbx.offsetHeight;stg.style.setProperty("--sh",shv+"px")}   // altura do ecrã = espaço reservado: o resto da página não se mexe
-function miniOn(){setSh();stg.classList.add("mini")}
-function miniOff(){stg.classList.remove("mini")}
+function miniOn(){setSh();stg.classList.add("mini");document.body.classList.add("mini-on")}
+function miniOff(){stg.classList.remove("mini");document.body.classList.remove("mini-on")}
 function miniCheck(){
  if(document.body.classList.contains("pfs-on")||document.fullscreenElement||document.webkitFullscreenElement)return;
  if(!matchMedia("(max-width:1100px)").matches||!cur||cur.radio||audNow){miniOff();return}   // rádio: sem quadro flutuante
@@ -1320,6 +1324,61 @@ let scTick=false;addEventListener("scroll",()=>{if(scTick)return;scTick=true;req
 addEventListener("resize",()=>{const m=stg.classList.contains("mini");if(m)stg.classList.remove("mini");setSh();if(m)stg.classList.add("mini");miniCheck()});
 $("miniUp").onclick=()=>scrollTo({top:0,behavior:"smooth"});
 $("miniX").onclick=e=>{e.stopPropagation();stopAll();mark()};
+
+/* ---- v4.11: histórico de canais (◀ ▶), aleatório que seleciona na lista, favorito no leitor, partilha por país ---- */
+const hk=()=>mode==="radio"?"radio":"tv";
+function pushHist(id){const m=hk(),a=hist[m];if(a[hi[m]]===id)return;a.splice(hi[m]+1);a.push(id);if(a.length>100)a.shift();hi[m]=a.length-1;
+ try{history.pushState({bbs:1,id:id,m:m},"")}catch(e){}navBtns()}   // o botão Voltar do telemóvel/navegador também volta ao canal anterior
+function seedHist(){const m=hk();if(hist[m].length)return;const r=rcl().slice(0,15).reverse();hist[m]=r;hi[m]=r.length-1}   // sem histórico: usa os recentes (o último canal é o último da lista)
+function histGo(d){const m=hk();seedHist();const a=hist[m];
+ if(!a.length){toast("Ainda não há canais no histórico.");return}
+ const old=hi[m];let t;
+ if(!cur)t=a.length-1;   // sem canal: volta ao último canal
+ else{t=old+d;
+  if(t<0){toast("Este é o primeiro canal do histórico.");return}
+  if(t>=a.length){if(rndMode)randomPick();else stepSt(1);return}}
+ const id=a[t];navMv=true;hi[m]=t;try{play(id)}finally{navMv=false}
+ if(!cur||cur.id!==id){a.splice(t,1);hi[m]=Math.max(-1,Math.min(old,a.length-1));navBtns();return}
+ revealCur()}
+function navBtns(){const m=hk(),back=cur?hi[m]>0:(hist[m].length>0||rcl().length>0);
+ ["qPrev","hPrev"].forEach(i=>{const b=$(i);if(b)b.disabled=!back});
+ ["qNext","hNext"].forEach(i=>{const b=$(i);if(b)b.disabled=!cur})}
+function randomPick(){const p=view.filter(c=>c.url&&!c.official&&(!cur||c.id!==cur.id));
+ if(!p.length){toast("Sem canais para sortear.");return}
+ rndMode=true;play(p[Math.floor(Math.random()*p.length)].id);revealCur()}
+function revealCur(){if(!cur)return;const i=view.findIndex(c=>c.id===cur.id);if(i<0)return;   // seleciona o canal na lista e mostra-o
+ const rd=mode==="radio",lim=rd?shown*3:shown;
+ if(i>=lim){shown=Math.ceil((i+1)/(rd?3:1)/120)*120;render()}
+ requestAnimationFrame(()=>{if(!cur)return;const b=document.querySelector('#list [data-id="'+CSS.escape(cur.id)+'"]');if(!b)return;const r=b.closest(".ch")||b;r.scrollIntoView({block:"center",behavior:"smooth"})})}
+function toggleFavCur(){if(!cur){toast("Escolha um canal primeiro.");return}
+ const id=cur.id,add=!favs.includes(id);favs=add?[...favs,id]:favs.filter(x=>x!==id);S("tv_favs",favs);favHook(id);render();chInfo();toast(add?"★ Adicionado aos favoritos":"Removido dos favoritos",1600)}
+function favBtn(){const f=!!cur&&favs.includes(cur.id);
+ ["qFav","bFav"].forEach(i=>{const b=$(i);if(!b)return;b.disabled=!cur;b.classList.toggle("on",f);b.setAttribute("aria-pressed",String(f));b.textContent=i==="qFav"?(f?"★":"☆"):(f?"★ "+T("Nos favoritos"):"☆ "+T("Favorito"))});
+ const s=$("shCtry");if(s){s.classList.toggle("hide",!ctry);if(ctry)s.textContent="🔗 "+T("Partilhar")+" "+cn_(ctry)}
+ if(typeof fbLbl==="function")fbLbl()}
+async function shareCountry(){if(!ctry)return;const rd=mode==="radio",u=location.href.split(/[?#]/)[0]+"?pais="+encodeURIComponent(ctry)+"&m="+(rd?"radio":"tv"),t=(rd?"📻 ":"📺 ")+cn_(ctry)+" – BBS Internet Cafe";
+ if(navigator.share){try{await navigator.share({title:t,text:t,url:u});return}catch(e){if(e&&e.name==="AbortError")return}}
+ try{await navigator.clipboard.writeText(u);toast("Link copiado.")}catch(e){prompt(T("Copie o link:"),u)}}
+async function openCountry(p,m){try{history.replaceState(null,"",location.href.split(/[?#]/)[0])}catch(e){}
+ skipAuto=true;userPick=true;const want=m==="radio"?"radio":"tv";
+ if(mode!==want){mode=want;S("tv_mode",mode);applyMode(false)}
+ tab="Todos";shown=120;$("q").value="";ctry=p;render();if(mode==="radio")radioCountry(ctry);
+ const k=na(p);
+ for(let i=0;i<40;i++){   // o nome pode vir noutra língua: procura o país equivalente na lista
+  const names=new Set([...pool().map(c=>c.pais),...radio.map(c=>c.pais),...Object.keys(rcount||{})]);
+  const hit=[...names].find(n=>n&&(na(n)===k||na(cn_(n))===k));
+  if(hit){if(hit!==ctry){ctry=hit;shown=120;render();if(mode==="radio")radioCountry(ctry)}return}
+  await new Promise(r=>setTimeout(r,500))}}
+addEventListener("popstate",e=>{const s=e.state;
+ if(!s||!s.bbs){if(cur)toast("Este foi o primeiro canal. Voltar outra vez sai da página.",2500);return}
+ if(s.m&&s.m!==mode){mode=s.m;S("tv_mode",mode);applyMode(false)}
+ const m=hk(),a=hist[m],k=a.lastIndexOf(s.id);if(k>=0)hi[m]=k;
+ navMv=true;try{play(s.id)}finally{navMv=false}
+ if(k<0&&cur&&cur.id===s.id){a.push(s.id);hi[m]=a.length-1}
+ navBtns();revealCur()});
+[["qPrev",()=>histGo(-1)],["hPrev",()=>histGo(-1)],["qNext",()=>histGo(1)],["hNext",()=>histGo(1)],["qRnd",randomPick],["qFav",toggleFavCur],["bFav",toggleFavCur],["shCtry",shareCountry]].forEach(([i,f])=>{const b=$(i);if(b)b.onclick=f});
+Object.assign(EN,{"Ainda não há canais no histórico.":"No channels in history yet.","Este é o primeiro canal do histórico.":"This is the first channel in history.","Este foi o primeiro canal. Voltar outra vez sai da página.":"That was the first channel. Going back again leaves the page.","Sem canais para sortear.":"No channels to pick from.","Escolha um canal primeiro.":"Choose a channel first.","★ Adicionado aos favoritos":"★ Added to favorites","Removido dos favoritos":"Removed from favorites","Nos favoritos":"In favorites","Favorito":"Favorite","Partilhar":"Share"});
+
 
 
 /* ---- qualidade do vídeo (poupar dados): limita o nível máximo que o hls.js pode escolher ---- */
@@ -1523,7 +1582,7 @@ async function epgLoad(){epg={};const man={};
  Object.assign(man,prog);for(const k in man)epgDaily(k,man[k]);
  await Promise.all(EPG_URLS.map(epgXml));
  for(const k in epg){const seen=new Set();epg[k]=epg[k].sort((a,b)=>a.s-b.s).filter(x=>!seen.has(x.s)&&seen.add(x.s))}
- render();epgShow();progSearch()}
+ render();epgShow();progSearch();fbCheck()}
 function epgCur(c){const a=epg&&c&&epg[na(c.name)],n=Date.now();return a&&a.find(x=>x.s<=n&&n<x.e)}
 function epgNow(c){const x=epgCur(c);return x?`<span class="epn">▶ ${hh(x.s)} ${esc(x.t)}</span>`:""}
 function epgShow(){const b=$("epgBox");if(!b)return;const a=cur&&epg&&epg[na(cur.name)];
@@ -1540,7 +1599,50 @@ $("pCh").onchange=()=>{$("pTx").value=(prog[$("pCh").value.trim()]||[]).join("\n
 $("pSave").onclick=()=>{const n=$("pCh").value.trim(),l=$("pTx").value.split("\n").map(x=>x.trim()).filter(Boolean);if(!n||!l.length){toast("Indique o canal e os programas.");return}
  prog[n]=l;S("tv_prog",prog);remote(sb&&sb.from("programas").upsert({canal:n,linhas:l}));epgLoad();toast("Programação guardada.")};
 $("pDel").onclick=()=>{const n=$("pCh").value.trim();if(!n)return;delete prog[n];S("tv_prog",prog);remote(sb&&sb.from("programas").delete().eq("canal",n));$("pTx").value="";epgLoad();toast("Programação apagada.")};
-setInterval(()=>{epgShow();render()},6e4);
+setInterval(()=>{epgShow();render();fbCheck()},6e4);
+
+/* ---- v4.11: alerta de futebol ao vivo — lê a programação (EPG) e avisa quando há jogos a decorrer ou a começar ---- */
+var FB_RX=/futebol|football|soccer|futbol|calcio|fu(ss|ß)ball|mocambola|girabola|premier league|\bla ?liga\b|\bserie a\b|bundesliga|ligue 1|liga dos campe|champions league|europa league|liga europa|taca de portugal|taca da liga|primeira liga|liga portugal|libertadores|brasileirao|copa do mundo|world cup|mundial|afcon/,
+ FB_NO=/repeti|replay|resumo|highlights|magazine|analise|noticias|reportagem|best of|melhores momentos/,
+ fbSeen=L("tv_fb_seen",{}),fbOn=L("tv_fb_on",true)!==false,fbHide="";
+function fbIn(ms){const m=Math.max(1,Math.round(ms/6e4));return m<60?m+" min":Math.floor(m/60)+" h"+(m%60?" "+String(m%60).padStart(2,"0"):"")}
+function fbItems(){const n=Date.now(),out=[];if(!epg)return out;
+ const mp=new Map();if(mode!=="radio")for(const c of pool())if(c.url){const k=na(c.name);if(!mp.has(k))mp.set(k,c)}
+ for(const k in epg)for(const x of epg[k]){if(x.e<=n||x.s>n+864e5)continue;const t=na(x.t);if(!FB_RX.test(t)||FB_NO.test(t))continue;out.push({k:k,x:x,c:mp.get(k)||null,live:x.s<=n})}
+ out.sort((a,b)=>(b.live-a.live)||a.x.s-b.x.s);return out}
+function fbNotify(title,body,tag){try{if(!(window.Notification&&Notification.permission==="granted")||!(document.hidden||!document.hasFocus()))return;
+ const o={body:body,tag:tag,icon:"icon-192.png",badge:"icon-192.png"};
+ if(navigator.serviceWorker&&navigator.serviceWorker.getRegistration)navigator.serviceWorker.getRegistration().then(r=>{if(r&&r.showNotification)r.showNotification(title,o);else new Notification(title,o)}).catch(()=>{try{new Notification(title,o)}catch(e){}});
+ else new Notification(title,o)}catch(e){}}
+function fbRender(it){const b=$("fbB")&&$("fbBar");if(!b)return;
+ if(!fbOn||mode==="radio"||!it.length){b.classList.add("hide");b.innerHTML="";return}
+ const sig=it.map(o=>o.k+o.x.s).join(),n=Date.now();
+ if(fbHide===sig){b.classList.add("hide");return}
+ const ask=!!(window.Notification&&Notification.permission==="default");
+ b.classList.remove("hide");
+ b.innerHTML='<div class="fbh"><b>⚽ '+esc(T("Futebol"))+'</b>'+(ask?'<button type="button" data-fbn="1">🔔 '+esc(T("Ativar avisos"))+'</button>':"")+'<button type="button" data-fbx="'+esc(sig)+'" aria-label="'+esc(T("Fechar"))+'">✕</button></div>'
+  +it.slice(0,5).map(o=>'<button type="button" class="fbi '+(o.live?"on":"")+'" data-fbk="'+esc(o.k)+'"><b>'+hh(o.x.s)+'</b><span>'+esc(o.x.t)+'</span><small>'+esc(o.x.n)+" · "+(o.live?"🔴 "+esc(T("EM DIRETO")):esc(T("começa em"))+" "+fbIn(o.x.s-n))+'</small></button>').join("")
+  +(it.length>5?'<small class="mut">+'+(it.length-5)+'</small>':"")}
+function fbCheck(){const it=fbOn?fbItems():[];fbRender(it);if(!it.length)return;
+ const n=Date.now(),fresh=[];
+ for(const o of it){const key=o.k+"|"+o.x.s,st=o.live?"L":(o.x.s-n<=15*6e4?"S":"");if(!st)continue;
+  if(fbSeen[key]==="L"||fbSeen[key]===st)continue;fbSeen[key]=st;fresh.push(o)}
+ for(const k in fbSeen){const s=+k.split("|")[1];if(s&&s<n-864e5)delete fbSeen[k]}
+ if(!fresh.length)return;S("tv_fb_seen",fbSeen);
+ const f=fresh[0],head=f.live?"⚽ "+T("Futebol ao vivo"):"⚽ "+T("Daqui a pouco"),msg=fresh.length>1?"⚽ "+fresh.length+" "+T("jogos de futebol")+": "+f.x.t+" · "+f.x.n+"…":head+": "+f.x.t+" · "+f.x.n;
+ toast(msg,7000);fresh.slice(0,3).forEach(o=>fbNotify(o.live?"⚽ "+T("Futebol ao vivo"):"⚽ "+T("Daqui a pouco"),o.x.t+" · "+o.x.n+" ("+hh(o.x.s)+")","fb-"+o.k+o.x.s))}
+async function fbAsk(){if(!window.Notification){toast("Este navegador não suporta notificações.");return}
+ try{const p=await Notification.requestPermission();toast(p==="granted"?"🔔 Avisos de futebol ativados.":"Avisos não permitidos nas definições do navegador.")}catch(e){}fbCheck()}
+function fbLbl(){const b=$("fbB");if(b)b.textContent="⚽ "+T("Alertas de futebol")+": "+T(fbOn?"ligados":"desligados")}
+$("fbBar").onclick=e=>{const x=e.target.closest("[data-fbx]");if(x){fbHide=x.dataset.fbx;fbCheck();return}
+ if(e.target.closest("[data-fbn]")){fbAsk();return}
+ const i=e.target.closest("[data-fbk]");if(!i)return;const k=i.dataset.fbk,c=pool().find(c=>c.url&&na(c.name)===k);
+ if(c){rndMode=false;play(c.id)}else toast("Este canal não tem link para reproduzir.")};
+$("fbB").onclick=()=>{fbOn=!fbOn;S("tv_fb_on",fbOn);fbLbl();$("hMenu").open=false;
+ if(fbOn){toast("⚽ Alertas de futebol ligados.");if(window.Notification&&Notification.permission==="default")fbAsk();fbCheck()}else{fbCheck();toast("Alertas de futebol desligados.")}};
+fbLbl();
+Object.assign(EN,{"Futebol":"Football","Alertas de futebol":"Football alerts","ligados":"on","desligados":"off","EM DIRETO":"LIVE","começa em":"starts in","Ativar avisos":"Enable alerts","Futebol ao vivo":"Live football","Daqui a pouco":"Starting soon","jogos de futebol":"football matches","Fechar":"Close","⚽ Alertas de futebol ligados.":"⚽ Football alerts on.","Alertas de futebol desligados.":"Football alerts off.","🔔 Avisos de futebol ativados.":"🔔 Football alerts enabled.","Avisos não permitidos nas definições do navegador.":"Alerts are blocked in the browser settings.","Este navegador não suporta notificações.":"This browser doesn’t support notifications."});
+
 /* corrige o preenchimento automático do navegador ("admin:") nos campos de pesquisa */
 ["q","cq"].forEach(i=>$(i).addEventListener("input",e=>{if(e.isTrusted)$(i).dataset.t=1}));
 [300,1200,2500,5000,8000].forEach(ms=>setTimeout(()=>{let ch=0;["q","cq"].forEach(i=>{const e=$(i);if(e.value&&!e.dataset.t){e.value="";ch=1}});if(ch)render()},ms));
@@ -1565,7 +1667,7 @@ function saveUI(){if(!window._uiReady)return;try{const k="tv_ui_"+mode,p=L(k,nul
   if(n){n.focus();n.scrollIntoView({block:"nearest"})}
   else if(dir==="d"&&!$("more").classList.contains("hide"))$("more").focus()}
  function step(sel,d){const bs=[...document.querySelectorAll(sel)];if(!bs.length)return null;let i=bs.findIndex(b=>b.classList.contains("on"));i=Math.max(0,Math.min(bs.length-1,(i<0?0:i)+d));bs[i].click();const on=document.querySelector(sel+".on");if(on)on.scrollIntoView({block:"nearest",inline:"nearest"});return on}
- const HELP="⌨️ Atalhos: / pesquisar · C país · V lista compacta · ↑ ↓ ← → escolher · Enter ver · F ecrã inteiro · M silêncio · R aleatório · Shift+← → categoria · PgUp/PgDn país · roda do rato = volume · duplo clique = ecrã inteiro";
+ const HELP="⌨️ Atalhos: / pesquisar · C país · V lista compacta · ↑ ↓ ← → escolher · Enter ver · F ecrã inteiro · M silêncio · R aleatório · B canal anterior · Shift+← → categoria · PgUp/PgDn país · roda do rato = volume · duplo clique = ecrã inteiro";
  $("kbH").onclick=()=>{$("hMenu").open=false;toast(HELP,9000)};
  addEventListener("keydown",e=>{
   if(e.defaultPrevented||e.ctrlKey||e.altKey||e.metaKey)return;
@@ -1587,6 +1689,7 @@ function saveUI(){if(!window._uiReady)return;try{const k="tv_ui_"+mode,p=L(k,nul
   if(k==="f"||k==="F"){e.preventDefault();if(cur)goFs();else toast("Escolha um canal primeiro.");return}
   if(k==="m"||k==="M"){const m=document.querySelector("#vin video,#vin audio");if(!m){toast("Sem reprodução.");return}e.preventDefault();m.muted=!m.muted;toast(m.muted?"🔇 Silêncio":"🔊 Som ligado",1500);return}
   if(k==="r"||k==="R"){e.preventDefault();$("rndB").click()}
+  if(k==="b"||k==="B"){e.preventDefault();histGo(-1);return}
  });
 })();
 /* ---- lista compacta, rato (volume / duplo clique), pesquisa de país ---- */
@@ -2200,5 +2303,172 @@ button.p:not(:disabled):hover{box-shadow:0 6px 22px #a66bff70;filter:brightness(
 :focus-visible{outline-color:#c9a4ff}
 </style>
 
+
+<style id="v411">
+/* v4.11 — estilos do guia/ficha que estavam dentro de <noscript> (nunca se aplicavam com JavaScript ativo) */
+.epn{display:block;color:var(--ac);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#prog h4{margin:6px 0}#prog button{display:flex;width:100%;gap:8px;text-align:left;margin:0 0 4px;align-items:center;flex-wrap:wrap}#prog button.on{border-color:var(--live)}#prog small{color:var(--mut);margin-left:auto}
+.epg{margin:4px 0 12px;background:var(--sf);border:1px solid var(--ln);border-radius:10px;padding:8px 12px;max-height:260px;overflow:auto}.epg summary{cursor:pointer;font-weight:600}.epg div{padding:3px 0;font-size:14px}.epg div.on{color:var(--ac);font-weight:600}
+.chi{margin:4px 0 10px;background:var(--sf);border:1px solid var(--ln);border-radius:10px;padding:10px 12px}.chi .chh{display:flex;gap:8px;align-items:center;justify-content:space-between}.chi .chh b{font-size:16px}.chi h4{margin:8px 0 2px}.chi p{margin:0;font-size:14px}
+/* leitor e botões não mexem ao trocar de canal */
+#now,#sub{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#sub{min-height:1.5em}
+body:not(.radio-on) .ctl-l{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;min-height:40px;align-items:center}
+body:not(.radio-on) .ctl-l::-webkit-scrollbar{display:none}
+body:not(.radio-on) .ctl-l>*,body:not(.radio-on) .ctl-l #trk select{flex:0 0 auto}
+#recT:empty{display:none}
+/* favorito, partilha por país, alerta de futebol */
+#bFav.on,#qFav.on{background:var(--ac);color:var(--acx);border-color:var(--ac)}
+#shCtry{margin:4px 0 8px;padding:6px 12px;font-size:13px;border-radius:99px}
+#fbBar{margin:6px 0 10px;background:var(--sf);border:1px solid var(--live);border-radius:12px;padding:8px 10px}
+#fbBar .fbh{display:flex;gap:8px;align-items:center;margin-bottom:6px}#fbBar .fbh b{flex:1}#fbBar .fbh button{padding:4px 10px;font-size:12px}
+#fbBar .fbi{display:flex;width:100%;gap:8px;align-items:center;flex-wrap:wrap;text-align:left;margin:0 0 4px}#fbBar .fbi.on{border-color:var(--live)}#fbBar .fbi small{color:var(--mut);margin-left:auto}
+.qnav,#hPrev,#hNext{display:none}
+@media(min-width:1101px){#hPrev,#hNext{display:inline-block;order:7;padding:6px 10px;min-height:36px}}
+@media(max-width:1100px){
+ #bFav{display:none}
+ .qnav{display:flex;position:fixed;left:8px;bottom:calc(10px + env(safe-area-inset-bottom));z-index:80;gap:4px;padding:4px;border-radius:14px;background:color-mix(in srgb,var(--sf) 92%,transparent);border:1px solid var(--ln);box-shadow:0 4px 16px #0008;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+ .qnav button{width:38px;height:38px;padding:0;font-size:16px;line-height:1;border-radius:10px}
+ body.mini-on .qnav{bottom:calc(10px + env(safe-area-inset-bottom) + min(46vw,230px)*.5625 + 10px)}
+ body.pfs-on .qnav{display:none}
+ body:not(.radio-on) .ctl-l{display:flex;gap:8px;flex:none;width:100%}
+ body:not(.radio-on) .ctl-l select{width:auto;min-width:150px;max-width:none}
+ #qNow{grid-column:auto;text-align:left}
+ .chi{display:none!important}
+ .epg:not(.hide){height:44px;overflow:hidden;box-sizing:border-box;margin:4px 12px 12px}.epg[open]:not(.hide){height:auto;max-height:260px;overflow:auto}
+ .epg.hide{display:block!important;visibility:hidden;height:44px;margin:4px 12px 12px;padding:0;border:0;overflow:hidden}
+ body.radio-on .screen{height:156px;overflow:hidden}
+ body.radio-on .rad{height:100%;align-content:center}
+ body.radio-on .rad .txt{overflow:hidden;max-height:80px}
+ body.radio-on .rad .meta{flex-wrap:nowrap;white-space:nowrap;overflow:hidden}
+ body.radio-on .rad .eq{display:none}
+}
+</style>
+<style id="v-resp">
+/* ===== Botões organizados + ecrã adaptável a qualquer resolução ===== */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{min-width:0;overflow-x:hidden}
+img,video,iframe,canvas{max-width:100%}
+button,select,summary{touch-action:manipulation}
+button,select{min-height:36px;max-width:100%}
+.ctl button,.wrap button,.accrow button,.dlg>button,.mp button{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* cabeçalho: tudo quebra de linha de forma limpa em qualquer largura */
+header{row-gap:8px;min-width:0}
+header .ff{flex:1 1 200px;min-width:140px;max-width:420px}
+header #q{width:100%;min-width:0}
+.hr{flex-wrap:wrap;justify-content:flex-end;gap:6px;min-width:0;max-width:100%}
+.hr>*{flex:0 0 auto}
+.menu .mp{max-height:calc(100dvh - 90px);overflow-y:auto;max-width:calc(100vw - 20px)}
+.menu .mp button,.menu .mp select{width:100%;text-align:left}
+
+/* barra de controlos do leitor: grelha uniforme */
+.ctl-r{display:grid;grid-template-columns:repeat(auto-fit,minmax(clamp(92px,12vw,150px),1fr));gap:8px;width:100%;margin:0;justify-content:stretch}
+.ctl-r>#recT{grid-column:1/-1}
+.ctl-r>button{width:100%;min-width:0;padding-inline:8px}
+.ctl-l select{min-width:0}
+@media(min-width:1101px){.ctl-r{width:auto;margin-left:auto;grid-template-columns:repeat(auto-fit,minmax(104px,max-content))}}
+
+/* tablets (701–1100px) */
+@media(min-width:701px) and (max-width:1100px){
+ header{padding-inline:14px}
+ header .seg{margin-inline:auto}
+ .hr{flex:1 1 100%;justify-content:flex-end}
+ .ctl-l{flex-wrap:wrap}
+}
+
+/* telemóveis pequenos (≤360px) */
+@media(max-width:360px){
+ header{padding-inline:8px;gap:6px}
+ header .seg button{font-size:12px;padding:8px 4px}
+ header #rndB{font-size:12px;padding:6px 8px}
+ .ctl-r{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .dlg{padding:12px}
+ .accrow{flex-direction:column}
+}
+
+/* telemóvel em paisagem / ecrãs baixos */
+@media(max-height:480px) and (orientation:landscape){
+ header{padding-block:4px}
+ header button,header select{min-height:32px}
+ dialog{max-height:96dvh}
+ .qnav button{width:34px;height:34px}
+}
+
+/* toque: alvos de 44px */
+@media(pointer:coarse){
+ .ctl-r button,.wrap button,.accrow button,.dlg>button,.mp button,.seg button,#tabs button,#ctry button{min-height:44px}
+}
+
+/* diálogos: nunca saem do ecrã */
+dialog{width:min(560px,calc(100vw - 24px));max-width:calc(100vw - 24px);max-height:calc(100dvh - 24px);overflow:auto}
+.accrow{flex-wrap:wrap}.accrow button{flex:1 1 120px}
+.wrap>button{flex:1 1 auto}
+
+/* ecrãs grandes e TV: botões e texto maiores, conteúdo centrado */
+@media(min-width:1700px){
+ header button,header select,.ctl button,.ctl select{font-size:15px;min-height:42px}
+ .app{max-width:2200px;margin-inline:auto}
+}
+@media(min-width:2400px){
+ html{font-size:112.5%}
+ header button,header select,.ctl button,.ctl select{font-size:17px;min-height:48px}
+}
+</style>
+<style id="v-fx">
+/* ===== Efeitos de transição ===== */
+:root{--fx:.28s cubic-bezier(.22,.8,.3,1)}
+body{animation:fxPage .5s ease both}
+@keyframes fxPage{from{opacity:0}to{opacity:1}}
+@keyframes fxUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes fxPop{from{opacity:0;transform:translateY(-6px) scale(.97)}to{opacity:1;transform:none}}
+@keyframes fxSwap{0%{opacity:.25;transform:translateY(6px)}100%{opacity:1;transform:none}}
+@keyframes fxVid{0%{opacity:0;transform:scale(1.03);filter:blur(6px)}100%{opacity:1;transform:none;filter:none}}
+
+/* botões e campos */
+button,select,summary,input,.seg button{transition:background-color var(--fx),color var(--fx),border-color var(--fx),box-shadow var(--fx),transform .15s ease,opacity var(--fx)}
+button:not(:disabled):hover{transform:translateY(-1px)}
+button:not(:disabled):active{transform:scale(.96)}
+.seg button.on{transition:background-color .35s ease,color .35s ease}
+
+/* menu ⚙️ */
+.menu[open] .mp{animation:fxPop .22s cubic-bezier(.22,.8,.3,1) both;transform-origin:top right}
+.menu summary{transition:background-color var(--fx),transform .2s ease}
+.menu[open] summary{transform:rotate(0)}
+
+/* listas: entrada em cascata */
+#list>*,#tabs>*,#ctry>*{animation:fxUp .4s cubic-bezier(.22,.8,.3,1) both}
+#list>*:nth-child(1){animation-delay:.02s}#list>*:nth-child(2){animation-delay:.05s}#list>*:nth-child(3){animation-delay:.08s}
+#list>*:nth-child(4){animation-delay:.11s}#list>*:nth-child(5){animation-delay:.14s}#list>*:nth-child(6){animation-delay:.17s}
+#list>*:nth-child(7){animation-delay:.2s}#list>*:nth-child(8){animation-delay:.23s}#list>*:nth-child(n+9){animation-delay:.26s}
+.ch,.row{transition:transform var(--fx),box-shadow var(--fx),background-color var(--fx),border-color var(--fx)}
+@media(hover:hover){.ch:hover{transform:translateY(-3px);box-shadow:0 8px 22px #0006}}
+
+/* mudar de canal: leitor e título */
+.screen.fxsw .vin{animation:fxVid .5s ease both}
+.info.fxsw #now,.info.fxsw #sub{animation:fxSwap .4s ease both}
+.bar{transition:opacity var(--fx)}
+
+/* painéis que abrem/fecham */
+.epg,.chi,#fbBar,#shBar,#trkP,#volP2{animation:fxUp .3s ease both}
+#toast{transition:opacity .3s ease,transform .3s cubic-bezier(.22,.8,.3,1)}
+.qnav{animation:fxUp .5s ease both}
+
+@media(prefers-reduced-motion:reduce){
+ body,#list>*,#tabs>*,#ctry>*,.menu[open] .mp,.screen.fxsw .vin,.info.fxsw #now,.info.fxsw #sub,.epg,.chi,#fbBar,#shBar,#trkP,#volP2,.qnav{animation:none!important}
+ button:hover,button:active,.ch:hover{transform:none!important}
+}
+</style>
+<script>
+/* dispara a transição quando o canal muda */
+(function(){try{
+ var n=document.getElementById('now'),sc=document.getElementById('vbox'),inf=n&&n.closest('.info');
+ if(!n||!window.MutationObserver)return;
+ var t;new MutationObserver(function(){
+  [sc,inf].forEach(function(e){if(e){e.classList.remove('fxsw');void e.offsetWidth;e.classList.add('fxsw')}});
+  clearTimeout(t);t=setTimeout(function(){[sc,inf].forEach(function(e){e&&e.classList.remove('fxsw')})},700);
+ }).observe(n,{childList:true,characterData:true,subtree:true});
+}catch(e){}})();
+</script>
 </body>
 </html>
