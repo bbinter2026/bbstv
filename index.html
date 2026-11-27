@@ -1279,10 +1279,16 @@ function play(id,keep){
   if(sys)intrStart();else userPaused=true},700)});
  v.addEventListener("ended",()=>{if(v===$("v")&&wasOk&&!userPaused)scheduleReconnect()});
  v.onwaiting=()=>{nowS.s=navigator.onLine?"A carregar…":"Sem rede — retoma sozinho";refNow()};
+ {let sw=null;   // se ficar parado >4 s: retoma o carregamento, salta buracos no buffer e volta a tocar (sem reiniciar o canal)
+  v.addEventListener("waiting",()=>{clearTimeout(sw);sw=setTimeout(()=>{if(v!==$("v")||userPaused||v.ended||!wasOk)return;
+   try{if(hls)hls.startLoad(-1);const b=v.buffered,t=v.currentTime;
+    for(let i=0;i<b.length;i++){if(b.start(i)>t&&b.start(i)-t<6){v.currentTime=b.start(i)+0.05;break}if(t>=b.start(i)-0.3&&t<b.end(i)-0.6){v.currentTime=t+0.1;break}}
+    if(v.paused)v.play().catch(()=>{})}catch(e){}},4000)});
+  ["playing","pause","ended"].forEach(ev=>v.addEventListener(ev,()=>clearTimeout(sw)))}
  v.onerror=()=>{if(c.radio&&v.crossOrigin&&!ncors.has(c.id)){ncors.add(c.id);play(c.id,true);return}if(wasOk&&!userPaused){scheduleReconnect();return}if(!navigator.onLine){setNow(c.name,"Sem rede — retoma sozinho");return}if(!nextAlt()){setNow(c.name,"Erro no stream");report(c.id,false)}};
  wd=setTimeout(()=>{if(cur===c&&wasOk&&!userPaused&&stale(10000)){scheduleReconnect();return}if(cur===c&&v.paused&&!v.currentTime&&!nextAlt()){setNow(c.name,"Stream indisponível");report(c.id,false)}},12000);
  if((/\.m3u8/i.test(url)||c.hls)&&window.Hls&&Hls.isSupported()){
-  hls=new Hls({lowLatencyMode:false,manifestLoadingTimeOut:8000,manifestLoadingMaxRetry:1,manifestLoadingMaxRetryTimeout:3000,levelLoadingTimeOut:8000,levelLoadingMaxRetry:1,fragLoadingTimeOut:12000,fragLoadingMaxRetry:2,capLevelToPlayerSize:true,maxBufferLength:RES?((aud||c.radio)?120:60):(aud?60:20),...(RES?{maxMaxBufferLength:(aud||c.radio)?180:90,maxBufferSize:120e6,liveSyncDurationCount:6,liveMaxLatencyDurationCount:14,fragLoadingMaxRetry:5,levelLoadingMaxRetry:4,manifestLoadingMaxRetry:3,fragLoadingRetryDelay:1500}:{})});hls.loadSource(url);hls.attachMedia(v);
+  hls=new Hls({lowLatencyMode:false,manifestLoadingTimeOut:10000,manifestLoadingMaxRetry:2,manifestLoadingMaxRetryTimeout:3000,levelLoadingTimeOut:10000,levelLoadingMaxRetry:2,fragLoadingTimeOut:20000,fragLoadingMaxRetry:3,fragLoadingRetryDelay:1000,capLevelToPlayerSize:true,maxBufferLength:RES?((aud||c.radio)?120:60):(aud?60:30),maxMaxBufferLength:RES?((aud||c.radio)?180:90):60,backBufferLength:30,maxBufferHole:0.5,nudgeMaxRetry:8,liveSyncDurationCount:4,liveMaxLatencyDurationCount:12,abrBandWidthFactor:0.8,abrBandWidthUpFactor:0.6,...(RES?{maxMaxBufferLength:(aud||c.radio)?180:90,maxBufferSize:120e6,liveSyncDurationCount:6,liveMaxLatencyDurationCount:14,fragLoadingMaxRetry:5,levelLoadingMaxRetry:4,manifestLoadingMaxRetry:3,fragLoadingRetryDelay:1500}:{})});hls.loadSource(url);hls.attachMedia(v);
   hls.on(Hls.Events.MANIFEST_PARSED,()=>{applyQ(true);if((c.radio&&rmax)||aud){hls.autoLevelCapping=0;hls.startLevel=0}trackMenus()});hls.on(Hls.Events.AUDIO_TRACKS_UPDATED,trackMenus);hls.on(Hls.Events.SUBTITLE_TRACKS_UPDATED,trackMenus);hls.on(Hls.Events.LEVEL_SWITCHED,(e,d)=>showQ(d.level));
   hls.on(Hls.Events.ERROR,(e,d)=>{if(!d.fatal)return;const code=d.response&&d.response.code;window.lastWhy=d.details+(code?" "+code:"");console.warn("HLS falhou:",c.name,url,d.details,code||"");
    if(d.type===Hls.ErrorTypes.NETWORK_ERROR&&(wasOk||!navigator.onLine)){scheduleReconnect();return}
@@ -2531,17 +2537,25 @@ body.radio-on #volP2[hidden],.screen:has(audio) #volP2[hidden]{display:none!impo
 }
 body:not(.pfs-on) .stage.mini #volO,body:not(.pfs-on) .stage.mini #volP2{display:none!important}
 
-/* ===== Telemóvel: a lista de canais volta a ser visível (a página desliza; o leitor fica fixo no topo) ===== */
+/* ===== Telemóvel (até 1100 px): ordem clara e lista completa sem scroll próprio =====
+   1) cabeçalho (desliza com a página)  2) leitor fixo no topo, compacto
+   3) categorias / país / pesquisa      4) lista de canais completa (a página é que desliza) */
 @media(max-width:1100px){
- .app{height:auto!important;overflow:visible!important;display:flex!important;flex-direction:column;gap:6px;padding:0 0 12px}
- .stage{position:sticky!important;top:var(--hh,64px)!important;order:-1;flex:none;height:auto!important;max-height:46vh!important;overflow-y:auto;z-index:30;background:var(--bg)}
- .nav{flex:none;height:auto!important;overflow:visible!important}
- .main{flex:none!important;height:auto!important;min-height:55vh;overflow:visible!important}
- .main>#list{flex:none!important;overflow:visible!important;min-height:200px}
+ header{position:static!important}
+ .app{height:auto!important;overflow:visible!important;display:flex!important;flex-direction:column;gap:6px;padding:0 0 calc(12px + env(safe-area-inset-bottom))}
+ .stage{position:sticky!important;top:0!important;order:-1;flex:none;height:auto!important;max-height:40vh!important;overflow-y:auto;overflow-x:hidden;z-index:30;background:var(--bg);padding-top:env(safe-area-inset-top)}
+ .stage .screen{max-height:26vh}
+ body.radio-on .stage .screen{max-height:none}
+ .stage .bar{padding:4px 12px 0}
+ .nav{flex:none;height:auto!important;overflow:visible!important;order:0}
+ #tabs{flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px}
+ .main{flex:none!important;height:auto!important;max-height:none!important;min-height:50vh;overflow:visible!important;order:1}
+ #list,.main>#list{flex:none!important;height:auto!important;max-height:none!important;overflow:visible!important;min-height:0}
  .main>#prog{max-height:none!important}
 }
 @media(max-height:480px) and (orientation:landscape){
  .stage{position:static!important;max-height:none!important;overflow:visible}
+ .stage .screen{max-height:none}
 }
 </style>
 <script>
