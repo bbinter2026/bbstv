@@ -1870,17 +1870,15 @@ $("out").classList.add("hide");
 const instB=$("instB"),pwaI=$("pwaI"),pwaT=$("pwaT"),pwaX=$("pwaX"),inStandalone=()=>matchMedia("(display-mode: standalone)").matches||navigator.standalone===true;
 let dp=window.__dp||null,pwaDis=false;try{pwaDis=sessionStorage.getItem("pwaDismiss")==="1"}catch(e){}
 function popText(){pwaT.textContent=T("Instalar app");pwaI.setAttribute("aria-label",pwaT.textContent)}
-const pwaShow=()=>{if(inStandalone()||pwaDis)return;popText();pwaI.classList.add("show")},   // só aparece quando o navegador permite instalar com um toque
+const pwaShow=()=>{if(!dp)return;instB.classList.remove("hide");if(inStandalone()||pwaDis)return;popText();pwaI.classList.add("show")},   // só aparece quando o navegador permite instalar com um toque
  pwaHide=()=>pwaI.classList.remove("show");
-function doInstall(){   // abre logo o diálogo nativo do navegador: um toque e instala
- if(!dp){
-  const ios=/iphone|ipad|ipod/i.test(navigator.userAgent);
-  toast(T(ios?"No iPhone/iPad: toque em Partilhar e depois em «Adicionar ao ecrã principal».":"Abra o menu do navegador (⋮) e escolha «Instalar app» ou «Adicionar ao ecrã principal»."),7000);return}
+function doInstall(){   // um toque: abre o diálogo nativo e instala
+ if(!dp)return;
  const d=dp;d.prompt();
  Promise.resolve(d.userChoice).catch(()=>{}).finally(()=>{dp=null;window.__dp=null;pwaHide();instB.classList.add("hide")})}
 Object.assign(EN,{"Instalar app":"Install app","No iPhone/iPad: toque em Partilhar e depois em «Adicionar ao ecrã principal».":"On iPhone/iPad: tap Share, then «Add to Home Screen».","Abra o menu do navegador (⋮) e escolha «Instalar app» ou «Adicionar ao ecrã principal».":"Open the browser menu (⋮) and choose «Install app» or «Add to Home Screen»."});
 addEventListener("bbs-bip",()=>{dp=window.__dp;pwaShow()});
-if(!inStandalone())instB.classList.remove("hide");
+if(dp&&!inStandalone())instB.classList.remove("hide");
 setTimeout(pwaShow,1200);
 addEventListener("appinstalled",()=>{dp=null;instB.classList.add("hide");pwaHide();toast("App instalada.")});
 const pwaDismiss=e=>{e.stopPropagation();try{sessionStorage.setItem("pwaDismiss","1")}catch(_){}pwaDis=true;pwaHide()};
