@@ -1325,8 +1325,7 @@ function miniOn(){setSh();stg.classList.add("mini");document.body.classList.add(
 function miniOff(){stg.classList.remove("mini");document.body.classList.remove("mini-on")}
 function miniCheck(){
  if(document.body.classList.contains("pfs-on")||document.fullscreenElement||document.webkitFullscreenElement)return;
- miniOff();return;   // cabeçalho e leitor ficam fixos: só a lista desliza (sem quadro flutuante)
- if(!matchMedia("(max-width:1100px)").matches||!cur||cur.radio||audNow){miniOff();return}   // rádio: sem quadro flutuante
+ if(!matchMedia("(max-width:1100px)").matches||!cur){miniOff();return}   // TV e rádio: ao descer na lista, o leitor passa a quadro pequeno
  const mini=stg.classList.contains("mini");if(!mini)setSh();
  const top=app0.getBoundingClientRect().top+scrollY;
  if(!mini){if(scrollY>top+shv*.5)miniOn()}else if(scrollY<top+shv*.2)miniOff()}
@@ -2537,16 +2536,23 @@ body.radio-on #volP2[hidden],.screen:has(audio) #volP2[hidden]{display:none!impo
 }
 body:not(.pfs-on) .stage.mini #volO,body:not(.pfs-on) .stage.mini #volP2{display:none!important}
 
-/* ===== Telemóvel (até 1100 px): ordem clara e lista completa sem scroll próprio =====
-   1) cabeçalho (desliza com a página)  2) leitor fixo no topo, compacto
-   3) categorias / país / pesquisa      4) lista de canais completa (a página é que desliza) */
+/* ===== Telemóvel (até 1100 px): sem scroll no leitor, botões em grelha, lista completa =====
+   Ordem: leitor (TV/rádio) -> botões -> categorias/país/pesquisa -> lista.
+   Ao descer na lista, o leitor passa a quadro pequeno no canto (como antes). */
 @media(max-width:1100px){
  header{position:static!important}
  .app{height:auto!important;overflow:visible!important;display:flex!important;flex-direction:column;gap:6px;padding:0 0 calc(12px + env(safe-area-inset-bottom))}
- .stage{position:sticky!important;top:0!important;order:-1;flex:none;height:auto!important;max-height:40vh!important;overflow-y:auto;overflow-x:hidden;z-index:30;background:var(--bg);padding-top:env(safe-area-inset-top)}
- .stage .screen{max-height:26vh}
+ .stage{position:static!important;top:auto!important;order:-1;flex:none;height:auto!important;max-height:none!important;overflow:visible!important;background:var(--bg);padding-top:env(safe-area-inset-top)}
+ .stage .screen{max-height:30vh}
  body.radio-on .stage .screen{max-height:none}
- .stage .bar{padding:4px 12px 0}
+ .stage .bar{padding:6px 12px 0}
+ /* botões: grelha de 4 colunas, sem scroll para o lado */
+ .stage .ctl-r{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;grid-auto-flow:dense;gap:6px!important;width:100%!important;overflow:visible!important;padding:6px 12px 8px!important;margin:0!important}
+ .stage .ctl-r>button{width:100%!important;min-width:0!important;min-height:42px;padding:6px 4px!important;font-size:13px;line-height:1.15;white-space:normal!important;text-align:center}
+ .stage .ctl-r>#recT{grid-column:1/-1;order:0}
+ .stage .ctl-r>#hPrev{order:1}.stage .ctl-r>#rndB{order:2;font-size:0}.stage .ctl-r>#hNext{order:3}.stage .ctl-r>#bFav{order:4}
+ .stage .ctl-r>#eqB{order:5}.stage .ctl-r>#audB{order:6}.stage .ctl-r>#shB{order:7}.stage .ctl-r>#recB{order:8}
+ .stage .ctl-r>#idB{order:9;grid-column:span 2}
  .nav{flex:none;height:auto!important;overflow:visible!important;order:0}
  #tabs{flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px}
  .main{flex:none!important;height:auto!important;max-height:none!important;min-height:50vh;overflow:visible!important;order:1}
@@ -2554,7 +2560,6 @@ body:not(.pfs-on) .stage.mini #volO,body:not(.pfs-on) .stage.mini #volP2{display
  .main>#prog{max-height:none!important}
 }
 @media(max-height:480px) and (orientation:landscape){
- .stage{position:static!important;max-height:none!important;overflow:visible}
  .stage .screen{max-height:none}
 }
 </style>
