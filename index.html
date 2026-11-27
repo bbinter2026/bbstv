@@ -2530,6 +2530,19 @@ body.radio-on #volP2[hidden],.screen:has(audio) #volP2[hidden]{display:none!impo
  body.radio-on #volP2:not([hidden]),.screen:has(audio) #volP2:not([hidden]){left:auto;right:8px}
 }
 body:not(.pfs-on) .stage.mini #volO,body:not(.pfs-on) .stage.mini #volP2{display:none!important}
+
+/* ===== Telemóvel: a lista de canais volta a ser visível (a página desliza; o leitor fica fixo no topo) ===== */
+@media(max-width:1100px){
+ .app{height:auto!important;overflow:visible!important;display:flex!important;flex-direction:column;gap:6px;padding:0 0 12px}
+ .stage{position:sticky!important;top:var(--hh,64px)!important;order:-1;flex:none;height:auto!important;max-height:46vh!important;overflow-y:auto;z-index:30;background:var(--bg)}
+ .nav{flex:none;height:auto!important;overflow:visible!important}
+ .main{flex:none!important;height:auto!important;min-height:55vh;overflow:visible!important}
+ .main>#list{flex:none!important;overflow:visible!important;min-height:200px}
+ .main>#prog{max-height:none!important}
+}
+@media(max-height:480px) and (orientation:landscape){
+ .stage{position:static!important;max-height:none!important;overflow:visible}
+}
 </style>
 <script>
 /* dispara a transição quando o canal muda */
