@@ -667,11 +667,8 @@ body.pfs-on,.screen.pfs,.screen:fullscreen,.screen:-webkit-full-screen{touch-act
  </div>
  <button id="admClose">Fechar</button>
 </div></dialog>
-<div id="instPop" class="hide" role="dialog" aria-labelledby="instT">
- <img src="icon-192.png" alt="" width="44" height="44">
- <div class="ip"><b id="instT">📲 Instale a app BBS Cafe</b><span id="instMsg"></span></div>
- <div class="ib"><button class="p" id="instGo">Instalar</button><button id="instNo">Agora não</button></div>
-</div>
+<button id="pwaI" type="button" aria-label="Instalar app"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 20h14"/></svg><span id="pwaT">Instalar app</span><span id="pwaX" role="button" aria-label="Fechar" tabindex="0">×</span></button>
+<div id="pwaH" role="dialog" aria-live="polite"></div>
 <div id="toast" role="status"></div>
 
 <script>
@@ -711,7 +708,7 @@ function detectLang(){
 let LANG=(x=>x==="pt"||x==="en"?x:detectLang())(L("tv_lang",null));
 const T=s=>(LANG==="en"&&EN[s])||s;
 const TF=(s,...a)=>T(s).replace(/\{(\d+)\}/g,(m,i)=>a[i]);
-const TITLE_PT=document.title,_tx=new WeakMap(),_at=new WeakMap(),SKIP="script,style,textarea,[data-i],#cPais,#cCat,#ctrySel,#list,#tabs,#ctry,#now,#sub,#cnt,#toast,#admList,#vin,#instMsg,#instNo";
+const TITLE_PT=document.title,_tx=new WeakMap(),_at=new WeakMap(),SKIP="script,style,textarea,[data-i],#cPais,#cCat,#ctrySel,#list,#tabs,#ctry,#now,#sub,#cnt,#toast,#admList,#vin,#pwaH";
 function xlat(){
  const en=LANG==="en",w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT),ns=[];
  while(w.nextNode())ns.push(w.currentNode);
@@ -1870,27 +1867,28 @@ if(!ALLOW_RECORD){$("recB").classList.add("hide");$("recT").classList.add("hide"
 $("out").classList.add("hide");
 
 /* ---- instalar app (PWA) ---- */
-const instB=$("instB"),pop=$("instPop"),inStandalone=()=>matchMedia("(display-mode: standalone)").matches||navigator.standalone===true,
+const instB=$("instB"),pwaI=$("pwaI"),pwaT=$("pwaT"),pwaX=$("pwaX"),pwaH=$("pwaH"),inStandalone=()=>matchMedia("(display-mode: standalone)").matches||navigator.standalone===true,
  isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
-let dp=null,popShown=false,popDelay=false;
-function popText(){const ios=isIOS&&!dp,man=!isIOS&&!dp,guide=ios||man;
- $("instMsg").textContent=T(ios?"Para instalar: toque em Partilhar (□↑) e depois em “Adicionar ao ecrã principal”.":man?"Para instalar, abra o menu do navegador e escolha “Instalar app” ou “Adicionar ao ecrã principal”.":"Abre mais depressa, em ecrã inteiro, e fica no ecrã principal.");
- $("instNo").textContent=T(guide?"Ok":"Agora não");$("instGo").classList.toggle("hide",guide)}
-const showInst=()=>{if(!inStandalone())instB.classList.remove("hide")};
-function tryPop(){if(inStandalone())return;
- if(popShown){if(!pop.classList.contains("hide"))popText();return}   // prompt nativo chegou depois: atualiza botões
- if(!popDelay)return;
- popShown=true;popText();pop.classList.remove("hide")}   // aparece sempre que a app não está instalada
+let dp=null,pwaDis=false;try{pwaDis=sessionStorage.getItem("pwaDismiss")==="1"}catch(e){}
+function popText(){pwaT.textContent=T("Instalar app");pwaI.setAttribute("aria-label",pwaT.textContent)}
+const pwaShow=()=>{if(inStandalone()||pwaDis)return;popText();pwaI.classList.add("show")},
+ pwaHide=()=>{pwaI.classList.remove("show");pwaH.classList.remove("show")},
+ showInst=()=>{if(!inStandalone())instB.classList.remove("hide")};
+function doInstall(){
+ if(dp){const d=dp;d.prompt();Promise.resolve(d.userChoice).catch(()=>{}).finally(()=>{dp=null;pwaHide()});return}   // prompt nativo (Chrome/Edge/Android)
+ const B=t=>"<b style=\"display:inline\">"+t+"</b>";   // sem prompt nativo (iPhone, Firefox, Safari…): mostra as instruções
+ pwaH.innerHTML="<b>"+T("Instalar o BBS Cafe")+"</b>"+(isIOS?T("Toque em ")+B(T("Partilhar"))+T(" no Safari e escolha ")+B(T("Adicionar ao ecrã principal"))+".":T("Abra o menu do navegador (⋮) e escolha ")+B(T("Instalar app"))+T(" ou ")+B(T("Adicionar ao ecrã principal"))+".")+"<button type=\"button\" class=\"p\" id=\"pwaOk\">OK</button>";
+ pwaH.classList.add("show");$("pwaOk").onclick=()=>pwaH.classList.remove("show")}
+Object.assign(EN,{"Instalar app":"Install app","Instalar o BBS Cafe":"Install BBS Cafe","Toque em ":"Tap ","Partilhar":"Share"," no Safari e escolha ":" in Safari, then choose ","Adicionar ao ecrã principal":"Add to Home Screen","Abra o menu do navegador (⋮) e escolha ":"Open the browser menu (⋮) and choose "," ou ":" or "});
 showInst();
-addEventListener("beforeinstallprompt",e=>{e.preventDefault();dp=e;showInst();tryPop()});
-addEventListener("appinstalled",()=>{dp=null;instB.classList.add("hide");pop.classList.add("hide");toast("App instalada.")});
-async function doInstall(){
- if(dp){const d=dp;dp=null;pop.classList.add("hide");d.prompt();try{await d.userChoice}catch(e){}return}
- if(isIOS){popText();pop.classList.remove("hide")}
- else{popShown=true;popText();pop.classList.remove("hide")}}
-instB.onclick=doInstall;$("instGo").onclick=doInstall;
-$("instNo").onclick=()=>{pop.classList.add("hide")};
-setTimeout(()=>{popDelay=true;tryPop()},2500);
+addEventListener("beforeinstallprompt",e=>{e.preventDefault();dp=e;showInst();pwaShow()});
+addEventListener("appinstalled",()=>{dp=null;instB.classList.add("hide");pwaHide();toast("App instalada.")});
+setTimeout(pwaShow,2500);   // aparece sempre que a app não está instalada (também sem prompt nativo)
+const pwaDismiss=e=>{e.stopPropagation();try{sessionStorage.setItem("pwaDismiss","1")}catch(_){}pwaDis=true;pwaHide()};
+pwaX.addEventListener("click",pwaDismiss);
+pwaX.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();pwaDismiss(e)}});
+pwaI.addEventListener("click",e=>{if(e.target===pwaX)return;doInstall()});
+instB.onclick=()=>{$("hMenu").open=false;doInstall()};
 if("serviceWorker"in navigator&&/^https?:$/.test(location.protocol))addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
 /* aplicar idioma */
 function applyLang(l,save){
@@ -2510,6 +2508,16 @@ header{position:sticky;top:0;z-index:60}
  header{position:static!important}
  .stage{position:relative!important;top:auto!important;max-height:none;overflow:visible}
 }
+
+/* ===== botão instalar (igual ao IMOTUR) ===== */
+#pwaI{position:fixed;left:16px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:90;display:none;align-items:center;gap:8px;background:var(--ac);color:var(--acx);border:0;border-radius:99px;padding:12px 18px;font-weight:700;font-size:15px;box-shadow:0 4px 16px #0006;min-height:0}
+#pwaI.show{display:inline-flex}#pwaI:hover{filter:brightness(1.08)}
+#pwaI svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+#pwaX{margin-left:2px;width:22px;height:22px;border-radius:50%;background:#0003;color:inherit;font-size:14px;line-height:22px;text-align:center}
+#pwaH{position:fixed;left:12px;right:12px;bottom:calc(76px + env(safe-area-inset-bottom,0px));z-index:91;display:none;background:var(--sf);color:var(--tx);border:1px solid var(--ln);border-radius:12px;padding:14px 16px;box-shadow:0 8px 24px #0005;max-width:420px;font-size:14px}
+#pwaH.show{display:block}#pwaH>b{display:block;margin-bottom:6px}#pwaH button{margin-top:10px}
+@media(max-width:600px){#pwaI{padding:11px 15px;font-size:14px}}
+body.pfs-on #pwaI,body.pfs-on #pwaH{display:none!important}
 </style>
 <script>
 /* dispara a transição quando o canal muda */
