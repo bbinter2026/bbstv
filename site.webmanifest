@@ -1,0 +1,18 @@
+{
+  "id": "./",
+  "name": "BBS Internet Cafe Entertainments",
+  "short_name": "BBS Cafe",
+  "description": "Canais de TV e rádio de Moçambique e do mundo, grátis e sem registo.",
+  "lang": "pt",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#202124",
+  "theme_color": "#000000",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

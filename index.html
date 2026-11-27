@@ -15,6 +15,7 @@
 .epg{margin:4px 0 12px;background:var(--sf);border:1px solid var(--ln);border-radius:10px;padding:8px 12px;max-height:260px;overflow:auto}.epg summary{cursor:pointer;font-weight:600}.epg div{padding:3px 0;font-size:14px}.epg div.on{color:var(--ac);font-weight:600}
 .chi{margin:4px 0 10px;background:var(--sf);border:1px solid var(--ln);border-radius:10px;padding:10px 12px}.chi .chh{display:flex;gap:8px;align-items:center;justify-content:space-between}.chi .chh b{font-size:16px}.chi h4{margin:8px 0 2px}.chi p{margin:0;font-size:14px}
 </style></noscript>
+<script>window.__dp=null;addEventListener("beforeinstallprompt",function(e){e.preventDefault();window.__dp=e;try{dispatchEvent(new Event("bbs-bip"))}catch(_){}});</script>
 <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.17/dist/hls.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <style>
@@ -1353,10 +1354,10 @@ function revealCur(){if(!cur)return;const i=view.findIndex(c=>c.id===cur.id);if(
  const rd=mode==="radio",lim=rd?shown*3:shown;
  if(i>=lim){shown=Math.ceil((i+1)/(rd?3:1)/120)*120;render()}
  requestAnimationFrame(()=>{if(!cur)return;const b=document.querySelector('#list [data-id="'+CSS.escape(cur.id)+'"]');if(!b)return;const r=b.closest(".ch")||b;listScrollTo(r)})}
-function stickyTop(){const h=document.querySelector("header"),hs=h?h.offsetHeight:0;
- const st=matchMedia("(max-width:1100px)").matches&&!matchMedia("(max-height:480px) and (orientation:landscape)").matches?stg.offsetHeight:0;return hs+st}
-function listScrollTo(el){const top=el.getBoundingClientRect().top+scrollY,st=stickyTop(),vis=innerHeight-st;   // centra na parte visível da lista (por baixo do cabeçalho e do leitor)
- scrollTo({top:Math.max(0,top-st-(vis-el.offsetHeight)/2),behavior:"smooth"})}
+function listScrollTo(el){const l=$("list"),r=el.getBoundingClientRect(),lr=l.getBoundingClientRect();   // desliza só a lista (cabeçalho e leitor ficam parados)
+ l.scrollTo({top:Math.max(0,l.scrollTop+(r.top-lr.top)-(l.clientHeight-el.offsetHeight)/2),behavior:"smooth"})}
+$("list").addEventListener("scroll",()=>{const l=$("list"),m=$("more");   // chegou ao fim: carrega mais canais sozinho
+ if(m&&!m.classList.contains("hide")&&l.scrollTop+l.clientHeight>=l.scrollHeight-320){const t=l.scrollTop;m.click();l.scrollTop=t;requestAnimationFrame(()=>{l.scrollTop=t})}},{passive:true});
 function toggleFavCur(){if(!cur){toast("Escolha um canal primeiro.");return}
  const id=cur.id,add=!favs.includes(id);favs=add?[...favs,id]:favs.filter(x=>x!==id);S("tv_favs",favs);favHook(id);render();chInfo();toast(add?"★ Adicionado aos favoritos":"Removido dos favoritos",1600)}
 function favBtn(){const f=!!cur&&favs.includes(cur.id);
@@ -1867,15 +1868,17 @@ $("out").classList.add("hide");
 
 /* ---- instalar app (PWA) ---- */
 const instB=$("instB"),pwaI=$("pwaI"),pwaT=$("pwaT"),pwaX=$("pwaX"),inStandalone=()=>matchMedia("(display-mode: standalone)").matches||navigator.standalone===true;
-let dp=null,pwaDis=false;try{pwaDis=sessionStorage.getItem("pwaDismiss")==="1"}catch(e){}
+let dp=window.__dp||null,pwaDis=false;try{pwaDis=sessionStorage.getItem("pwaDismiss")==="1"}catch(e){}
 function popText(){pwaT.textContent=T("Instalar app");pwaI.setAttribute("aria-label",pwaT.textContent)}
-const pwaShow=()=>{if(!dp||inStandalone()||pwaDis)return;popText();pwaI.classList.add("show")},   // só aparece quando o navegador permite instalar com um toque
+const pwaShow=()=>{if(inStandalone()||pwaDis)return;popText();pwaI.classList.add("show")},   // só aparece quando o navegador permite instalar com um toque
  pwaHide=()=>pwaI.classList.remove("show");
 function doInstall(){   // abre logo o diálogo nativo do navegador: um toque e instala
- if(!dp)return;const d=dp;d.prompt();
- Promise.resolve(d.userChoice).catch(()=>{}).finally(()=>{dp=null;pwaHide();instB.classList.add("hide")})}
-Object.assign(EN,{"Instalar app":"Install app"});
-addEventListener("beforeinstallprompt",e=>{e.preventDefault();dp=e;if(!inStandalone())instB.classList.remove("hide");pwaShow()});
+ if(!dp){toast(T("A instalação ainda não está disponível. Aguarde uns segundos e toque de novo."),5000);return}const d=dp;d.prompt();
+ Promise.resolve(d.userChoice).catch(()=>{}).finally(()=>{dp=null;window.__dp=null;pwaHide();instB.classList.add("hide")})}
+Object.assign(EN,{"Instalar app":"Install app","A instalação ainda não está disponível. Aguarde uns segundos e toque de novo.":"Install is not available yet. Wait a few seconds and tap again."});
+addEventListener("bbs-bip",()=>{dp=window.__dp;pwaShow()});
+if(!inStandalone())instB.classList.remove("hide");
+setTimeout(pwaShow,1200);
 addEventListener("appinstalled",()=>{dp=null;instB.classList.add("hide");pwaHide();toast("App instalada.")});
 const pwaDismiss=e=>{e.stopPropagation();try{sessionStorage.setItem("pwaDismiss","1")}catch(_){}pwaDis=true;pwaHide()};
 pwaX.addEventListener("click",pwaDismiss);
@@ -2478,37 +2481,37 @@ header{position:sticky;top:0;z-index:60}
 #shRow button{margin:0;padding:6px 12px;font-size:13px;border-radius:99px}
 #shCtry{margin:0}
 #qnav,#srchFab{display:none!important}
-@media(min-width:1101px){
- .nav{top:calc(var(--hh,72px) + 8px);max-height:calc(100vh - var(--hh,72px) - 24px)}
- .stage{top:calc(var(--hh,72px) + 8px)}
- .ctl-r{flex-wrap:wrap!important;overflow:visible}
-}
+@media(min-width:1101px){.ctl-r{flex-wrap:wrap!important;overflow:visible}}
+
+/* ===== Lista de canais com scroll próprio (como a lista de países): a página não cresce ===== */
+.app{height:calc(100vh - var(--hh,64px));height:calc(100dvh - var(--hh,64px));overflow:hidden;box-sizing:border-box;grid-template-rows:minmax(0,1fr);align-items:stretch}
+.nav{position:static!important;top:auto!important;height:100%;max-height:none!important;min-height:0;overflow:hidden}
+.stage{position:static!important;top:auto!important;align-self:stretch!important;height:100%;max-height:100%;overflow-y:auto;scrollbar-width:thin;min-height:0}
+.main{display:flex;flex-direction:column;min-height:0;height:100%;overflow:hidden}
+.main>*{flex:none}
+.main>#list{flex:1 1 auto;min-height:0;overflow-y:auto!important;overflow-x:hidden;scrollbar-width:thin;align-content:start;-webkit-overflow-scrolling:touch}
+.main>#prog{max-height:28%;overflow:auto}
+.main>#more{margin:8px auto}
+.rh{top:0!important}
 @media(max-width:1100px){
- header{position:sticky!important;top:0}
- .stage{position:sticky!important;top:var(--hh,0px)!important;z-index:50;background:var(--bg);padding-top:0;
-  max-height:calc(100dvh - var(--hh,0px) - 150px);overflow-y:auto;overscroll-behavior:contain}
+ .app{display:flex!important;flex-direction:column;gap:6px;padding:0 0 6px}
+ .stage{order:-1;flex:0 1 auto;height:auto;max-height:46%;z-index:3;background:var(--bg)}
+ .nav{flex:none;height:auto;overflow:visible}
+ .main{flex:1 1 0;height:auto}
  .stage .screen{max-height:30vh}
- .stage.mini{padding-top:0}
- .app{padding-top:0}
  .stage .fsrow{display:none}
  .stage .bar{padding:6px 12px 2px}
  .stage .ctl{gap:6px}
  .stage .ctl-l{flex:1 1 100%}
  .ctl-r{padding:2px 12px 6px;width:auto}
 }
-/* telemóvel na horizontal: sem fixar (não sobra espaço para a lista) */
+/* telemóvel na horizontal: sem espaço para fixar tudo */
 @media(max-height:480px) and (orientation:landscape){
  header{position:static!important}
- .stage{position:relative!important;top:auto!important;max-height:none;overflow:visible}
+ .app{height:auto;overflow:visible}
+ .stage{max-height:none;overflow:visible}
+ .main{height:80dvh}
 }
-
-/* ===== botão instalar (igual ao IMOTUR) ===== */
-#pwaI{position:fixed;left:16px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:90;display:none;align-items:center;gap:8px;background:var(--ac);color:var(--acx);border:0;border-radius:99px;padding:12px 18px;font-weight:700;font-size:15px;box-shadow:0 4px 16px #0006;min-height:0}
-#pwaI.show{display:inline-flex}#pwaI:hover{filter:brightness(1.08)}
-#pwaI svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;flex:none}
-#pwaX{margin-left:2px;width:22px;height:22px;border-radius:50%;background:#0003;color:inherit;font-size:14px;line-height:22px;text-align:center}
-@media(max-width:600px){#pwaI{padding:11px 15px;font-size:14px}}
-body.pfs-on #pwaI{display:none!important}
 </style>
 <script>
 /* dispara a transição quando o canal muda */
