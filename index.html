@@ -2520,6 +2520,16 @@ header{position:sticky;top:0;z-index:60}
 #pwaI svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 #pwaX{display:inline-grid;place-items:center;width:22px;height:22px;margin-left:2px;border-radius:50%;background:#0003;font-size:16px;line-height:1}
 #pwaX:hover{background:#0005}
+
+/* ===== Rádio: controlo de volume (botão 🔊 + barra) no canto superior direito do leitor ===== */
+body.radio-on #volO,.screen:has(audio) #volO{display:grid!important;top:8px;left:auto;right:8px;z-index:7}
+body.radio-on #volP2:not([hidden]),.screen:has(audio) #volP2:not([hidden]){display:flex!important;top:48px;left:auto;right:8px;width:min(300px,calc(100% - 16px))}
+body.radio-on #volP2[hidden],.screen:has(audio) #volP2[hidden]{display:none!important}
+@media(max-width:1100px){
+ body.radio-on #volO,.screen:has(audio) #volO{left:auto;right:8px}
+ body.radio-on #volP2:not([hidden]),.screen:has(audio) #volP2:not([hidden]){left:auto;right:8px}
+}
+body:not(.pfs-on) .stage.mini #volO,body:not(.pfs-on) .stage.mini #volP2{display:none!important}
 </style>
 <script>
 /* dispara a transição quando o canal muda */
