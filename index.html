@@ -523,15 +523,15 @@ body.pfs-on,.screen.pfs,.screen:fullscreen,.screen:-webkit-full-screen{touch-act
   <span id="netChip" class="st mut" aria-live="polite"><span class="bars l0" id="bars" role="img" aria-label="Sinal da rede"><i></i><i></i><i></i><i></i></span><span id="net"></span><span id="netd"></span></span>
   <span id="onN" class="st mut hide" title="Pessoas online" aria-label="Pessoas online"></span>
   <span id="visN" class="st mut hide" title="Visitas hoje (reinicia à meia-noite)" aria-label="Visitas hoje"></span>
-  <button id="hPrev" type="button" aria-label="Canal anterior" title="Canal anterior (B)" disabled>◀</button><button id="rndB" aria-label="Aleatório" title="Aleatório (R)">🎲 Aleatório</button><button id="hNext" type="button" aria-label="Seguinte" title="Seguinte" disabled>▶</button>
+  
   <button id="cmpB" type="button" aria-pressed="false" aria-label="Lista compacta" title="Lista compacta (V)">☰ Compacto</button>
   <select id="langSel" aria-label="Idioma" title="Idioma / Language"><option value="pt">🌐 PT</option><option value="en">🌐 EN</option></select>
   <details class="menu" id="hMenu"><summary aria-label="Menu" title="Menu">⚙️ <span>Menu</span></summary>
    <div class="mp">
     <label class="mrow"><span class="mut">Tema</span><select id="theme" aria-label="Tema"><option value="">Noite</option><option value="black">Preto</option><option value="light">Claro</option></select></label>
+    <label class="mrow" title="Guarda mais vídeo/áudio à frente: aguenta cortes de rede mais longos, mas o direto fica atrasado (mais 30–60 s). Aplica-se ao abrir o canal seguinte."><span class="mut">🛡️ Mais resistente a falhas de rede</span><input type="checkbox" id="resOn" style="width:auto"></label>
     <button id="infoB" type="button">ℹ️ App info</button>
     <button id="kbH">⌨️ Atalhos</button>
-    <button id="shFavB">🔗 Partilhar favoritos</button>
      <button id="fbB" type="button">⚽ Alertas de futebol</button>
      <button id="accB">👤 Entrar / Criar conta</button>
      <button id="instB" class="hide">📲 Instalar</button>
@@ -549,7 +549,7 @@ body.pfs-on,.screen.pfs,.screen:fullscreen,.screen:-webkit-full-screen{touch-act
   <h4>Categorias</h4><div id="tabs"></div>
   <h4>Países</h4><select id="ctrySel" class="mob" aria-label="País"></select><form class="ff" onsubmit="return false" autocomplete="off" role="search"><input id="cq" type="search" name="filtro-pais-x9" autocomplete="off" inputmode="search" enterkeyhint="search" autocorrect="off" autocapitalize="off" spellcheck="false" data-lpignore="true" data-1p-ignore data-form-type="other" placeholder="Procurar país" aria-label="Procurar país"></form><div id="ctry"></div>
  </aside>
- <div class="main"><div id="rOpts"><label class="mut" for="rMax">💾 Poupar dados</label><select id="rMax" aria-label="Poupar dados"><option value="0">Qualquer qualidade</option><option value="128">Até 128 kbps (≈58 MB/h)</option><option value="96">Até 96 kbps (≈43 MB/h)</option><option value="64">Até 64 kbps (≈29 MB/h)</option></select></div><div class="mut" id="cnt"></div><button id="shCtry" type="button" class="hide"></button><div id="fbBar" class="hide" aria-live="polite"></div><div id="shBar" class="hide"><span>🔗 Lista de favoritos partilhada</span><button id="shSave" type="button">★ Guardar nos meus favoritos</button></div><div id="prog"></div><div id="list"></div><button id="more" class="more hide">Mostrar mais</button><div id="adBox" class="adbox hide"><small>Publicidade</small></div></div>
+ <div class="main"><div id="rOpts"><label class="mut" for="rMax">💾 Poupar dados</label><select id="rMax" aria-label="Poupar dados"><option value="0">Qualquer qualidade</option><option value="128">Até 128 kbps (≈58 MB/h)</option><option value="96">Até 96 kbps (≈43 MB/h)</option><option value="64">Até 64 kbps (≈29 MB/h)</option></select></div><div class="mut" id="cnt"></div><div id="shRow"><button id="shCtry" type="button" class="hide"></button><button id="shFavB" type="button">🔗 Partilhar favoritos</button></div><div id="fbBar" class="hide" aria-live="polite"></div><div id="shBar" class="hide"><span>🔗 Lista de favoritos partilhada</span><button id="shSave" type="button">★ Guardar nos meus favoritos</button></div><div id="prog"></div><div id="list"></div><button id="more" class="more hide">Mostrar mais</button><div id="adBox" class="adbox hide"><small>Publicidade</small></div></div>
  <section class="stage">
   <button id="fsO" aria-label="Ecrã inteiro">⛶</button><button id="miniUp" aria-label="Subir ao leitor">↑</button><button id="miniX" type="button" aria-label="Fechar leitor" title="Fechar">✕</button>
   <div class="screen" id="vbox"><div id="vin" class="vin"><div class="idle"><b>Escolha um canal</b>A lista de canais está ao centro (ou por baixo, no telemóvel).</div></div><button id="fsX">✕ Sair do ecrã inteiro</button><button id="trkB" type="button" aria-haspopup="true" aria-expanded="false">🌐</button><div id="trkP" hidden></div><button id="volO" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Volume"><span class="vi">🔊</span></button><div id="volP2" class="volp" hidden><button type="button" class="vm" aria-label="Silenciar / ligar som">🔊</button><input type="range" class="vr" min="0" max="100" step="1" value="100" aria-label="Volume"><output class="vo">100%</output></div></div>
@@ -558,7 +558,7 @@ body.pfs-on,.screen.pfs,.screen:fullscreen,.screen:-webkit-full-screen{touch-act
    <div class="info"><h2 id="now">Sem canal</h2><div class="mut" id="sub"></div></div>
    <div class="ctl">
     <div class="ctl-l"><select id="qSel" aria-label="Qualidade de vídeo" title="Poupe dados reduzindo a qualidade (funciona nos canais HLS)"><option value="auto">Qualidade: Auto</option><option value="720">Alta · até 720p</option><option value="480">Média · até 480p</option><option value="360">Baixa · até 360p</option><option value="min">Mínima · poupa dados</option></select><span id="trk"></span><span id="qNow" class="mut"></span></div>
-    <div class="ctl-r"><span id="recT" class="rec" aria-live="off"></span><button id="bFav" type="button" aria-pressed="false" disabled>☆ Favorito</button><button id="eqB" type="button" title="Equalizador">🎚️ EQ</button><button id="idB" type="button" title="Reconhecer música (tipo Shazam)"><span class="idl">🎵 Reconhecer música</span></button><button id="audB" type="button" disabled>🎧 Ouvir</button><button id="shB" disabled>Partilhar</button><button id="recB" disabled>Gravar</button></div>
+    <div class="ctl-r"><span id="recT" class="rec" aria-live="off"></span><button id="hPrev" type="button" aria-label="Canal anterior" title="Canal anterior (B)" disabled>◀</button><button id="rndB" aria-label="Aleatório" title="Aleatório (R)">🎲 Aleatório</button><button id="hNext" type="button" aria-label="Seguinte" title="Seguinte" disabled>▶</button><button id="bFav" type="button" aria-pressed="false" disabled>☆ Favorito</button><button id="eqB" type="button" title="Equalizador">🎚️ EQ</button><button id="idB" type="button" title="Reconhecer música (tipo Shazam)"><span class="idl">🎵 Reconhecer música</span></button><button id="audB" type="button" disabled>🎧 Ouvir</button><button id="shB" disabled>Partilhar</button><button id="recB" disabled>Gravar</button></div>
    </div>
   </div>
   <section id="chInfo" class="chi hide" aria-live="polite"></section>
@@ -783,7 +783,10 @@ addEventListener("online",()=>{net();measureNet()});addEventListener("offline",n
 setInterval(measureNet,30000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)measureNet()});
 try{const nc=navigator.connection;if(nc&&nc.addEventListener)nc.addEventListener("change",net)}catch(e){}
 function setTheme(t){document.body.className=t;S("tv_theme2",t);$("theme").value=t}
-$("theme").onchange=e=>setTheme(e.target.value);setTheme(L("tv_theme2",""));
+$("theme").onchange=e=>setTheme(e.target.value);
+let RES=!!L("tv_res",false);$("resOn").checked=RES;
+$("resOn").onchange=e=>{RES=e.target.checked;S("tv_res",RES);toast(T(RES?"Modo resistente ativado: aplica-se ao abrir o canal seguinte (o direto fica mais atrasado).":"Modo resistente desativado."),4500)};
+Object.assign(EN,{"🛡️ Mais resistente a falhas de rede":"🛡️ More resistant to network drops","Modo resistente ativado: aplica-se ao abrir o canal seguinte (o direto fica mais atrasado).":"Resilient mode on: applies from the next channel you open (live is delayed a bit more).","Modo resistente desativado.":"Resilient mode off."});setTheme(L("tv_theme2",""));
 
 /* ---- arranque (sem código de acesso) ---- */
 function openApp(){applyMode(true);setTimeout(openShared,300);loadBad();loadRemote();loadWorld();loadYT();loadFTV();initAds();adsEnd();render()}
@@ -882,7 +885,7 @@ async function fetchWorld(silent){
   applyWorld(out);IDBC.set("world_v1",{t:Date.now(),data:out});
   if(!silent)toast(TF("{0} canais do mundo carregados.",out.length));
   if(!lc||Date.now()-lc.t>LTTL)loadLogos(byCh,out)
- }catch(e){console.error(e);if(!silent)$("cnt").textContent="";toast(silent?"Sem ligação: a usar a lista guardada.":"Não foi possível carregar os canais do mundo. Verifique a Internet e recarregue.")}}
+ }catch(e){console.warn("Canais do mundo:",e&&e.message||e);if(!silent)$("cnt").textContent="";toast(silent?"Sem ligação: a usar a lista guardada.":"Não foi possível carregar os canais do mundo. Verifique a Internet e recarregue.")}}
 
 /* logos: em segundo plano; o mapa fica guardado 7 dias */
 async function loadLogos(byCh,out){try{const r=await fetch(B_API+"logos.json");if(!r.ok)return;
@@ -890,7 +893,7 @@ async function loadLogos(byCh,out){try{const r=await fetch(B_API+"logos.json");i
  for(const o of out){const l=map[o.id.slice(2)];if(l)o.logo=l}
  IDBC.set("logos_v1",{t:Date.now(),map});IDBC.set("world_v1",{t:Date.now(),data:out});render()}catch(e){}}
 /* ---- Free-TV/IPTV: lista extra (github.com/Free-TV/IPTV). Carrega ao abrir, fica guardada 12 h e os canais entram nas categorias pelo nome ---- */
-const FTV_URL="https://raw.githubusercontent.com/Free-TV/IPTV/master/playlist.m3u8";
+const FTV_URL="https://raw.githubusercontent.com/Free-TV/IPTV/master/playlist.m3u8",FTV_MIRROR="https://cdn.jsdelivr.net/gh/Free-TV/IPTV@master/playlist.m3u8";
 const FTV_RX=[[/news|noticia|nachricht|actualit|uutiset|\binfo\b|franceinfo|euronews|cnn|bfm|\blci\b|\bn1\b|al ?jazeera|cgtn|tagesschau|\bwelt\b|24 ?horas|\b24\b|alert\b|africanews|nopola|report tv|ora news|top news/,"Notícias"],
 [/sport|deport|desporto|futbol|football|racing|bein|eurosport|\bf1\b|espn|golf|equipe/,"Desporto"],
 [/kids|\bkika\b|ramasjang|pakapaka|cartoon|junior|children|gulli|kockica|bambin|enfant|nick|disney/,"Infantil"],
@@ -925,10 +928,13 @@ function parseFTV(txt){
 async function loadFTV(){
  const c=await IDBC.get("ftv_v1");
  if(c&&Array.isArray(c.data)&&c.data.length){ftv=c.data;render();if(Date.now()-c.t<WTTL)return}
- try{const r=await fetch(FTV_URL,{cache:"no-cache"});if(!r.ok)throw new Error("HTTP "+r.status);
-  const t=await r.text();if(!t.includes("#EXTM3U"))throw new Error("M3U inválida");
+ try{let t="";
+  for(const u of[FTV_URL,FTV_MIRROR]){   // se o GitHub estiver bloqueado, tenta o espelho jsDelivr
+   try{const r=await fetch(u,{cache:"no-cache"});if(!r.ok)throw new Error("HTTP "+r.status);
+    t=await r.text();if(t.includes("#EXTM3U"))break;t=""}catch(e){t=""}}
+  if(!t)throw new Error("sem ligação à lista Free-TV");
   const out=parseFTV(t);if(out.length){ftv=out;IDBC.set("ftv_v1",{t:Date.now(),data:out});render()}
- }catch(e){console.error("Free-TV",e)}}
+ }catch(e){console.warn("Free-TV (a usar lista guardada):",e&&e.message||e)}}
 /* ---- apresentação ---- */
 /* ---- RÁDIO: estações do mundo via radio-browser.info (API aberta e gratuita) ---- */
 let mode=L("tv_mode","tv")==="radio"?"radio":"tv";
@@ -1279,7 +1285,7 @@ function play(id,keep){
  v.onerror=()=>{if(c.radio&&v.crossOrigin&&!ncors.has(c.id)){ncors.add(c.id);play(c.id,true);return}if(wasOk&&!userPaused){scheduleReconnect();return}if(!navigator.onLine){setNow(c.name,"Sem rede — retoma sozinho");return}if(!nextAlt()){setNow(c.name,"Erro no stream");report(c.id,false)}};
  wd=setTimeout(()=>{if(cur===c&&wasOk&&!userPaused&&stale(10000)){scheduleReconnect();return}if(cur===c&&v.paused&&!v.currentTime&&!nextAlt()){setNow(c.name,"Stream indisponível");report(c.id,false)}},12000);
  if((/\.m3u8/i.test(url)||c.hls)&&window.Hls&&Hls.isSupported()){
-  hls=new Hls({lowLatencyMode:false,manifestLoadingTimeOut:8000,manifestLoadingMaxRetry:1,manifestLoadingMaxRetryTimeout:3000,levelLoadingTimeOut:8000,levelLoadingMaxRetry:1,fragLoadingTimeOut:12000,fragLoadingMaxRetry:2,capLevelToPlayerSize:true,maxBufferLength:aud?60:20});hls.loadSource(url);hls.attachMedia(v);
+  hls=new Hls({lowLatencyMode:false,manifestLoadingTimeOut:8000,manifestLoadingMaxRetry:1,manifestLoadingMaxRetryTimeout:3000,levelLoadingTimeOut:8000,levelLoadingMaxRetry:1,fragLoadingTimeOut:12000,fragLoadingMaxRetry:2,capLevelToPlayerSize:true,maxBufferLength:RES?((aud||c.radio)?120:60):(aud?60:20),...(RES?{maxMaxBufferLength:(aud||c.radio)?180:90,maxBufferSize:120e6,liveSyncDurationCount:6,liveMaxLatencyDurationCount:14,fragLoadingMaxRetry:5,levelLoadingMaxRetry:4,manifestLoadingMaxRetry:3,fragLoadingRetryDelay:1500}:{})});hls.loadSource(url);hls.attachMedia(v);
   hls.on(Hls.Events.MANIFEST_PARSED,()=>{applyQ(true);if((c.radio&&rmax)||aud){hls.autoLevelCapping=0;hls.startLevel=0}trackMenus()});hls.on(Hls.Events.AUDIO_TRACKS_UPDATED,trackMenus);hls.on(Hls.Events.SUBTITLE_TRACKS_UPDATED,trackMenus);hls.on(Hls.Events.LEVEL_SWITCHED,(e,d)=>showQ(d.level));
   hls.on(Hls.Events.ERROR,(e,d)=>{if(!d.fatal)return;const code=d.response&&d.response.code;window.lastWhy=d.details+(code?" "+code:"");console.warn("HLS falhou:",c.name,url,d.details,code||"");
    if(d.type===Hls.ErrorTypes.NETWORK_ERROR&&(wasOk||!navigator.onLine)){scheduleReconnect();return}
@@ -1316,6 +1322,7 @@ function miniOn(){setSh();stg.classList.add("mini");document.body.classList.add(
 function miniOff(){stg.classList.remove("mini");document.body.classList.remove("mini-on")}
 function miniCheck(){
  if(document.body.classList.contains("pfs-on")||document.fullscreenElement||document.webkitFullscreenElement)return;
+ miniOff();return;   // cabeçalho e leitor ficam fixos: só a lista desliza (sem quadro flutuante)
  if(!matchMedia("(max-width:1100px)").matches||!cur||cur.radio||audNow){miniOff();return}   // rádio: sem quadro flutuante
  const mini=stg.classList.contains("mini");if(!mini)setSh();
  const top=app0.getBoundingClientRect().top+scrollY;
@@ -1349,7 +1356,11 @@ function randomPick(){const p=view.filter(c=>c.url&&!c.official&&(!cur||c.id!==c
 function revealCur(){if(!cur)return;const i=view.findIndex(c=>c.id===cur.id);if(i<0)return;   // seleciona o canal na lista e mostra-o
  const rd=mode==="radio",lim=rd?shown*3:shown;
  if(i>=lim){shown=Math.ceil((i+1)/(rd?3:1)/120)*120;render()}
- requestAnimationFrame(()=>{if(!cur)return;const b=document.querySelector('#list [data-id="'+CSS.escape(cur.id)+'"]');if(!b)return;const r=b.closest(".ch")||b;r.scrollIntoView({block:"center",behavior:"smooth"})})}
+ requestAnimationFrame(()=>{if(!cur)return;const b=document.querySelector('#list [data-id="'+CSS.escape(cur.id)+'"]');if(!b)return;const r=b.closest(".ch")||b;listScrollTo(r)})}
+function stickyTop(){const h=document.querySelector("header"),hs=h?h.offsetHeight:0;
+ const st=matchMedia("(max-width:1100px)").matches&&!matchMedia("(max-height:480px) and (orientation:landscape)").matches?stg.offsetHeight:0;return hs+st}
+function listScrollTo(el){const top=el.getBoundingClientRect().top+scrollY,st=stickyTop(),vis=innerHeight-st;   // centra na parte visível da lista (por baixo do cabeçalho e do leitor)
+ scrollTo({top:Math.max(0,top-st-(vis-el.offsetHeight)/2),behavior:"smooth"})}
 function toggleFavCur(){if(!cur){toast("Escolha um canal primeiro.");return}
  const id=cur.id,add=!favs.includes(id);favs=add?[...favs,id]:favs.filter(x=>x!==id);S("tv_favs",favs);favHook(id);render();chInfo();toast(add?"★ Adicionado aos favoritos":"Removido dos favoritos",1600)}
 function favBtn(){const f=!!cur&&favs.includes(cur.id);
@@ -1862,22 +1873,23 @@ $("out").classList.add("hide");
 const instB=$("instB"),pop=$("instPop"),inStandalone=()=>matchMedia("(display-mode: standalone)").matches||navigator.standalone===true,
  isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
 let dp=null,popShown=false,popDelay=false;
-function popText(){const ios=isIOS&&!dp;
- $("instMsg").textContent=T(ios?"Para instalar: toque em Partilhar (□↑) e depois em “Adicionar ao ecrã principal”.":"Abre mais depressa, em ecrã inteiro, e fica no ecrã principal.");
- $("instNo").textContent=T(ios?"Ok":"Agora não");$("instGo").classList.toggle("hide",ios)}
+function popText(){const ios=isIOS&&!dp,man=!isIOS&&!dp,guide=ios||man;
+ $("instMsg").textContent=T(ios?"Para instalar: toque em Partilhar (□↑) e depois em “Adicionar ao ecrã principal”.":man?"Para instalar, abra o menu do navegador e escolha “Instalar app” ou “Adicionar ao ecrã principal”.":"Abre mais depressa, em ecrã inteiro, e fica no ecrã principal.");
+ $("instNo").textContent=T(guide?"Ok":"Agora não");$("instGo").classList.toggle("hide",guide)}
 const showInst=()=>{if(!inStandalone())instB.classList.remove("hide")};
-function tryPop(){if(popShown||!popDelay||inStandalone()||!(dp||isIOS))return;
- if(Date.now()-L("tv_inst_no",0)<6048e5)return;   // lembra de novo após 7 dias
- popShown=true;popText();pop.classList.remove("hide")}
-if(isIOS)showInst();
+function tryPop(){if(inStandalone())return;
+ if(popShown){if(!pop.classList.contains("hide"))popText();return}   // prompt nativo chegou depois: atualiza botões
+ if(!popDelay)return;
+ popShown=true;popText();pop.classList.remove("hide")}   // aparece sempre que a app não está instalada
+showInst();
 addEventListener("beforeinstallprompt",e=>{e.preventDefault();dp=e;showInst();tryPop()});
 addEventListener("appinstalled",()=>{dp=null;instB.classList.add("hide");pop.classList.add("hide");toast("App instalada.")});
 async function doInstall(){
  if(dp){const d=dp;dp=null;pop.classList.add("hide");d.prompt();try{await d.userChoice}catch(e){}return}
  if(isIOS){popText();pop.classList.remove("hide")}
- else toast("Para instalar, abra o menu do navegador e escolha “Instalar app” ou “Adicionar ao ecrã principal”.",8000)}
+ else{popShown=true;popText();pop.classList.remove("hide")}}
 instB.onclick=doInstall;$("instGo").onclick=doInstall;
-$("instNo").onclick=()=>{S("tv_inst_no",Date.now());pop.classList.add("hide")};
+$("instNo").onclick=()=>{pop.classList.add("hide")};
 setTimeout(()=>{popDelay=true;tryPop()},2500);
 if("serviceWorker"in navigator&&/^https?:$/.test(location.protocol))addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
 /* aplicar idioma */
@@ -2457,6 +2469,46 @@ button:not(:disabled):active{transform:scale(.96)}
 @media(prefers-reduced-motion:reduce){
  body,#list>*,#tabs>*,#ctry>*,.menu[open] .mp,.screen.fxsw .vin,.info.fxsw #now,.info.fxsw #sub,.epg,.chi,#fbBar,#shBar,#trkP,#volP2,.qnav{animation:none!important}
  button:hover,button:active,.ch:hover{transform:none!important}
+}
+</style>
+<style id="v-layout">
+/* ===== Layout v5: cabeçalho e leitor fixos, botões por baixo do leitor ===== */
+header{position:sticky;top:0;z-index:60}
+#rndB,#hPrev,#hNext{order:0;margin:0}
+#rndB{font-size:0;padding:0 12px}#rndB::before{content:"🎲";font-size:18px}
+.ctl-r #hPrev,.ctl-r #hNext,.ctl-r #rndB{display:inline-flex!important;align-items:center;justify-content:center}
+/* barra de botões: uma linha, desliza na horizontal, igual em TV e rádio */
+.ctl-r{display:flex!important;flex-wrap:nowrap!important;gap:6px;width:100%;margin:0!important;justify-content:flex-start!important;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.ctl-r::-webkit-scrollbar{display:none}
+.ctl-r>button{flex:0 0 auto!important;width:auto!important;min-width:44px;min-height:40px;padding:6px 12px!important;white-space:nowrap!important;border-radius:10px}
+.ctl-r>#recT{flex:0 0 auto;grid-column:auto}.ctl-r>#recT:empty{display:none}
+.ctl-r #hPrev,.ctl-r #hNext,.ctl-r #rndB{min-width:44px}
+#shRow{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 8px}
+#shRow button{margin:0;padding:6px 12px;font-size:13px;border-radius:99px}
+#shCtry{margin:0}
+#qnav,#srchFab{display:none!important}
+@media(min-width:1101px){
+ .nav{top:calc(var(--hh,72px) + 8px);max-height:calc(100vh - var(--hh,72px) - 24px)}
+ .stage{top:calc(var(--hh,72px) + 8px)}
+ .ctl-r{flex-wrap:wrap!important;overflow:visible}
+}
+@media(max-width:1100px){
+ header{position:sticky!important;top:0}
+ .stage{position:sticky!important;top:var(--hh,0px)!important;z-index:50;background:var(--bg);padding-top:0;
+  max-height:calc(100dvh - var(--hh,0px) - 150px);overflow-y:auto;overscroll-behavior:contain}
+ .stage .screen{max-height:30vh}
+ .stage.mini{padding-top:0}
+ .app{padding-top:0}
+ .stage .fsrow{display:none}
+ .stage .bar{padding:6px 12px 2px}
+ .stage .ctl{gap:6px}
+ .stage .ctl-l{flex:1 1 100%}
+ .ctl-r{padding:2px 12px 6px;width:auto}
+}
+/* telemóvel na horizontal: sem fixar (não sobra espaço para a lista) */
+@media(max-height:480px) and (orientation:landscape){
+ header{position:static!important}
+ .stage{position:relative!important;top:auto!important;max-height:none;overflow:visible}
 }
 </style>
 <script>
